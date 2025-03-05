@@ -18,7 +18,9 @@ type User {
   email: String!
   picture: String
   isAdmin: Boolean!
+
   subscriptionStatus: String!
+  messagingLimit: MessagingLimit!
 }
 
 input UpdateUserInput {

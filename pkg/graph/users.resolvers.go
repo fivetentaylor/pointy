@@ -14,6 +14,7 @@ import (
 	"github.com/teamreviso/code/pkg/graph/model"
 	"github.com/teamreviso/code/pkg/models"
 	"github.com/teamreviso/code/pkg/service/images"
+	"github.com/teamreviso/code/pkg/service/messaging"
 	"github.com/teamreviso/code/pkg/service/payments"
 )
 
@@ -181,6 +182,18 @@ func (r *userResolver) SubscriptionStatus(ctx context.Context, obj *models.User)
 	}
 
 	return status, nil
+}
+
+// MessagingLimit is the resolver for the messagingLimit field.
+func (r *userResolver) MessagingLimit(ctx context.Context, obj *models.User) (*models.MessagingLimit, error) {
+	log := env.SLog(ctx)
+	limit, err := messaging.MessageLimit(ctx, obj.ID)
+	if err != nil {
+		log.Error("error getting messaging limit", "error", err)
+		return nil, err
+	}
+
+	return limit, nil
 }
 
 // User returns UserResolver implementation.

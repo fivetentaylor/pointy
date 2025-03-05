@@ -271,6 +271,17 @@ export type MessageUpdateInput = {
   id: Scalars["ID"]["input"];
 };
 
+export type MessagingLimit = {
+  __typename?: "MessagingLimit";
+  endingAt: Scalars["Time"]["output"];
+  startingAt: Scalars["Time"]["output"];
+  total: Scalars["Int"]["output"];
+  type: MessagingLimitType;
+  used: Scalars["Int"]["output"];
+};
+
+export type MessagingLimitType = "FREE" | "PREMIUM" | "UNKNOWN";
+
 export type MsgLlm = "CLAUDE" | "GPT4O";
 
 export type MsgMetadata = {
@@ -520,6 +531,7 @@ export type Query = {
   getDocumentTimeline: Array<TimelineEvent>;
   getImage: Image;
   getImageSignedUrl: SignedImageUrl;
+  getMessagingLimits: MessagingLimit;
   listDocumentAttachments: Array<DocumentAttachment>;
   listDocumentImages: Array<Image>;
   listUsersAttachments: Array<DocumentAttachment>;
@@ -879,6 +891,7 @@ export type User = {
   email: Scalars["String"]["output"];
   id: Scalars["ID"]["output"];
   isAdmin: Scalars["Boolean"]["output"];
+  messagingLimit: MessagingLimit;
   name: Scalars["String"]["output"];
   picture?: Maybe<Scalars["String"]["output"]>;
   subscriptionStatus: Scalars["String"]["output"];
@@ -888,6 +901,12 @@ export type UserPreference = {
   __typename?: "UserPreference";
   enableActivityNotifications: Scalars["Boolean"]["output"];
 };
+
+export type MovedDocumentFragment = {
+  __typename?: "Document";
+  id: string;
+  folderID?: string | null;
+} & { " $fragmentName"?: "MovedDocumentFragment" };
 
 export type UploadAttachmentMutationVariables = Exact<{
   file: Scalars["Upload"]["input"];
@@ -1831,6 +1850,19 @@ export type GetMeQuery = {
   } | null;
 };
 
+export type GetMessagingLimitQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetMessagingLimitQuery = {
+  __typename?: "Query";
+  getMessagingLimits: {
+    __typename?: "MessagingLimit";
+    used: number;
+    total: number;
+    startingAt: string;
+    endingAt: string;
+  };
+};
+
 export type GetUserQueryVariables = Exact<{
   id: Scalars["ID"]["input"];
 }>;
@@ -1921,6 +1953,26 @@ export type GetUsersInMyDomainQuery = {
   }>;
 };
 
+export const MovedDocumentFragmentDoc = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "MovedDocument" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "Document" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          { kind: "Field", name: { kind: "Name", value: "id" } },
+          { kind: "Field", name: { kind: "Name", value: "folderID" } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<MovedDocumentFragment, unknown>;
 export const DocumentFieldsFragmentDoc = {
   kind: "Document",
   definitions: [
@@ -8819,6 +8871,37 @@ export const GetMeDocument = {
     },
   ],
 } as unknown as DocumentNode<GetMeQuery, GetMeQueryVariables>;
+export const GetMessagingLimitDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "GetMessagingLimit" },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "getMessagingLimits" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "used" } },
+                { kind: "Field", name: { kind: "Name", value: "total" } },
+                { kind: "Field", name: { kind: "Name", value: "startingAt" } },
+                { kind: "Field", name: { kind: "Name", value: "endingAt" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  GetMessagingLimitQuery,
+  GetMessagingLimitQueryVariables
+>;
 export const GetUserDocument = {
   kind: "Document",
   definitions: [

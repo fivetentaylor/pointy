@@ -91,7 +91,7 @@ const Chat = () => {
         <footer className="pt-4 pb-0 min-w-[22rem] pr-1">
           <Input
             createThreadMessage={(input: MessageInput) => {
-              _createThreadMessage(
+              return _createThreadMessage(
                 input,
                 editor?.currentContentAddress() || "",
               );

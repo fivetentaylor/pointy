@@ -9,7 +9,19 @@ export const GetMe = gql(`
       displayName
       picture
       isAdmin
+
       subscriptionStatus
+    }
+  }
+`);
+
+export const GetMessagingLimit = gql(`
+ query GetMessagingLimit {
+    getMessagingLimits{
+      used
+      total
+      startingAt
+      endingAt
     }
   }
 `);

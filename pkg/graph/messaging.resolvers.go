@@ -537,6 +537,21 @@ func (r *queryResolver) GetAskAiThreadMessages(ctx context.Context, documentID s
 	return env.Dynamo(ctx).GetMessagesForThread(threadID)
 }
 
+// GetMessagingLimits is the resolver for the getMessagingLimits field.
+func (r *queryResolver) GetMessagingLimits(ctx context.Context) (*models.MessagingLimit, error) {
+	log := env.SLog(ctx)
+	currentUser, err := env.UserClaim(ctx)
+	if err != nil {
+		log.Error("error getting current user", "error", err)
+		return nil, fmt.Errorf("please login")
+	}
+	if currentUser == nil {
+		return nil, fmt.Errorf("please login")
+	}
+
+	return messaging.MessageLimit(ctx, currentUser.Id)
+}
+
 // MessageUpserted is the resolver for the messageUdserted field.
 func (r *subscriptionResolver) MessageUpserted(ctx context.Context, documentID string, channelID string) (<-chan *dynamo.Message, error) {
 	log := env.SLog(ctx)

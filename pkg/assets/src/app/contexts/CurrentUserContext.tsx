@@ -4,10 +4,16 @@ import React, { useContext, useEffect, useState } from "react";
 import { User } from "@/__generated__/graphql";
 import { analytics } from "@/lib/segment";
 import { useQuery } from "@apollo/client";
-import { GetMe, GetUsersInMyDomain } from "@/queries/user";
+import { GetMe, GetMessagingLimit, GetUsersInMyDomain } from "@/queries/user";
 
 type CurrentUserState = {
   currentUser: User | null;
+  messagingLimit: {
+    total: number;
+    used: number;
+    startingAt: string;
+    endingAt: string;
+  } | null;
   usersInDomain: User[];
   loading: boolean;
   loadingUsersInDomain: boolean;
@@ -27,6 +33,8 @@ export const CurrentUserProvider: React.FC<CurrentUserContextProviderProps> = ({
   children,
 }) => {
   const { loading: loadingMe, data: meData } = useQuery(GetMe);
+  const { loading: loadingMessageLimit, data: messageLimit } =
+    useQuery(GetMessagingLimit);
   const { loading: loadingUsersInDomain, data: usersInDomainData } =
     useQuery(GetUsersInMyDomain);
   const [usersInDomain, setUsersInDomain] = useState<User[]>([]);
@@ -84,13 +92,15 @@ export const CurrentUserProvider: React.FC<CurrentUserContextProviderProps> = ({
   }, [usersInDomainData]);
 
   const currentUser = meData?.me || null;
+  const messagingLimit = messageLimit?.getMessagingLimits;
 
   return (
     <CurrentUserContext.Provider
       value={{
         currentUser,
+        messagingLimit,
         usersInDomain,
-        loading: loadingMe,
+        loading: loadingMe || loadingMessageLimit,
         loadingUsersInDomain,
       }}
     >

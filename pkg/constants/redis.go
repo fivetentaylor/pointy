@@ -23,4 +23,5 @@ const (
 	DocActiveConnectionsKey = "doc:%s:connections"       // docID
 	DocUserConnectionKey    = "doc:%s:user:%s:author:%s" // docID, userID, authorID
 	DocUserLastMessageKey   = "doc:%s:user:%s:message"   // docID, userID
+	MessagingUsageKeyFormat = "usage:user:%s:period:%s"  // userID, period (YYYY-MM-DD_YYYY-MM-DD)
 )

@@ -202,6 +202,14 @@ type ComplexityRoot struct {
 		UserID            func(childComplexity int) int
 	}
 
+	MessagingLimit struct {
+		EndingAt   func(childComplexity int) int
+		StartingAt func(childComplexity int) int
+		Total      func(childComplexity int) int
+		Type       func(childComplexity int) int
+		Used       func(childComplexity int) int
+	}
+
 	MsgMetadata struct {
 		AllowDraftEdits              func(childComplexity int) int
 		ContentAddress               func(childComplexity int) int
@@ -282,6 +290,7 @@ type ComplexityRoot struct {
 		GetDocumentTimeline       func(childComplexity int, documentID string, filter *model.TimelineEventFilter) int
 		GetImage                  func(childComplexity int, docID string, imageID string) int
 		GetImageSignedURL         func(childComplexity int, docID string, imageID string) int
+		GetMessagingLimits        func(childComplexity int) int
 		ListDocumentAttachments   func(childComplexity int, docID string) int
 		ListDocumentImages        func(childComplexity int, docID string) int
 		ListUsersAttachments      func(childComplexity int) int
@@ -445,6 +454,7 @@ type ComplexityRoot struct {
 		Email              func(childComplexity int) int
 		ID                 func(childComplexity int) int
 		IsAdmin            func(childComplexity int) int
+		MessagingLimit     func(childComplexity int) int
 		Name               func(childComplexity int) int
 		Picture            func(childComplexity int) int
 		SubscriptionStatus func(childComplexity int) int
@@ -547,6 +557,7 @@ type QueryResolver interface {
 	Branches(ctx context.Context, id string) ([]*models.Document, error)
 	GetAskAiThreads(ctx context.Context, documentID string) ([]*dynamo.Thread, error)
 	GetAskAiThreadMessages(ctx context.Context, documentID string, threadID string) ([]*dynamo.Message, error)
+	GetMessagingLimits(ctx context.Context) (*models.MessagingLimit, error)
 	SubscriptionPlans(ctx context.Context) ([]*models.SubscriptionPlan, error)
 	SharedLink(ctx context.Context, inviteLink string) (*models.SharedDocumentLink, error)
 	SharedLinks(ctx context.Context, documentID string) ([]*models.SharedDocumentLink, error)
@@ -597,6 +608,7 @@ type UserResolver interface {
 	Picture(ctx context.Context, obj *models.User) (*string, error)
 	IsAdmin(ctx context.Context, obj *models.User) (bool, error)
 	SubscriptionStatus(ctx context.Context, obj *models.User) (string, error)
+	MessagingLimit(ctx context.Context, obj *models.User) (*models.MessagingLimit, error)
 }
 
 type executableSchema struct {
@@ -1236,6 +1248,41 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.Message.UserID(childComplexity), true
+
+	case "MessagingLimit.endingAt":
+		if e.complexity.MessagingLimit.EndingAt == nil {
+			break
+		}
+
+		return e.complexity.MessagingLimit.EndingAt(childComplexity), true
+
+	case "MessagingLimit.startingAt":
+		if e.complexity.MessagingLimit.StartingAt == nil {
+			break
+		}
+
+		return e.complexity.MessagingLimit.StartingAt(childComplexity), true
+
+	case "MessagingLimit.total":
+		if e.complexity.MessagingLimit.Total == nil {
+			break
+		}
+
+		return e.complexity.MessagingLimit.Total(childComplexity), true
+
+	case "MessagingLimit.type":
+		if e.complexity.MessagingLimit.Type == nil {
+			break
+		}
+
+		return e.complexity.MessagingLimit.Type(childComplexity), true
+
+	case "MessagingLimit.used":
+		if e.complexity.MessagingLimit.Used == nil {
+			break
+		}
+
+		return e.complexity.MessagingLimit.Used(childComplexity), true
 
 	case "MsgMetadata.allowDraftEdits":
 		if e.complexity.MsgMetadata.AllowDraftEdits == nil {
@@ -1878,6 +1925,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.Query.GetImageSignedURL(childComplexity, args["docId"].(string), args["imageId"].(string)), true
+
+	case "Query.getMessagingLimits":
+		if e.complexity.Query.GetMessagingLimits == nil {
+			break
+		}
+
+		return e.complexity.Query.GetMessagingLimits(childComplexity), true
 
 	case "Query.listDocumentAttachments":
 		if e.complexity.Query.ListDocumentAttachments == nil {
@@ -2684,6 +2738,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.User.IsAdmin(childComplexity), true
+
+	case "User.messagingLimit":
+		if e.complexity.User.MessagingLimit == nil {
+			break
+		}
+
+		return e.complexity.User.MessagingLimit(childComplexity), true
 
 	case "User.name":
 		if e.complexity.User.Name == nil {
@@ -5352,6 +5413,8 @@ func (ec *executionContext) fieldContext_CommentNotificationPayloadValue_author(
 				return ec.fieldContext_User_isAdmin(ctx, field)
 			case "subscriptionStatus":
 				return ec.fieldContext_User_subscriptionStatus(ctx, field)
+			case "messagingLimit":
+				return ec.fieldContext_User_messagingLimit(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type User", field.Name)
 		},
@@ -5763,6 +5826,8 @@ func (ec *executionContext) fieldContext_Document_ownedBy(ctx context.Context, f
 				return ec.fieldContext_User_isAdmin(ctx, field)
 			case "subscriptionStatus":
 				return ec.fieldContext_User_subscriptionStatus(ctx, field)
+			case "messagingLimit":
+				return ec.fieldContext_User_messagingLimit(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type User", field.Name)
 		},
@@ -5823,6 +5888,8 @@ func (ec *executionContext) fieldContext_Document_editors(ctx context.Context, f
 				return ec.fieldContext_User_isAdmin(ctx, field)
 			case "subscriptionStatus":
 				return ec.fieldContext_User_subscriptionStatus(ctx, field)
+			case "messagingLimit":
+				return ec.fieldContext_User_messagingLimit(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type User", field.Name)
 		},
@@ -8316,6 +8383,8 @@ func (ec *executionContext) fieldContext_Message_user(ctx context.Context, field
 				return ec.fieldContext_User_isAdmin(ctx, field)
 			case "subscriptionStatus":
 				return ec.fieldContext_User_subscriptionStatus(ctx, field)
+			case "messagingLimit":
+				return ec.fieldContext_User_messagingLimit(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type User", field.Name)
 		},
@@ -8466,8 +8535,230 @@ func (ec *executionContext) fieldContext_Message_replyingUsers(ctx context.Conte
 				return ec.fieldContext_User_isAdmin(ctx, field)
 			case "subscriptionStatus":
 				return ec.fieldContext_User_subscriptionStatus(ctx, field)
+			case "messagingLimit":
+				return ec.fieldContext_User_messagingLimit(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type User", field.Name)
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _MessagingLimit_used(ctx context.Context, field graphql.CollectedField, obj *models.MessagingLimit) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_MessagingLimit_used(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Used, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(int)
+	fc.Result = res
+	return ec.marshalNInt2int(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_MessagingLimit_used(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "MessagingLimit",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type Int does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _MessagingLimit_total(ctx context.Context, field graphql.CollectedField, obj *models.MessagingLimit) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_MessagingLimit_total(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Total, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(int)
+	fc.Result = res
+	return ec.marshalNInt2int(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_MessagingLimit_total(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "MessagingLimit",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type Int does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _MessagingLimit_type(ctx context.Context, field graphql.CollectedField, obj *models.MessagingLimit) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_MessagingLimit_type(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Type, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(models.MessagingLimitType)
+	fc.Result = res
+	return ec.marshalNMessagingLimitType2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐMessagingLimitType(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_MessagingLimit_type(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "MessagingLimit",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type MessagingLimitType does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _MessagingLimit_startingAt(ctx context.Context, field graphql.CollectedField, obj *models.MessagingLimit) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_MessagingLimit_startingAt(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.StartingAt, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(time.Time)
+	fc.Result = res
+	return ec.marshalNTime2timeᚐTime(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_MessagingLimit_startingAt(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "MessagingLimit",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type Time does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _MessagingLimit_endingAt(ctx context.Context, field graphql.CollectedField, obj *models.MessagingLimit) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_MessagingLimit_endingAt(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.EndingAt, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(time.Time)
+	fc.Result = res
+	return ec.marshalNTime2timeᚐTime(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_MessagingLimit_endingAt(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "MessagingLimit",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type Time does not have child fields")
 		},
 	}
 	return fc, nil
@@ -11073,6 +11364,8 @@ func (ec *executionContext) fieldContext_Mutation_updateMe(ctx context.Context, 
 				return ec.fieldContext_User_isAdmin(ctx, field)
 			case "subscriptionStatus":
 				return ec.fieldContext_User_subscriptionStatus(ctx, field)
+			case "messagingLimit":
+				return ec.fieldContext_User_messagingLimit(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type User", field.Name)
 		},
@@ -12623,6 +12916,62 @@ func (ec *executionContext) fieldContext_Query_getAskAiThreadMessages(ctx contex
 	return fc, nil
 }
 
+func (ec *executionContext) _Query_getMessagingLimits(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Query_getMessagingLimits(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Query().GetMessagingLimits(rctx)
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(*models.MessagingLimit)
+	fc.Result = res
+	return ec.marshalNMessagingLimit2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐMessagingLimit(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Query_getMessagingLimits(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Query",
+		Field:      field,
+		IsMethod:   true,
+		IsResolver: true,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			switch field.Name {
+			case "used":
+				return ec.fieldContext_MessagingLimit_used(ctx, field)
+			case "total":
+				return ec.fieldContext_MessagingLimit_total(ctx, field)
+			case "type":
+				return ec.fieldContext_MessagingLimit_type(ctx, field)
+			case "startingAt":
+				return ec.fieldContext_MessagingLimit_startingAt(ctx, field)
+			case "endingAt":
+				return ec.fieldContext_MessagingLimit_endingAt(ctx, field)
+			}
+			return nil, fmt.Errorf("no field named %q was found under type MessagingLimit", field.Name)
+		},
+	}
+	return fc, nil
+}
+
 func (ec *executionContext) _Query_subscriptionPlans(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Query_subscriptionPlans(ctx, field)
 	if err != nil {
@@ -13005,6 +13354,8 @@ func (ec *executionContext) fieldContext_Query_me(ctx context.Context, field gra
 				return ec.fieldContext_User_isAdmin(ctx, field)
 			case "subscriptionStatus":
 				return ec.fieldContext_User_subscriptionStatus(ctx, field)
+			case "messagingLimit":
+				return ec.fieldContext_User_messagingLimit(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type User", field.Name)
 		},
@@ -13062,6 +13413,8 @@ func (ec *executionContext) fieldContext_Query_user(ctx context.Context, field g
 				return ec.fieldContext_User_isAdmin(ctx, field)
 			case "subscriptionStatus":
 				return ec.fieldContext_User_subscriptionStatus(ctx, field)
+			case "messagingLimit":
+				return ec.fieldContext_User_messagingLimit(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type User", field.Name)
 		},
@@ -13130,6 +13483,8 @@ func (ec *executionContext) fieldContext_Query_users(ctx context.Context, field 
 				return ec.fieldContext_User_isAdmin(ctx, field)
 			case "subscriptionStatus":
 				return ec.fieldContext_User_subscriptionStatus(ctx, field)
+			case "messagingLimit":
+				return ec.fieldContext_User_messagingLimit(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type User", field.Name)
 		},
@@ -13201,6 +13556,8 @@ func (ec *executionContext) fieldContext_Query_usersInMyDomain(ctx context.Conte
 				return ec.fieldContext_User_isAdmin(ctx, field)
 			case "subscriptionStatus":
 				return ec.fieldContext_User_subscriptionStatus(ctx, field)
+			case "messagingLimit":
+				return ec.fieldContext_User_messagingLimit(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type User", field.Name)
 		},
@@ -14179,6 +14536,8 @@ func (ec *executionContext) fieldContext_SharedDocumentLink_inviteeUser(ctx cont
 				return ec.fieldContext_User_isAdmin(ctx, field)
 			case "subscriptionStatus":
 				return ec.fieldContext_User_subscriptionStatus(ctx, field)
+			case "messagingLimit":
+				return ec.fieldContext_User_messagingLimit(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type User", field.Name)
 		},
@@ -14363,6 +14722,8 @@ func (ec *executionContext) fieldContext_SharedDocumentLink_invitedBy(ctx contex
 				return ec.fieldContext_User_isAdmin(ctx, field)
 			case "subscriptionStatus":
 				return ec.fieldContext_User_subscriptionStatus(ctx, field)
+			case "messagingLimit":
+				return ec.fieldContext_User_messagingLimit(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type User", field.Name)
 		},
@@ -16720,6 +17081,8 @@ func (ec *executionContext) fieldContext_TLUpdateV1_flaggedByUser(ctx context.Co
 				return ec.fieldContext_User_isAdmin(ctx, field)
 			case "subscriptionStatus":
 				return ec.fieldContext_User_subscriptionStatus(ctx, field)
+			case "messagingLimit":
+				return ec.fieldContext_User_messagingLimit(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type User", field.Name)
 		},
@@ -17134,6 +17497,8 @@ func (ec *executionContext) fieldContext_Thread_user(ctx context.Context, field 
 				return ec.fieldContext_User_isAdmin(ctx, field)
 			case "subscriptionStatus":
 				return ec.fieldContext_User_subscriptionStatus(ctx, field)
+			case "messagingLimit":
+				return ec.fieldContext_User_messagingLimit(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type User", field.Name)
 		},
@@ -17370,6 +17735,8 @@ func (ec *executionContext) fieldContext_TimelineEvent_user(ctx context.Context,
 				return ec.fieldContext_User_isAdmin(ctx, field)
 			case "subscriptionStatus":
 				return ec.fieldContext_User_subscriptionStatus(ctx, field)
+			case "messagingLimit":
+				return ec.fieldContext_User_messagingLimit(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type User", field.Name)
 		},
@@ -17941,6 +18308,62 @@ func (ec *executionContext) fieldContext_User_subscriptionStatus(ctx context.Con
 		IsResolver: true,
 		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
 			return nil, errors.New("field of type String does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _User_messagingLimit(ctx context.Context, field graphql.CollectedField, obj *models.User) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_User_messagingLimit(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.User().MessagingLimit(rctx, obj)
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(*models.MessagingLimit)
+	fc.Result = res
+	return ec.marshalNMessagingLimit2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐMessagingLimit(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_User_messagingLimit(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "User",
+		Field:      field,
+		IsMethod:   true,
+		IsResolver: true,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			switch field.Name {
+			case "used":
+				return ec.fieldContext_MessagingLimit_used(ctx, field)
+			case "total":
+				return ec.fieldContext_MessagingLimit_total(ctx, field)
+			case "type":
+				return ec.fieldContext_MessagingLimit_type(ctx, field)
+			case "startingAt":
+				return ec.fieldContext_MessagingLimit_startingAt(ctx, field)
+			case "endingAt":
+				return ec.fieldContext_MessagingLimit_endingAt(ctx, field)
+			}
+			return nil, fmt.Errorf("no field named %q was found under type MessagingLimit", field.Name)
 		},
 	}
 	return fc, nil
@@ -22179,6 +22602,65 @@ func (ec *executionContext) _Message(ctx context.Context, sel ast.SelectionSet, 
 	return out
 }
 
+var messagingLimitImplementors = []string{"MessagingLimit"}
+
+func (ec *executionContext) _MessagingLimit(ctx context.Context, sel ast.SelectionSet, obj *models.MessagingLimit) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, messagingLimitImplementors)
+
+	out := graphql.NewFieldSet(fields)
+	deferred := make(map[string]*graphql.FieldSet)
+	for i, field := range fields {
+		switch field.Name {
+		case "__typename":
+			out.Values[i] = graphql.MarshalString("MessagingLimit")
+		case "used":
+			out.Values[i] = ec._MessagingLimit_used(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				out.Invalids++
+			}
+		case "total":
+			out.Values[i] = ec._MessagingLimit_total(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				out.Invalids++
+			}
+		case "type":
+			out.Values[i] = ec._MessagingLimit_type(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				out.Invalids++
+			}
+		case "startingAt":
+			out.Values[i] = ec._MessagingLimit_startingAt(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				out.Invalids++
+			}
+		case "endingAt":
+			out.Values[i] = ec._MessagingLimit_endingAt(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				out.Invalids++
+			}
+		default:
+			panic("unknown field " + strconv.Quote(field.Name))
+		}
+	}
+	out.Dispatch(ctx)
+	if out.Invalids > 0 {
+		return graphql.Null
+	}
+
+	atomic.AddInt32(&ec.deferred, int32(len(deferred)))
+
+	for label, dfs := range deferred {
+		ec.processDeferredGroup(graphql.DeferredGroup{
+			Label:    label,
+			Path:     graphql.GetPath(ctx),
+			FieldSet: dfs,
+			Context:  ctx,
+		})
+	}
+
+	return out
+}
+
 var msgMetadataImplementors = []string{"MsgMetadata"}
 
 func (ec *executionContext) _MsgMetadata(ctx context.Context, sel ast.SelectionSet, obj *model.MsgMetadata) graphql.Marshaler {
@@ -23120,6 +23602,28 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 					}
 				}()
 				res = ec._Query_getAskAiThreadMessages(ctx, field)
+				if res == graphql.Null {
+					atomic.AddUint32(&fs.Invalids, 1)
+				}
+				return res
+			}
+
+			rrm := func(ctx context.Context) graphql.Marshaler {
+				return ec.OperationContext.RootResolverMiddleware(ctx,
+					func(ctx context.Context) graphql.Marshaler { return innerFunc(ctx, out) })
+			}
+
+			out.Concurrently(i, func(ctx context.Context) graphql.Marshaler { return rrm(innerCtx) })
+		case "getMessagingLimits":
+			field := field
+
+			innerFunc := func(ctx context.Context, fs *graphql.FieldSet) (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Query_getMessagingLimits(ctx, field)
 				if res == graphql.Null {
 					atomic.AddUint32(&fs.Invalids, 1)
 				}
@@ -24973,6 +25477,42 @@ func (ec *executionContext) _User(ctx context.Context, sel ast.SelectionSet, obj
 			}
 
 			out.Concurrently(i, func(ctx context.Context) graphql.Marshaler { return innerFunc(ctx, out) })
+		case "messagingLimit":
+			field := field
+
+			innerFunc := func(ctx context.Context, fs *graphql.FieldSet) (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._User_messagingLimit(ctx, field, obj)
+				if res == graphql.Null {
+					atomic.AddUint32(&fs.Invalids, 1)
+				}
+				return res
+			}
+
+			if field.Deferrable != nil {
+				dfs, ok := deferred[field.Deferrable.Label]
+				di := 0
+				if ok {
+					dfs.AddField(field)
+					di = len(dfs.Values) - 1
+				} else {
+					dfs = graphql.NewFieldSet([]graphql.CollectedField{field})
+					deferred[field.Deferrable.Label] = dfs
+				}
+				dfs.Concurrently(di, func(ctx context.Context) graphql.Marshaler {
+					return innerFunc(ctx, dfs)
+				})
+
+				// don't run the out.Concurrently() call below
+				out.Values[i] = graphql.Null
+				continue
+			}
+
+			out.Concurrently(i, func(ctx context.Context) graphql.Marshaler { return innerFunc(ctx, out) })
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -25932,6 +26472,36 @@ func (ec *executionContext) unmarshalNMessageRevisionStatus2githubᚗcomᚋteamr
 
 func (ec *executionContext) marshalNMessageRevisionStatus2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐMessageRevisionStatus(ctx context.Context, sel ast.SelectionSet, v model.MessageRevisionStatus) graphql.Marshaler {
 	return v
+}
+
+func (ec *executionContext) marshalNMessagingLimit2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐMessagingLimit(ctx context.Context, sel ast.SelectionSet, v models.MessagingLimit) graphql.Marshaler {
+	return ec._MessagingLimit(ctx, sel, &v)
+}
+
+func (ec *executionContext) marshalNMessagingLimit2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐMessagingLimit(ctx context.Context, sel ast.SelectionSet, v *models.MessagingLimit) graphql.Marshaler {
+	if v == nil {
+		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
+			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
+		}
+		return graphql.Null
+	}
+	return ec._MessagingLimit(ctx, sel, v)
+}
+
+func (ec *executionContext) unmarshalNMessagingLimitType2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐMessagingLimitType(ctx context.Context, v interface{}) (models.MessagingLimitType, error) {
+	tmp, err := graphql.UnmarshalString(v)
+	res := models.MessagingLimitType(tmp)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) marshalNMessagingLimitType2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐMessagingLimitType(ctx context.Context, sel ast.SelectionSet, v models.MessagingLimitType) graphql.Marshaler {
+	res := graphql.MarshalString(string(v))
+	if res == graphql.Null {
+		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
+			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
+		}
+	}
+	return res
 }
 
 func (ec *executionContext) unmarshalNMsgLLM2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐMsgLlm(ctx context.Context, v interface{}) (model.MsgLlm, error) {

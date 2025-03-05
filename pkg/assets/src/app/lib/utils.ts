@@ -129,23 +129,35 @@ export const timeAgoLong = (isoDate: string): string => {
     (currentDate.getTime() - eventDate.getTime()) / 1000,
   );
 
-  if (diffInSeconds < 60) {
-    return "just now";
-  } else if (diffInSeconds < 3600) {
-    const val = Math.floor(diffInSeconds / 60);
-    return `${val} ${val === 1 ? "minute" : "minutes"} ago`;
-  } else if (diffInSeconds < 86400) {
-    const val = Math.floor(diffInSeconds / 3600);
-    return `${val} ${val === 1 ? "hour" : "hours"} ago`;
-  } else if (diffInSeconds < 2592000) {
-    const val = Math.floor(diffInSeconds / 86400);
-    return `${val} ${val === 1 ? "day" : "days"} ago`;
-  } else if (diffInSeconds < 31536000) {
-    const val = Math.floor(diffInSeconds / 2592000);
-    return `${val} ${val === 1 ? "month" : "months"} ago`;
+  const absDiffInSeconds = Math.abs(diffInSeconds);
+
+  if (absDiffInSeconds < 60) {
+    return diffInSeconds < 0 ? "in a moment" : "just now";
+  } else if (absDiffInSeconds < 3600) {
+    const val = Math.floor(absDiffInSeconds / 60);
+    return diffInSeconds < 0
+      ? `in ${val} ${val === 1 ? "minute" : "minutes"}`
+      : `${val} ${val === 1 ? "minute" : "minutes"} ago`;
+  } else if (absDiffInSeconds < 86400) {
+    const val = Math.floor(absDiffInSeconds / 3600);
+    return diffInSeconds < 0
+      ? `in ${val} ${val === 1 ? "hour" : "hours"}`
+      : `${val} ${val === 1 ? "hour" : "hours"} ago`;
+  } else if (absDiffInSeconds < 2592000) {
+    const val = Math.floor(absDiffInSeconds / 86400);
+    return diffInSeconds < 0
+      ? `in ${val} ${val === 1 ? "day" : "days"}`
+      : `${val} ${val === 1 ? "day" : "days"} ago`;
+  } else if (absDiffInSeconds < 31536000) {
+    const val = Math.floor(absDiffInSeconds / 2592000);
+    return diffInSeconds < 0
+      ? `in ${val} ${val === 1 ? "month" : "months"}`
+      : `${val} ${val === 1 ? "month" : "months"} ago`;
   } else {
-    const val = Math.floor(diffInSeconds / 31536000);
-    return `${val} ${val === 1 ? "year" : "years"} ago`;
+    const val = Math.floor(absDiffInSeconds / 31536000);
+    return diffInSeconds < 0
+      ? `in ${val} ${val === 1 ? "year" : "years"}`
+      : `${val} ${val === 1 ? "year" : "years"} ago`;
   }
 };
 

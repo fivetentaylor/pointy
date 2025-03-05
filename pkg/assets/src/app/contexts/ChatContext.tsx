@@ -25,6 +25,8 @@ import { useParams } from "react-router-dom";
 import { useErrorToast } from "@/hooks/useErrorToast";
 import { useDebounce } from "use-debounce";
 import { UploadAttachment } from "@/queries/attachments";
+import { GetMessagingLimit } from "@/queries/user";
+import { useSidebarContext } from "./SidebarContext";
 
 type ChatContextState = ReturnType<typeof useSetupChat>;
 
@@ -40,6 +42,7 @@ export const useSetupChat = () => {
   const showErrorToast = useErrorToast();
   const [activeThreadID, setActiveThreadID] = useState<string | null>(null);
   const isSwitchingDocs = useRef(false);
+  const { setShowSubscriptions } = useSidebarContext();
 
   const {
     data: threadsData,
@@ -190,6 +193,9 @@ export const useSetupChat = () => {
             threadId: activeThreadID || "",
           },
         },
+        {
+          query: GetMessagingLimit,
+        },
       ],
     });
 
@@ -207,13 +213,22 @@ export const useSetupChat = () => {
       markRevisionStatus("ACCEPTED", currentContentAddress);
     }
     input.contentAddress = currentContentAddress;
-    return createThreadMessageMutation({
+    const response = await createThreadMessageMutation({
       variables: {
         input,
         documentId: debouncedDraftId || "",
         threadId: activeThreadID || "",
       },
     });
+
+    if (
+      response.errors &&
+      response.errors.message === "message limit exceeded"
+    ) {
+      setShowSubscriptions(true);
+    }
+
+    return response;
   };
 
   const [

@@ -18,6 +18,7 @@ const SidebarContext = createContext<SidebarContextState | undefined>(
 export const useSetupSidebar = () => {
   const [sidebarMode, _setSidebarMode] = useState<SidebarMode>();
   const [sidebarLoading, setSidebarLoading] = useState<boolean>(true);
+  const [showSubscriptions, setShowSubscriptions] = useState<boolean>(false);
   const { docData, docLoading } = useDocumentContext();
 
   // on doc loading, check editor count. If more than one editor, set to timeline. Else chat.
@@ -62,6 +63,8 @@ export const useSetupSidebar = () => {
     setSidebarMode,
     sidebarLoading,
     sidebarMode,
+    showSubscriptions,
+    setShowSubscriptions,
   };
 };
 

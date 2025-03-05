@@ -263,6 +263,17 @@ interface MessageUpdateInput {
   id: Scalars["ID"]["input"];
 }
 
+interface MessagingLimit {
+  __typename?: "MessagingLimit";
+  endingAt: Scalars["Time"]["output"];
+  startingAt: Scalars["Time"]["output"];
+  total: Scalars["Int"]["output"];
+  type: MessagingLimitType;
+  used: Scalars["Int"]["output"];
+}
+
+type MessagingLimitType = "FREE" | "PREMIUM" | "UNKNOWN";
+
 type MsgLlm = "CLAUDE" | "GPT4O";
 
 interface MsgMetadata {
@@ -514,6 +525,7 @@ interface Query {
   getDocumentTimeline: Array<TimelineEvent>;
   getImage: Image;
   getImageSignedUrl: SignedImageUrl;
+  getMessagingLimits: MessagingLimit;
   listDocumentAttachments: Array<DocumentAttachment>;
   listDocumentImages: Array<Image>;
   listUsersAttachments: Array<DocumentAttachment>;
@@ -874,6 +886,7 @@ interface User {
   email: Scalars["String"]["output"];
   id: Scalars["ID"]["output"];
   isAdmin: Scalars["Boolean"]["output"];
+  messagingLimit: MessagingLimit;
   name: Scalars["String"]["output"];
   picture?: Maybe<Scalars["String"]["output"]>;
   subscriptionStatus: Scalars["String"]["output"];
@@ -883,6 +896,12 @@ interface UserPreference {
   __typename?: "UserPreference";
   enableActivityNotifications: Scalars["Boolean"]["output"];
 }
+
+type MovedDocumentFragment = {
+  __typename?: "Document";
+  id: string;
+  folderID?: string | null;
+};
 
 type UploadAttachmentMutationVariables = Exact<{
   file: Scalars["Upload"]["input"];
@@ -2391,6 +2410,19 @@ type GetMeQuery = {
     isAdmin: boolean;
     subscriptionStatus: string;
   } | null;
+};
+
+type GetMessagingLimitQueryVariables = Exact<{ [key: string]: never }>;
+
+type GetMessagingLimitQuery = {
+  __typename?: "Query";
+  getMessagingLimits: {
+    __typename?: "MessagingLimit";
+    used: number;
+    total: number;
+    startingAt: string;
+    endingAt: string;
+  };
 };
 
 type GetUserQueryVariables = Exact<{

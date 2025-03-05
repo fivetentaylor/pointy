@@ -79,11 +79,14 @@ const Input = ({
       type,
     });
 
-    await (type === "chat"
+    const response = await (type === "chat"
       ? onSendChatMessage(message)
       : onSendReviseMessage(message));
-    resetMessage();
-    focusInput();
+
+    if (response && !response.errors) {
+      resetMessage();
+      focusInput();
+    }
   };
 
   const newTopic = async () => {
@@ -323,9 +326,13 @@ function InputContainer({
       });
     }
 
-    editor?.clearSelection();
+    const response = await createThreadMessage(input);
 
-    return createThreadMessage(input);
+    if (!response.errors) {
+      editor?.clearSelection();
+    }
+
+    return response;
   };
 
   const handleRemoveSelectedHtml = () => {

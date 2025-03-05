@@ -7,7 +7,7 @@ import {
   Settings2Icon,
   ReceiptTextIcon,
 } from "lucide-react";
-import { cn, getInitials } from "@/lib/utils";
+import { cn, getInitials, timeAgoLong } from "@/lib/utils";
 
 import {
   DropdownMenu,
@@ -43,9 +43,16 @@ import { Spinner } from "../ui/spinner";
 import { TipBox } from "../ui/TipBox";
 import posthog from "posthog-js";
 import { useSignals } from "@preact/signals-react/runtime";
+import { useSidebarContext } from "@/contexts/SidebarContext";
 
 type UserProps = {
   me: User | null;
+  messagingLimit: {
+    total: number;
+    used: number;
+    startingAt: string;
+    endingAt: string;
+  } | null;
   loading: boolean;
   onClickTheme: (theme: "light" | "dark" | "system") => void;
   onClickLogout: () => void;
@@ -54,14 +61,15 @@ type UserProps = {
 
 const UserComponent = ({
   me,
+  messagingLimit,
   loading,
   onClickTheme,
   onClickLogout,
   theme,
 }: UserProps) => {
   const [profileSettingsOpen, setProfileSettingsOpen] = useState(false);
-  const [subscribeDialogOpen, setSubscribeDialogOpen] = useState(false);
   const { isDisconnected } = useWsDisconnect();
+  const { showSubscriptions, setShowSubscriptions } = useSidebarContext();
 
   const [billingPortalSession, { loading: loadingBillingPortal }] =
     useMutation(BillingPortalSession);
@@ -80,7 +88,7 @@ const UserComponent = ({
   const handleBillingPortal = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     if (me.subscriptionStatus !== "active") {
-      setSubscribeDialogOpen(true);
+      setShowSubscriptions(true);
       analytics.track(PAYMENTS_CLICK_CHECKOUT);
       return;
     }
@@ -100,38 +108,47 @@ const UserComponent = ({
         />
       </Dialog>
 
-      <Dialog open={subscribeDialogOpen} onOpenChange={setSubscribeDialogOpen}>
+      <Dialog open={showSubscriptions} onOpenChange={setShowSubscriptions}>
         <SubscriptionDialog
-          showOpen={subscribeDialogOpen}
-          onClose={() => setSubscribeDialogOpen(false)}
+          showOpen={showSubscriptions}
+          onClose={() => setShowSubscriptions(false)}
           onSubscribe={() => analytics.track(PAYMENTS_CLICK_CHECKOUT)}
         />
       </Dialog>
 
-      {posthog.isFeatureEnabled("stripe") && (
-        <TipBox className="w-[calc(100%-1.5rem)] py-1 group-data-[collapsible=icon]:hidden pl-8 truncate">
-          {me.subscriptionStatus === "active" && (
-            <>
-              <div>Professional plan</div>
-            </>
-          )}
-          {me.subscriptionStatus !== "active" && (
-            <>
-              <span>Free plan</span>
-              <Button
-                variant="highlight"
-                className="p-0 pl-1 text-xs text-primary m-0 mt-[-1rem] h-4"
-                onClick={() => {
-                  setSubscribeDialogOpen(true);
-                  analytics.track(PAYMENTS_CLICK_CHECKOUT);
-                }}
-              >
-                Upgrade
-              </Button>
-            </>
-          )}
-        </TipBox>
-      )}
+      <TipBox className="w-[calc(100%-1.5rem)] py-1 text-center group-data-[collapsible=icon]:hidden truncate">
+        {me.subscriptionStatus === "active" && (
+          <>
+            <div>Professional plan</div>
+          </>
+        )}
+        {me.subscriptionStatus !== "active" && (
+          <>
+            <span>Free plan</span>
+            <Button
+              variant="highlight"
+              className="p-0 pl-1 text-xs text-primary m-0 mt-[-1rem] h-4"
+              onClick={() => {
+                setShowSubscriptions(true);
+                analytics.track(PAYMENTS_CLICK_CHECKOUT);
+              }}
+            >
+              Upgrade
+            </Button>
+            {messagingLimit && (
+              <>
+                <div className="text-xs text-muted-foreground">
+                  {messagingLimit.total - messagingLimit.used} messages
+                  remaining
+                </div>
+                <div className="text-xs text-muted-foreground">
+                  Refreshes {timeAgoLong(messagingLimit.endingAt)}
+                </div>
+              </>
+            )}
+          </>
+        )}
+      </TipBox>
 
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger
@@ -223,7 +240,11 @@ const UserComponent = ({
 };
 
 const UserWrapper = () => {
-  const { currentUser, loading: loadingMe } = useCurrentUserContext();
+  const {
+    currentUser,
+    loading: loadingMe,
+    messagingLimit,
+  } = useCurrentUserContext();
   useSignals();
 
   if (!loadingMe && !currentUser) {
@@ -238,6 +259,7 @@ const UserWrapper = () => {
     <UserComponent
       me={currentUser}
       loading={loadingMe}
+      messagingLimit={messagingLimit}
       theme={colorThemeService.themePreference.value}
       onClickTheme={(theme: ThemePreference) => {
         analytics.track(PROFILE_CLICK_COLOR_THEME, { theme });

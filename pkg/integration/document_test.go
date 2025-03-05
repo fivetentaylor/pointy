@@ -1,23 +1,32 @@
-package integration_test
-
-import (
-	"context"
-
-	"github.com/stretchr/testify/suite"
-
-	"github.com/teamreviso/code/pkg/server"
-	"github.com/teamreviso/code/pkg/server/auth"
-)
-
-type DocumentSuite struct {
-	suite.Suite
-
-	server       *server.Server
-	jwt          *auth.JWTEngine
-	addr         string
-	cancelWorker context.CancelFunc
-}
-
+// package integration_test
+//
+// import (
+// 	"context"
+// 	"fmt"
+// 	"os"
+// 	"strings"
+// 	"testing"
+// 	"time"
+//
+// 	"github.com/google/uuid"
+// 	"github.com/playwright-community/playwright-go"
+// 	"github.com/stretchr/testify/suite"
+//
+// 	"github.com/teamreviso/code/pkg/config"
+// 	"github.com/teamreviso/code/pkg/server"
+// 	"github.com/teamreviso/code/pkg/server/auth"
+// 	"github.com/teamreviso/code/pkg/testutils"
+// )
+//
+// type DocumentSuite struct {
+// 	suite.Suite
+//
+// 	server       *server.Server
+// 	jwt          *auth.JWTEngine
+// 	addr         string
+// 	cancelWorker context.CancelFunc
+// }
+//
 // func (suite *DocumentSuite) SetupTest() {
 // 	err := playwright.Install()
 // 	if err != nil {

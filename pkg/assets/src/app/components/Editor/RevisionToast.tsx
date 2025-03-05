@@ -69,7 +69,7 @@ export const RevisionToast = function () {
         return;
       }
 
-      console.log("target revision message", targetMessage);
+      // console.log("target revision message", targetMessage);
 
       if (
         targetMessage.lifecycleStage !== "COMPLETED" &&

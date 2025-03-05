@@ -1,6 +1,7 @@
 extend type Query {
   getAskAiThreads(documentId: ID!): [Thread!]!
   getAskAiThreadMessages(documentId: ID!, threadId: ID!): [Message!]!
+  getMessagingLimits: MessagingLimit!
 }
 
 extend type Mutation {
@@ -235,4 +236,18 @@ type CommentNotificationPayloadValue {
 
   author: User!
   message: Message!
+}
+
+enum MessagingLimitType {
+  UNKNOWN
+  FREE
+  PREMIUM 
+}
+
+type MessagingLimit {
+  used: Int!
+  total: Int!
+  type: MessagingLimitType!
+  startingAt: Time!
+  endingAt: Time!
 }

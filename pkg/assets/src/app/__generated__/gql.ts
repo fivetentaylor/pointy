@@ -13,6 +13,8 @@ import type { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
+  "\n        fragment MovedDocument on Document {\n          id\n          folderID\n        }\n      ":
+    types.MovedDocumentFragmentDoc,
   "\nmutation UploadAttachment($file: Upload!, $docId: ID!) {\n  uploadAttachment(file: $file, docId: $docId) {\n    id\n    filename\n    contentType\n    createdAt\n  }\n}\n":
     types.UploadAttachmentDocument,
   "\nquery ListDocumentAttachments($docId: ID!) {\n  listDocumentAttachments(docId: $docId) {\n    id\n    filename\n    contentType\n    createdAt\n  }\n}\n":
@@ -121,8 +123,10 @@ const documents = {
     types.ForceTimelineUpdateSummaryDocument,
   "\n  mutation DeleteTimelineMessage($documentId: ID!, $messageId: ID!) {\n    deleteTimelineMessage(documentId: $documentId, messageId: $messageId)\n  }\n":
     types.DeleteTimelineMessageDocument,
-  "\n  query GetMe {\n    me {\n      id\n      email\n      name\n      displayName\n      picture\n      isAdmin\n      subscriptionStatus\n    }\n  }\n":
+  "\n  query GetMe {\n    me {\n      id\n      email\n      name\n      displayName\n      picture\n      isAdmin\n\n      subscriptionStatus\n    }\n  }\n":
     types.GetMeDocument,
+  "\n query GetMessagingLimit {\n    getMessagingLimits{\n      used\n      total\n      startingAt\n      endingAt\n    }\n  }\n":
+    types.GetMessagingLimitDocument,
   "\n  query GetUser($id: ID!) {\n    user(id: $id) {\n      id\n      email\n      name\n      displayName\n      picture\n      isAdmin\n    }\n  }\n":
     types.GetUserDocument,
   "\n  query GetUsers($ids: [ID!]!) {\n    users(ids: $ids) {\n      id\n      email\n      name\n      displayName\n      picture\n      isAdmin\n    }\n  }\n":
@@ -151,6 +155,12 @@ const documents = {
  */
 export function gql(source: string): unknown;
 
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(
+  source: "\n        fragment MovedDocument on Document {\n          id\n          folderID\n        }\n      ",
+): (typeof documents)["\n        fragment MovedDocument on Document {\n          id\n          folderID\n        }\n      "];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -479,8 +489,14 @@ export function gql(
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(
-  source: "\n  query GetMe {\n    me {\n      id\n      email\n      name\n      displayName\n      picture\n      isAdmin\n      subscriptionStatus\n    }\n  }\n",
-): (typeof documents)["\n  query GetMe {\n    me {\n      id\n      email\n      name\n      displayName\n      picture\n      isAdmin\n      subscriptionStatus\n    }\n  }\n"];
+  source: "\n  query GetMe {\n    me {\n      id\n      email\n      name\n      displayName\n      picture\n      isAdmin\n\n      subscriptionStatus\n    }\n  }\n",
+): (typeof documents)["\n  query GetMe {\n    me {\n      id\n      email\n      name\n      displayName\n      picture\n      isAdmin\n\n      subscriptionStatus\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(
+  source: "\n query GetMessagingLimit {\n    getMessagingLimits{\n      used\n      total\n      startingAt\n      endingAt\n    }\n  }\n",
+): (typeof documents)["\n query GetMessagingLimit {\n    getMessagingLimits{\n      used\n      total\n      startingAt\n      endingAt\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

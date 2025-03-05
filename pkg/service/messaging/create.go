@@ -47,6 +47,19 @@ func CreateAiThreadMessage(
 	dydb := env.Dynamo(ctx)
 	bg := env.Background(ctx)
 
+	// If the message is from a user, check if they have exceeded their message limit
+	if msg.UserID != constants.RevisoUserID {
+		limit, err := MessageLimit(ctx, msg.UserID)
+		if err != nil {
+			log.Error("error getting message limit", "error", err)
+			return false, fmt.Errorf("error getting message limit: %s", err)
+		}
+		if !limit.Open() {
+			log.Error("message limit exceeded", "userID", msg.UserID, "limit", limit.Open())
+			return false, fmt.Errorf("message limit exceeded")
+		}
+	}
+
 	// always ensure docID is set
 	msg.DocID = docID
 
@@ -88,6 +101,12 @@ func CreateAiThreadMessage(
 	_, err = CreateAiThreadMessage(ctx, docID, aiMsg)
 	if err != nil {
 		return false, fmt.Errorf("[messaging] error creating ai message: %w", err)
+	}
+
+	// Increment the message usage, if the user is not Revis and the message was create successfully
+	err = IncrMessageUsage(ctx, msg.UserID)
+	if err != nil {
+		return false, fmt.Errorf("[messaging] error increasing message usage: %w", err)
 	}
 
 	_, err = bg.Enqueue(
