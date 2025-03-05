@@ -1,0 +1,75 @@
+package templates
+
+import "time"
+import "github.com/teamreviso/code/pkg/rogue"
+
+templ Logs(id string, entries []rogue.LogEntry) {
+	@DocLayout(id, "log") {
+		<div class="bg-white text-black p-4 flex flex-col">
+			for _, entry := range entries {
+				@logEntry(entry)
+			}
+		</div>
+		@LocalTime(".localtime")
+		@SetIdSpanColors(".id-span")
+	}
+}
+
+templ logEntry(entry rogue.LogEntry) {
+	<div>
+		<span class="localtime text-gray-400 w-24 mr-2">{ entry.Timestamp.Format(time.RFC3339) }</span>
+		<span title="User ID" class="id-span text-gray-500">{ entry.UserID }</span>
+		<span title="Session ID (ephemeral)" class="id-span text-gray-500 mr-2">{ entry.SessionID }</span>
+		{ entry.Message }
+	</div>
+}
+
+script SetIdSpanColors(querySelector string) {
+        function setSpanColor(span) {
+          const text = span.textContent;
+          let hash = 0;
+          
+          for (let i = 0; i < text.length; i++) {
+            hash = ((hash << 5) - hash) + text.charCodeAt(i);
+            hash = hash & hash; 
+          }
+          
+          const hue = Math.abs(hash) % 360;
+          const saturation = 70;
+          const lightness = 50;
+          
+          span.style.color = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+        }
+
+        document.querySelectorAll(querySelector).forEach(setSpanColor);
+}
+
+script LocalTime(querySelector string) {
+    // Find all elements matching the query selector
+    const elements = document.querySelectorAll(querySelector);
+
+    elements.forEach(element => {
+        // Assuming the time is in a format that the Date constructor can parse...
+        const timeString = element.innerHTML;
+        const time = new Date(timeString);
+
+        // Check if the date is valid
+        if (!isNaN(time.getTime())) {
+            // Format the time to the user's local time
+            // You can adjust the options to display the time as you prefer
+            const options = {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false, 
+                timeZoneName: 'short',
+            };
+            const localTimeString = time.toLocaleTimeString([], options);
+
+            // Replace the element's content with the formatted time
+            element.innerHTML = localTimeString;
+        } else {
+            console.error("Could not parse time for element: ", element);
+        }
+    });
+}

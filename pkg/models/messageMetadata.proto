@@ -1,0 +1,40 @@
+syntax = "proto3";
+package models;
+option go_package = "github.com/teamreviso/code/pkg/models";
+
+import "google/protobuf/timestamp.proto";
+
+enum RevisionStatus {
+  REVISION_STATUS_UNSPECIFIED = 0;  // Default/undefined state
+  REVISION_STATUS_ACCEPTED = 1;
+  REVISION_STATUS_DECLINED = 2;
+}
+
+enum MessageIntent {
+  MESSAGE_INTENT_UNSPECIFIED = 0;
+  MESSAGE_INTENT_ASK = 1;
+  MESSAGE_INTENT_GENERATE = 2;
+}
+
+enum LLM_CHOICE {
+  LLM_CHOICE_UNSPECIFIED = 0;
+  LLM_CLAUDE = 1;
+  LLM_GPT4O = 2;
+}
+
+message MessageMetadata {
+  bool allowDraftEdits = 1; // deprecated
+
+  RevisionStatus revisionStatus = 2; 
+  // contentAddress is the content address after the AI has made a revision
+  string contentAddress = 3;
+  // contentAddressBefore is the content address before the AI has made a revision
+  string contentAddressBefore = 4;
+  // contentAddressAfter is the content address after the user accepts or rejects the changes
+  string contentAddressAfter = 5; 
+  google.protobuf.Timestamp contentAddressAfterTimestamp = 6;
+  // intent is the intent of the user (if given)
+  MessageIntent intent = 7;
+  LLM_CHOICE llm = 8;
+}
+

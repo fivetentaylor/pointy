@@ -1,0 +1,19 @@
+scalar JSON
+
+extend type Mutation {
+  saveContentAddress(documentId: ID!, payload: JSON!): MutationResponse
+}
+
+extend type Query {
+  getContentAddress(documentId: ID!, addressId: ID!): ContentAddress
+}
+
+type MutationResponse {
+  id: ID!
+}
+
+type ContentAddress {
+  id: ID!
+  documentId: ID!
+  payload: JSON!
+}

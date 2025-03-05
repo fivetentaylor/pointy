@@ -1,0 +1,32 @@
+scalar Upload
+
+type Query {
+  getImageSignedUrl(docId: ID!, imageId: ID!): SignedImageUrl!
+  listDocumentImages(docId: ID!): [Image!]!
+  getImage(docId: ID!, imageId: ID!): Image!
+}
+
+type Mutation {
+  uploadImage(file: Upload!, docId: ID!): Image!
+}
+
+enum Status {
+  LOADING
+  SUCCESS
+  ERROR
+}
+
+type Image {
+  id: ID!
+  docId: ID!
+  mimeType: String!
+  createdAt: Time!
+  url: String!
+  status: Status!
+  error: String
+}
+
+type SignedImageUrl {
+  url: String!
+  expiresAt: Time!
+}

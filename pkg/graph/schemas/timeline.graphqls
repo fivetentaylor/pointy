@@ -1,0 +1,164 @@
+extend type Query {
+  getDocumentTimeline(
+    documentId: ID!
+    filter: TimelineEventFilter
+  ): [TimelineEvent!]!
+}
+
+extend type Mutation {
+  createTimelineMessage(
+    documentId: ID!
+    input: TimelineMessageInput!
+  ): TimelineEvent!
+
+  forceTimelineUpdateSummary(documentId: ID!, userId: String!): Boolean!
+
+  editTimelineMessage(
+    documentId: ID!
+    messageId: ID!
+    input: EditTimelineMessageInput!
+  ): TimelineEvent!
+
+  updateMessageResolution(
+    documentId: ID!
+    messageId: ID!
+    input: UpdateMessageResolutionInput!
+  ): TimelineEvent!
+
+  editMessageResolutionSummary(
+    documentId: ID!
+    messageId: ID!
+    summary: String!
+  ): TimelineEvent!
+
+  editTimelineUpdateSummary(
+    documentId: ID!
+    updateId: ID!
+    summary: String!
+  ): TimelineEvent!
+
+  deleteTimelineMessage(documentId: ID!, messageId: ID!): Boolean!
+}
+
+extend type Subscription {
+  timelineEventInserted(documentId: ID!): TimelineEvent!
+  timelineEventUpdated(documentId: ID!): TimelineEvent!
+  timelineEventDeleted(documentId: ID!): TimelineEvent!
+}
+
+enum TimelineEventFilter {
+  ALL
+  COMMENTS
+  EDITS
+}
+
+type TimelineEvent {
+  id: ID!
+  documentId: ID!
+  replyTo: ID!
+  createdAt: Time!
+  user: User!
+  authorId: String!
+
+  event: TLEventPayload!
+}
+
+# Using TL instead of Timeline to avoid bind errors with gqlgen
+type TLUpdateV1 {
+  eventId: String!
+  title: String!
+  content: String!
+  startingContentAddress: String!
+  endingContentAddress: String!
+  flaggedVersionID: String
+  flaggedVersionName: String
+  flaggedVersionCreatedAt: Time
+  flaggedByUser: User
+  state: TLUpdateState!
+}
+
+enum TLUpdateState {
+  COMPLETE
+  SUMMARIZING
+}
+
+type TLMessageV1 {
+  content: String!
+  selectionStartId: String!
+  selectionEndId: String!
+  selectionMarkdown: String!
+  contentAddress: String!
+
+  # documentId and eventId is here so the replies can be fetched
+  documentId: ID!
+  eventId: String!
+  replies: [TimelineEvent!]!
+}
+
+type TLMessageResolutionV1 {
+  eventId: String!
+  resolved: Boolean!
+  resolutionSummary: String!
+}
+
+type TLMarkerV1 {
+  title: String!
+}
+
+type TLJoinV1 {
+  action: String!
+}
+
+type TLAttributeChangeV1 {
+  attribute: String!
+  oldValue: String!
+  newValue: String!
+}
+
+type TLAccessChangeV1 {
+  action: String!
+  userIdentifiers: [String!]!
+}
+
+type TLEmpty {
+  placeholder: String!
+}
+
+type TLPasteV1 {
+  contentAddressBefore: String!
+  contentAddressAfter: String!
+}
+
+union TLEventPayload =
+    TLUpdateV1
+  | TLMessageV1
+  | TLMarkerV1
+  | TLJoinV1
+  | TLAttributeChangeV1
+  | TLAccessChangeV1
+  | TLMessageResolutionV1
+  | TLEmpty
+  | TLPasteV1
+
+input TimelineMessageInput {
+  replyTo: String # empty if top level, eventId if reply
+  authorId: String!
+  content: String!
+  contentAddress: String!
+  startID: String
+  endID: String
+  selectionMarkdown: String
+}
+
+input UpdateMessageResolutionInput {
+  resolved: Boolean!
+  authorID: String!
+}
+
+input EditTimelineMessageInput {
+  content: String!
+  contentAddress: String
+  startID: String
+  endID: String
+  selectionMarkdown: String
+}

@@ -1,0 +1,41 @@
+name: Next.js
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches:
+      - "main"
+      - "staging"
+
+permissions: write-all
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: "frontend/web"
+
+    strategy:
+      matrix:
+        node-version: [18.x] # Define the version(s) of Node.js you want to test against
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+        cache-dependency-path: ./frontend/web/package-lock.json
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Lint
+      run: npm run lint:check
+
+    - name: Build Next.js project
+      run: npm run build

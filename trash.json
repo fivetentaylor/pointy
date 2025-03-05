@@ -1,0 +1,14 @@
+{
+  "key":"Fjs1872",
+  "value":{"bold": true},
+  "startPosition":"123bob",
+  "end":"343alice",
+}
+
+{
+  "key":"Fjs1872",
+  "value":{"block": ["list", "bullet"]},
+  "startPosition":"789bob",
+  "end":"3456will",
+}
+

@@ -1,0 +1,66 @@
+package payments
+
+import (
+	"github.com/teamreviso/code/pkg/views/layouts"
+	"github.com/teamreviso/code/pkg/views/ui"
+)
+
+templ Successfull() {
+	@layouts.App("Payment Successful") {
+		<div class="w-screen h-screen flex flex-col pt-4 px-9">
+			<nav class="flex items-center">
+				<div class="flex-1">
+					<a href="/">
+						@ui.Logo()
+					</a>
+				</div>
+			</nav>
+			<div class="mt-20 text-center">
+				<h1 class="text-3xl font-bold">Payment Successful</h1>
+				<div class="flex items-center justify-center mt-4 text-lg">
+					<svg class="animate-spin mt-1 -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+						<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+						<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+					</svg>
+					<div class="text-muted-foreground">
+						Updating your profile...
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+		  async function checkPaymentStatus() {
+			try {
+			  // Get the session_id from the URL
+			  const urlParams = new URLSearchParams(window.location.search);
+			  const sessionId = urlParams.get('session_id');
+
+			  if (!sessionId) {
+				console.error('Session ID not found in the URL');
+				return;
+			  }
+
+			  // Fetch the payment status with the session_id
+			  const response = await fetch(`/payments/status?session_id=${sessionId}`);
+			  if (response.ok) {
+				const data = await response.json();
+				if (data.status === 'complete') {
+				  window.location.href = '/drafts';
+				} else if (data.status === 'error' || data.status === 'failed') {
+				  window.location.href = '/payments/failure';
+				}
+			  } else {
+				console.error('Error fetching payment status:', response.statusText);
+				window.location.href = '/payments/failure';
+			  }
+			} catch (error) {
+			  console.error('Error checking payment status:', error);
+			}
+		  }
+
+		  checkPaymentStatus();
+		  // Check the payment status every second
+		  setInterval(checkPaymentStatus, 1000);
+		</script>
+	}
+}

@@ -1,0 +1,46 @@
+package read
+
+import (
+	"github.com/teamreviso/code/pkg/views/layouts"
+	"github.com/teamreviso/code/pkg/views/ui"
+)
+
+templ Read(id, title, currentUserID, html string) {
+	@layouts.App(title) {
+		<div class="w-full flex flex-col sm:flex-row justify-center items-center border-b py-4 pl-8 pr-8 sm:pt-7 sm:pb-[1.875rem]">
+			<a href="http://www.revi.so/" class="scale-[0.85] mt-[-0.25rem]">
+				@ui.Logo()
+			</a>
+			<h2 class="flex-grow mt-2 sm:mt-0 text-2xl leading-[2.375rem] font-bold text-center">
+				{ title }
+			</h2>
+			<div class="hidden sm:block">
+				if (currentUserID == "") {
+					<a href={ templ.SafeURL("/login?next=/drafts/" + id) } class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 h-10 px-4 py-2 bg-primary hover:bg-primary/90 text-primary-foreground">
+						Signup / Login
+					</a>
+				} else {
+					<a href={ templ.SafeURL("/drafts") } class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 h-10 px-4 py-2 bg-primary hover:bg-primary/90 text-primary-foreground">
+						Your Drafts
+					</a>
+				}
+			</div>
+		</div>
+		<section class="flex flex-col items-center h-[calc(100vh-6.2rem)]">
+			if (currentUserID != "") {
+				<div class="w-full max-w-65ch text-sm text-muted-foreground text-center py-1 px-4 border-b border-x bg-muted rounded-b">
+					You only have read access to this document.
+				</div>
+			}
+			<div class="w-full flex-shrink-0 px-4 overflow-y-auto pt-8">
+				<div class="relative">
+					<div class="m-auto pb-16 min-h-max max-w-65ch">
+						<rogue-editor class="readonly">
+							@templ.Raw(html)
+						</rogue-editor>
+					</div>
+				</div>
+			</div>
+		</section>
+	}
+}

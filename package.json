@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "remark-breaks": "^4.0.0"
+  },
+  "devDependencies": {
+    "esbuild": "0.20.2"
+  }
+}

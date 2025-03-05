@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="40" height="40" rx="8" fill="#F5F3FF"/>
+  <path d="M16 14C16 13.4477 16.4477 13 17 13H23C23.5523 13 24 13.4477 24 14V27C24 27.5523 23.5523 28 23 28H17C16.4477 28 16 27.5523 16 27V14Z" stroke="#8B5CF6" stroke-width="2"/>
+  <path d="M19 16H21" stroke="#8B5CF6" stroke-width="2" stroke-linecap="round"/>
+  <path d="M19 19H21" stroke="#8B5CF6" stroke-width="2" stroke-linecap="round"/>
+  <path d="M19 22H21" stroke="#8B5CF6" stroke-width="2" stroke-linecap="round"/>
+  <path d="M19 25H21" stroke="#8B5CF6" stroke-width="2" stroke-linecap="round"/>
+</svg> 

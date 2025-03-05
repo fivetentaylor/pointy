@@ -1,0 +1,35 @@
+extend type Query {
+  me: User
+  user(id: ID!): User
+  users(ids: [ID!]!): [User]
+  usersInMyDomain(includeSelf: Boolean = false): [User!]!
+  myPreference: UserPreference!
+}
+
+extend type Mutation {
+  updateMe(input: UpdateUserInput!): User
+  updateMyPreference(input: UpdateUserPreferenceInput!): UserPreference!
+}
+
+type User {
+  id: ID!
+  name: String!
+  displayName: String!
+  email: String!
+  picture: String
+  isAdmin: Boolean!
+  subscriptionStatus: String!
+}
+
+input UpdateUserInput {
+  name: String!
+  displayName: String!
+}
+
+type UserPreference {
+  enableActivityNotifications: Boolean!
+}
+
+input UpdateUserPreferenceInput {
+  enableActivityNotifications: Boolean
+}

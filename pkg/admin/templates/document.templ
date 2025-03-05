@@ -1,0 +1,514 @@
+package templates
+
+import (
+	"fmt"
+	v3 "github.com/teamreviso/code/rogue/v3"
+	"strconv"
+	"strings"
+)
+
+const inactiveTabStyle = "text-gray-500 hover:text-gray-700 rounded-md px-3 py-2 text-sm font-medium"
+const activeTabStyle = "bg-gray-100 text-gray-700 rounded-md px-3 py-2 text-sm font-medium"
+const activeButtonStyle = "bg-gray-300 text-gray-800 rounded-md px-3 py-2 text-sm font-medium"
+const inactiveButtonStyle = "bg-gray-200 text-gray-400 rounded-md px-3 py-2 text-sm font-medium"
+
+templ DocLayout(id, page string) {
+	@BaseAdmin(fmt.Sprintf("Doc %s - %s", id, page)) {
+		<div class="mx-auto">
+			<div class="mx-auto p-4">
+				@docnav(id, page)
+				{ children... }
+			</div>
+		</div>
+	}
+}
+
+templ NewDocument() {
+	@BaseAdmin("New Doc") {
+		<div class="mx-auto">
+			<div class="mx-auto p-4">
+				<h2 class="text-lg font-bold border-b mb-4">New Document</h2>
+				<h3 class="text-lg font-bold border-b mb-4">Doc</h3>
+				<div>Paste a snapshot here</div>
+				<form method="POST" action="/admin/documents">
+					<textarea name="doc" class="w-full h-96 text-black"></textarea>
+					<button type="submit" class={ activeButtonStyle }>Create</button>
+				</form>
+			</div>
+		</div>
+	}
+}
+
+templ docnav(docID string, current string) {
+	<nav class="flex space-x-4 mb-4" aria-label="Tabs">
+		<div class="flex px-2 py-1">
+			<a class={ tabStyle(current, "home") } href={ templ.SafeURL("/admin") }>Home</a>
+		</div>
+		<div class="flex space-x-4 border rounded-md p-1">
+			<a class={ tabStyle(current, "root") } href={ templ.SafeURL(fmt.Sprintf("/admin/documents/%s", docID)) }>Doc</a>
+			<a
+				class={ tabStyle(current, "edit") }
+				href={ templ.SafeURL(fmt.Sprintf("/admin/documents/%s/edit", docID)) }
+			>Edit</a>
+			<a
+				class={ tabStyle(current, "tree") }
+				href={ templ.SafeURL(fmt.Sprintf("/admin/documents/%s/tree", docID)) }
+			>Tree</a>
+			<a class={ tabStyle(current, "table") } href={ templ.SafeURL(fmt.Sprintf("/admin/documents/%s/table", docID)) }>
+				Table
+			</a>
+			<a class={ tabStyle(current, "log") } href={ templ.SafeURL(fmt.Sprintf("/admin/documents/%s/log", docID)) }>Log</a>
+			<a
+				class={ tabStyle(current, "storage") }
+				href={ templ.SafeURL(fmt.Sprintf("/admin/documents/%s/storage", docID)) }
+			>Storage</a>
+			<a class={ tabStyle(current, "ai") } href={ templ.SafeURL(fmt.Sprintf("/admin/documents/%s/ai", docID)) }>AI</a>
+			<a
+				class={ tabStyle(current, "dags") }
+				href={ templ.SafeURL(fmt.Sprintf("/admin/documents/%s/dags", docID)) }
+			>Dags</a>
+			<a
+				class={ tabStyle(current, "messaging") }
+				href={ templ.SafeURL(fmt.Sprintf("/admin/documents/%s/messaging/threads", docID)) }
+			>Messaging</a>
+		</div>
+	</nav>
+}
+
+templ Document(id string, doc *v3.Rogue, formatOps []v3.FormatOp, startID, endID v3.ID, addressIDs []string) {
+	@DocLayout(id, "root") {
+		<div class="content-addressIDs">
+			@ContentAddresses(id, addressIDs)
+		</div>
+		<div class="bg-white text-black p-4 mb-4">
+			<h2 class="text-lg font-bold border-b mb-4">Selection</h2>
+			<div class="flex items-center gap-2">
+				<form id="combinedForm" hx-get="?" hx-target="#doc-layout" hx-push-url="true">
+					<label class="font-bold" for="startID">Start: </label>
+					<input class="border-b" type="text" name="startID" id="startID" value={ startID.String() }/>
+					<label class="font-bold" for="endID">End: </label>
+					<input class="border-b" type="text" name="endID" id="endID" value={ endID.String() }/>
+					<button type="submit" class={ activeButtonStyle }>Update</button>
+					<button
+						hx-post={ fmt.Sprintf("/admin/documents/%s/address", id) }
+						hx-swap="none"
+						hx-push-url="false"
+						class={ "create-content-address" , activeButtonStyle }
+					>
+						Create Content Address
+					</button>
+					<input
+						type="hidden"
+						hx-target=".content-addressIDs"
+						hx-swap="innerHTML"
+						hx-trigger="click from:.create-content-address"
+						hx-push-url="false"
+						hx-sync=".create-content-address:queue"
+						hx-get={ fmt.Sprintf("/admin/documents/%s/address", id) }
+					/>
+				</form>
+			</div>
+		</div>
+		<div class="grid grid-cols-2 gap-4" id="doc-layout">
+			@DocumentDebugger(id, doc, formatOps, startID, endID)
+		</div>
+	}
+	@hoverComponent()
+	<script>
+  // Need to declare these outside of htmx reload otherwise
+  // there is a redeclaration error
+  let checkbox = document.getElementById('vis-tot-toggle');
+  let visRunes = document.querySelector('.vis-runes');
+  let totRunes = document.querySelector('.tot-runes');
+</script>
+}
+
+templ DocumentDebugger(id string, doc *v3.Rogue, formatOps []v3.FormatOp, startID, endID v3.ID) {
+	<div class="bg-white text-black p-4">
+		<div class="flex items-center mb-4 border-b pb-2 gap-4">
+			<h2 class="text-lg font-bold">Text</h2>
+			<div class="flex items-center space-x-2">
+				<input type="checkbox" id="vis-tot-toggle" class="toggle-checkbox hidden"/>
+				<label for="vis-tot-toggle" class={ "toggle-label" , activeButtonStyle }></label>
+			</div>
+		</div>
+		<div class="font-mono max-h-[700px] overflow-y-auto">
+			@hoverText(doc.GetAllNodes())
+		</div>
+	</div>
+	<div class="bg-white text-black p-4">
+		<h2 class="text-lg font-bold border-b mb-4">Formats</h2>
+		<div class="max-h-[700px] overflow-y-auto">
+			<table class="w-full text-sm text-left rtl:text-right">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Start</th>
+						<th>End</th>
+						<th>Formats</th>
+					</tr>
+				</thead>
+				<tbody>
+					@formats(formatOps)
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="bg-white text-black p-4 ql-editor">
+		<h2 class="text-lg font-bold border-b mb-4">HTML</h2>
+		<div class="html-content">
+			@templ.Raw(doc.DisplayHtml(startID, endID, true, false))
+		</div>
+	</div>
+	<div class="bg-white text-black p-4 ql-editor">
+		<h2 class="text-lg font-bold border-b mb-4">Markdown</h2>
+		<pre class="whitespace-pre-wrap text-wrap">
+			<code class="word-wrap">
+				@templ.Raw(doc.DisplayMarkdown(startID, endID))
+			</code>
+		</pre>
+	</div>
+	@htmlContentStyle()
+}
+
+templ htmlContentStyle() {
+	<style>
+  .html-content h1 {
+    font-size: 1.5rem;
+    /* Equivalent to Tailwind's text-2xl */
+    font-weight: bold;
+    /* Equivalent to Tailwind's font-bold */
+    color: #1a202c;
+    /* Equivalent to Tailwind's text-gray-900 */
+    margin-bottom: 1rem;
+    /* Space after paragraphs */
+  }
+
+  .html-content h2 {
+    font-size: 1.25rem;
+    /* Equivalent to Tailwind's text-xl */
+    font-weight: 600;
+    /* Equivalent to Tailwind's font-semibold */
+    color: #2d3748;
+    /* Equivalent to Tailwind's text-gray-800 */
+    margin-bottom: 1rem;
+    /* Space after paragraphs */
+  }
+
+  .html-content h3 {
+    font-size: 1.125rem;
+    /* Equivalent to Tailwind's text-lg */
+    font-weight: 500;
+    /* Equivalent to Tailwind's font-medium */
+    color: #4a5568;
+    /* Equivalent to Tailwind's text-gray-700 */
+    margin-bottom: 1rem;
+    /* Space after paragraphs */
+  }
+
+  .html-content ul,
+  .html-content ol {
+    /* Styles for unordered and ordered lists */
+    list-style-position: inside;
+    padding-left: 20px;
+    /* Equivalent to Tailwind's pl-5 */
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .html-content li {
+    margin-bottom: 0.5rem;
+    /* Equivalent to Tailwind's mb-2 */
+  }
+
+  .html-content ol {
+    list-style-type: decimal;
+    /* Use numbers for ordered lists */
+  }
+
+  .html-content ul {
+    list-style-type: disc;
+    /* Use bullets for unordered lists */
+  }
+
+  .html-content p {
+    margin-bottom: 1rem;
+    /* Space after paragraphs */
+  }
+
+  .html-content pre {
+    background-color: #f5f5f5;
+    /* Light grey background */
+    padding: 1rem;
+    /* Padding around preformatted text */
+    overflow-x: auto;
+    /* Enable horizontal scrolling for long lines */
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-radius: 0.375rem;
+    /* Slight rounding of corners */
+  }
+
+  .html-content blockquote {
+    border-left: 4px solid #9fa6b2;
+    /* Light grey border on the left */
+    color: #6b7280;
+    /* Slightly lighter text color */
+    padding-left: 1rem;
+    /* Padding to the left of the blockquote text */
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  li[ql-indent="1"] {
+    margin-left: 20px;
+  }
+
+  li[ql-indent="2"] {
+    margin-left: 40px;
+  }
+
+  li[ql-indent="3"] {
+    margin-left: 60px;
+  }
+</style>
+}
+
+templ formats(formatOps []v3.FormatOp) {
+	for _, f := range formatOps {
+		<tr>
+			<td>
+				{ f.ID.String() }
+			</td>
+			<td>
+				@rogueId(f.StartID.String(), false) {
+					{ f.StartID.String() }
+				}
+			</td>
+			<td>
+				@rogueId(f.EndID.String(), false) {
+					{ f.EndID.String() }
+				}
+			</td>
+			<td>
+				@mapToTable(f.Format.AsMap())
+			</td>
+		</tr>
+	}
+}
+
+templ rogueId(id string, isDel bool) {
+	<rogue-id data-rogue-id={ id } data-is-del={ fmt.Sprintf("%v", isDel) }>
+		{ children... }
+	</rogue-id>
+}
+
+templ ContentAddresses(docID string, addressIDs []string) {
+	<div class="bg-white text-black p-4">
+		<h2 class="text-lg font-bold border-b mb-4">Content Addresses</h2>
+		<div class="flex flex-wrap gap-2">
+			for _, id := range addressIDs {
+				<a href={ templ.SafeURL(fmt.Sprintf("/admin/documents/%s/address/%s/diff", docID, id)) } class="flex-none">
+					{ id }
+				</a>
+			}
+		</div>
+	</div>
+}
+
+templ mapToTable(m map[string]interface{}) {
+	<table>
+		for k, v := range m {
+			<tr>
+				<th class="text-right pr-2">
+					{ k }
+				</th>
+				<td>
+					{ fmt.Sprintf("%q", v) }
+				</td>
+			</tr>
+		}
+	</table>
+}
+
+func tabStyle(current, tab string) string {
+	if current == tab {
+		return activeTabStyle
+	}
+	return inactiveTabStyle
+}
+
+func tombstones2Emoji(text []uint16, isDeleted []bool) []string {
+	var s = make([]string, len(text))
+	for i, isDel := range isDeleted {
+		if isDel == false {
+			s[i] = ""
+			continue
+		}
+		s[i] = "x"
+	}
+	return s
+}
+
+templ hoverText(nodes []v3.FugueNode) {
+	<div class={ "font-mono" , "vis-tot-view" }>
+		<char-wrapper class="vis-runes">
+			for _, n := range nodes {
+				<span data-id={ n.ID.String() }>
+					for _, r := range n.VisRunes() {
+						@rogueId(r.ID.String(), r.IsDel) {
+							{ strings.Trim(strconv.Quote(string(rune(r.Rune))), `"`) }
+						}
+					}
+				</span>
+			}
+		</char-wrapper>
+		<char-wrapper class="tot-runes">
+			for _, n := range nodes {
+				<span data-id={ n.ID.String() }>
+					for _, r := range n.Runes() {
+						if r.IsDel {
+							@rogueId(r.ID.String(), r.IsDel) {
+								<s>{ strings.Trim(strconv.Quote(string(rune(r.Rune))), `"`) }</s>
+							}
+						} else {
+							@rogueId(r.ID.String(), r.IsDel) {
+								{ strings.Trim(strconv.Quote(string(rune(r.Rune))), `"`) }
+							}
+						}
+					}
+				</span>
+			}
+		</char-wrapper>
+	</div>
+	<style>
+  .toggle-checkbox {
+    display: none;
+  }
+
+  .toggle-label:hover {
+    cursor: pointer;
+  }
+
+  .toggle-checkbox:not(:checked)+.toggle-label::after {
+    content: 'Show Deleted';
+  }
+
+  .toggle-checkbox:checked+.toggle-label::after {
+    content: 'Hide Deleted';
+  }
+
+  .tot-runes {
+    display: none;
+  }
+</style>
+	<script>
+  checkbox = document.getElementById('vis-tot-toggle');
+  visRunes = document.querySelector('.vis-runes');
+  totRunes = document.querySelector('.tot-runes');
+
+  checkbox.addEventListener('change', function () {
+    if (this.checked) {
+      visRunes.style.display = 'none';
+      totRunes.style.display = 'block';
+    } else {
+      visRunes.style.display = 'block';
+      totRunes.style.display = 'none';
+    }
+  });
+</script>
+}
+
+func indexID(id v3.ID, idx int) v3.ID {
+	return v3.ID{
+		Author: id.Author,
+		Seq:    id.Seq + idx,
+	}
+}
+
+templ hoverComponent() {
+	<style>
+  .char-span {
+    position: relative;
+    cursor: default;
+  }
+
+  .char-span:hover {
+    background-color: lightgray;
+  }
+
+  .span-0 {
+    background-color: lightblue;
+  }
+
+  .span-1 {
+    background-color: lightgray;
+  }
+
+  .span-2 {
+    background-color: lightgreen;
+  }
+
+  .span-3 {
+    background-color: lightpink;
+  }
+
+  .span-4 {
+    background-color: lightcoral;
+  }
+
+  .span-5 {
+    background-color: lightsalmon;
+  }
+
+  .span-6 {
+    background-color: lightseagreen;
+  }
+
+  .span-7 {
+    background-color: lightskyblue;
+  }
+
+  .span-8 {
+    background-color: lightsteelblue;
+  }
+
+  .span-9 {
+    background-color: lightyellow;
+  }
+
+  .span-10 {
+    background-color: lightgoldenrodyellow;
+  }
+</style>
+	<template id="char-wrapper-template">
+		<slot></slot>
+	</template>
+	<script>
+  class CharWrapper extends HTMLElement {
+    constructor() {
+      super();
+      this.attachShadow({mode: 'open'});
+      const template = document.getElementById('char-wrapper-template').content.cloneNode(true);
+      this.shadowRoot.appendChild(template);
+    }
+
+    connectedCallback() {
+      const slots = this.shadowRoot.querySelector('slot');
+      slots.addEventListener('slotchange', e => {
+        const nodes = slots.assignedElements();
+        nodes.forEach((node, i) => {
+          if (node.tagName === 'SPAN') {
+            node.classList.add('char-span');
+            node.classList.add('span-' + (i % 10));
+          }
+        });
+      });
+    }
+  }
+
+  customElements.define('char-wrapper', CharWrapper);
+</script>
+}

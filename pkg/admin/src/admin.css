@@ -1,0 +1,270 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+
+    --accent: 240 5% 96%;
+    --accent-foreground: 240 6% 10%;
+    --background: 0 0% 100%;
+    --modal-background: 0, 0%, 100%, 0.5;
+    --border: 240 6% 90%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 4%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 98%;
+    --elevated: 240 5% 96%;
+    --foreground: 240 6% 10%;
+    --input: 240 6% 90%;
+    --modal-background: 0, 0%, 0%, 0.8;
+    --muted: 240 5% 96%;
+    --muted-foreground: 240 4% 46%;
+    --muted-icon: 240 5% 84%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 4%;
+    --primary: 263.4 70% 50%;
+    --primary-foreground: 0 0% 98%;
+    --reviso: 258.3 90% 66%;
+    --reviso-highlight: 255, 92%, 76%, 0.25;
+    --ring: 255.1 92% 76%;
+    --secondary: 0 0% 98%;
+    --secondary-foreground: 240 6% 10%;
+    --font-serif: "Spectral", sans-serif;
+    --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  }
+
+  .dark {
+    --accent: 240 4% 16%;
+    --accent-foreground: 0 0% 98%;
+    --background: 240 10% 4%;
+    --modal-background: 240, 10%, 4%, 0.5;
+    --border: 240 5% 34%;
+    --card: 240 6% 10%;
+    --card-foreground: 0 0% 98%;
+    --destructive: 0 91% 71%;
+    --destructive-foreground: 0 75% 16%;
+    --elevated: 240 6% 10%;
+    --foreground: 0 0% 98%;
+    --input: 240 5% 34%;
+    --modal-background: 0, 0%, 0%, 0.8;
+    --muted: 240 6% 10%;
+    --muted-foreground: 240 5% 34%;
+    --muted-icon: 240 5% 26%;
+    --popover: 240 6% 10%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 258.3 90% 66%;
+    --primary-foreground: 240 6% 90% --reviso: 258.3 90% 66%;
+    --reviso-highlight: 262, 83%, 58%, 0.25;
+    --ring: 262.1 83% 58%;
+    --secondary: 240 4% 16%;
+    --secondary-foreground: 0 0% 98%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+  }
+}
+
+rogue-editor {
+  font-family: var(--font-serif);
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+rogue-editor h1 {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 2.125rem;
+  line-height: 3rem;
+  margin: 1rem 0;
+}
+
+rogue-editor h2 {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 1.875rem;
+  line-height: 2.625rem;
+  margin: 1rem 0 0.5rem;
+}
+
+rogue-editor h3 {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 2.375rem;
+  margin: 1rem 0 0.5rem;
+}
+
+rogue-editor a {
+  color: #0ea5e9;
+}
+
+rogue-editor p {
+  font-size: 1.125rem;
+  line-height: 1.875rem;
+}
+
+rogue-editor p:empty {
+  min-height: 1.5em;
+  display: block;
+  width: 100%;
+}
+
+rogue-editor h1:empty,
+rogue-editor h2:empty,
+rogue-editor h3:empty,
+rogue-editor h4:empty,
+rogue-editor h5:empty,
+rogue-editor h6:empty {
+  min-height: 1.5em;
+  display: block;
+  width: 100%;
+}
+
+rogue-editor strong {
+  font-weight: bold;
+}
+
+rogue-highlight-block {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+rogue-caret {
+  position: absolute;
+  pointer-events: none;
+}
+
+rogue-editor ol,
+rogue-editor ul {
+  font-size: 1.125rem;
+  line-height: 1.875rem;
+  margin: 0 0 1rem;
+  padding-left: 0;
+}
+
+rogue-editor ol + rogue-editor ul {
+  margin-top: -1rem;
+}
+
+rogue-editor ol > li,
+rogue-editor ul > li {
+  list-style-type: none;
+}
+
+rogue-editor ul > li::before {
+  content: "\2022";
+}
+
+rogue-editor ul[data-checked="true"],
+rogue-editor ul[data-checked="false"] {
+  pointer-events: none;
+}
+
+rogue-editor ul[data-checked="true"] > li *,
+rogue-editor ul[data-checked="false"] > li * {
+  pointer-events: all;
+}
+
+rogue-editor ul[data-checked="true"] > li::before,
+rogue-editor ul[data-checked="false"] > li::before {
+  cursor: pointer;
+  pointer-events: all;
+}
+
+rogue-editor ul[data-checked] {
+  margin: 0;
+}
+
+rogue-editor ul[data-checked] li {
+  list-style-type: none;
+  position: relative;
+}
+
+rogue-editor ul[data-checked] li:before {
+  content: "☑️";
+  padding-right: 0.5em;
+}
+
+rogue-editor ul[data-checked="true"] li:before {
+  content: "✅";
+}
+
+rogue-editor ul[data-checked="false"] li:before {
+  content: "☑️";
+}
+
+rogue-editor li::before {
+  display: inline-block;
+  white-space: nowrap;
+  width: 1.2em;
+}
+
+rogue-editor li:not(.ql-direction-rtl)::before {
+  margin-left: -1.5em;
+  margin-right: 0.3em;
+  text-align: right;
+}
+
+rogue-editor li.ql-direction-rtl::before {
+  margin-left: 0.3em;
+  margin-right: -1.5em;
+}
+
+rogue-editor ol li:not(.ql-direction-rtl),
+rogue-editor ul li:not(.ql-direction-rtl) {
+  padding-left: 1.5em;
+}
+
+rogue-editor ol li.ql-direction-rtl,
+rogue-editor ul li.ql-direction-rtl {
+  padding-right: 1.5em;
+}
+
+/* Counter resets and increments for ordered lists */
+rogue-editor ol li {
+  counter-reset: list-1 list-2 list-3 list-4 list-5 list-6 list-7 list-8 list-9;
+  counter-increment: list-0;
+}
+
+rogue-editor ol li:before {
+  content: counter(list-0, decimal) ". ";
+}
+
+rogue-editor ol li.ql-indent-1 {
+  counter-increment: list-1;
+  counter-reset: list-2 list-3 list-4 list-5 list-6 list-7 list-8 list-9;
+}
+
+rogue-editor ol li.ql-indent-1:before {
+  content: counter(list-1, lower-alpha) ". ";
+}
+
+rogue-editor ol li.ql-indent-2 {
+  counter-increment: list-2;
+  counter-reset: list-3 list-4 list-5 list-6 list-7 list-8 list-9;
+}
+
+rogue-editor ol li.ql-indent-2:before {
+  content: counter(list-2, lower-roman) ". ";
+}
+
+rogue-editor ol li.ql-indent-3 {
+  counter-increment: list-3;
+  counter-reset: list-4 list-5 list-6 list-7 list-8 list-9;
+}
+
+rogue-editor ol li.ql-indent-3:before {
+  content: counter(list-3, decimal) ". ";
+}

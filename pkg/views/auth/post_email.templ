@@ -1,0 +1,18 @@
+package auth
+
+templ EmailSent(email string) {
+	<div class="flex flex-col items-center mt-[9rem]">
+		<div class="flex justify-center items-center">
+			<img alt="open envelope" loading="lazy" width="120" height="140" decoding="async" data-nimg="1" class="block dark:hidden" src="/static/inboxLight.svg" style="color: transparent;"/>
+			<img alt="open envelope" loading="lazy" width="120" height="140" decoding="async" data-nimg="1" class="hidden dark:block" src="/static/inboxDark.svg" style="color: transparent;"/>
+		</div>
+		<div class="flex flex-col justify-center items-center mt-10 ">
+			<h1 class="text-3xl font-bold">Check your email</h1>
+			<p class="text-center text-lg text-foreground mt-5">
+				<div>We emailed your magic link to <span class="text-violet-500">{ email }</span>.</div>
+				<div>Click the link to log in or sign up.</div>
+				<div class="mt-5">Link expires in 15 minutes, so be use to use it soon.</div>
+			</p>
+		</div>
+	</div>
+}

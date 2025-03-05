@@ -1,0 +1,19 @@
+package templates
+
+import v3 "github.com/teamreviso/code/rogue/v3"
+
+templ Editor(id string, doc *v3.Rogue) {
+	@DocLayout(id, "edit") {
+		<div class="bg-white text-black w-full h-full">
+			<div class="mx-auto p-4 rogue-editor" style="max-width: 65ch;">
+				<rogue-editor id={ id } docid={ id }>
+					<div class="content p-4 ring-0 focus:outline-none">
+						@templ.Raw(doc.DisplayHtml(v3.RootID, v3.LastID, true, false))
+					</div>
+				</rogue-editor>
+				<div id="react-root"></div>
+			</div>
+			<script src="/admin/src/react-app/index.js"></script>
+		</div>
+	}
+}

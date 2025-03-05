@@ -1,0 +1,75 @@
+syntax = "proto3";
+package models;
+option go_package = "github.com/teamreviso/code/pkg/models";
+
+message TimelineEventPayload {
+  oneof payload {
+    TimelineDocumentUpdateV1 update = 2;
+    TimelineMessageV1 message = 3;
+    TimelineMarkerV1 marker = 4;
+    TimelineJoinV1 join = 5;
+    TimelineAttributeChangedV1 attribute_change = 6;
+    TimelineAccessChangeV1 access_change = 7;
+    TimelineMessageResolutionV1 resolution = 8;
+    TimelinePaste paste = 9;
+  }
+}
+
+message TimelineDocumentUpdateV1 {
+  string title = 1;
+  string content = 2;
+  string startingContentAddress = 3;
+  string endingContentAddress = 4;
+  UpdateState state = 5;
+  string flagged_version_id = 6;
+}
+
+enum UpdateState {
+  UNKNOWN_STATE = 0;
+  SUMMARIZING_STATE = 1;
+  COMPLETE_STATE = 2;
+}
+
+message TimelineMessageV1 {
+  string content = 1;
+  string selection_start_id = 2;
+  string selection_end_id = 3;
+  repeated string mentioned_user_ids = 4;
+  string selection_markdown = 5;
+  string content_address = 6;
+}
+
+message TimelineMessageResolutionV1 {
+  bool resolved = 1;
+  string resolution_summary = 2;
+}
+
+message TimelineMarkerV1 {
+  string title = 1;
+}
+
+message TimelineJoinV1 {
+  string action = 1;
+}
+
+message TimelineAttributeChangedV1 {
+  string attribute = 1;
+  string old_value = 2;
+  string new_value = 3;
+}
+
+enum TimelineAccessChangeAction {
+  UNKNOWN_ACTION = 0;
+  INVITE_ACTION = 1;
+  REMOVE_ACTION = 2; 
+}
+
+message TimelineAccessChangeV1 {
+  TimelineAccessChangeAction action = 1;
+  repeated string user_identifiers = 2;
+}
+
+message TimelinePaste {
+  string content_address_before = 1;
+  string content_address_after = 2;
+}

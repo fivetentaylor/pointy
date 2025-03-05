@@ -1,0 +1,17 @@
+- document_id: a2b3c4d5-e6f7-48a9-b0c1-3456789012ab
+  user_id: 723b4668-852a-42c2-9b49-dd242b26361c
+  access_level: owner
+
+- document_id: a2b3c4d5-e6f7-48a9-b0c1-3456789012ab
+  user_id: b2c3d4e5-f6a7-48f9-a0b2-234567890def
+  access_level: comment
+
+- document_id: b3c4d5e6-f7a8-59b0-a1b2-456789012def
+  user_id: 723b4668-852a-42c2-9b49-dd242b26361c
+  access_level: write
+
+- document_id: a2b3c4d5-e6f7-48a9-b0c1-3456789012ab
+  user_id: c1a2b3c4-d5e6-47f8-9f01-123456789abc
+  access_level: write
+
+

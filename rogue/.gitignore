@@ -1,0 +1,27 @@
+# Node modules
+node_modules/
+
+# TypeScript compiler output
+lib/
+dist/
+out/
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment configs
+.env
+.env.local
+
+# IDE - Visual Studio Code
+.vscode/
+
+# IDE - JetBrains IDEs (WebStorm, IntelliJ, etc.)
+.idea/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+

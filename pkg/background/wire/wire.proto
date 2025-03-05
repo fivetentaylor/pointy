@@ -1,0 +1,116 @@
+syntax = "proto3";
+package wire;
+
+option go_package = "github.com/teamreviso/code/pkg/background/wire";
+
+message Ping {
+}
+
+message AccessDoc {
+	string user_id = 1;
+	string doc_id = 2;
+	string timestamp_str = 3;
+}
+
+message NotifyChannel {
+	string creator_id = 1;
+	string doc_id = 2;
+	string channel_id = 3;
+	string container_id = 4;
+	string message_id = 5;
+}
+
+message RespondToMessage {
+	string doc_id = 1;
+	string thread_id = 2;
+	string message_id = 3;
+	string response_id = 4;
+}
+
+message RespondToThread {
+	string doc_id = 1;
+	string thread_id = 2;
+	string user_id = 3;
+	string author_id = 4;
+	string input_message_id = 5;
+	string output_message_id = 6;
+}
+
+enum ProactiveAiMessageType {
+	PROACTIVE_AI_MESSAGE_TYPE_NEW_DOCUMENT = 0;
+	PROACTIVE_AI_MESSAGE_TYPE_PASTE_RESPONSE = 1;
+}
+
+message ProactiveAiMessage {
+	ProactiveAiMessageType type = 1;
+	string doc_id = 2;
+	string container_id = 3;
+	string message_id = 4;
+	string thread_id = 5;
+}
+
+message ScreenshotAll {	
+}
+
+message Screenshot {
+	string doc_id = 1;
+}
+
+message SendEmail {
+	string from = 1;
+	string to = 2;
+	string subject = 3;
+	string txtbody = 4;
+	string htmlbody = 5;
+}
+
+message SendFirstOpen {
+	string to_user_id = 1;
+	string reader_id = 2;
+	string doc_id = 3;	
+}
+
+message SnapshotRogue {
+	string doc_id = 1;
+}
+
+message SnapshotAll {
+  string version = 1;
+}
+
+message RunDag {
+	string dag = 1;
+	map<string, string> state = 2;
+}
+
+message SummarizeSession {
+	string doc_id = 1;
+	string session_id = 2;
+	string user_id = 3;
+	reserved 4;         // DEPRECATED
+	reserved "address"; // DEPRECATED
+	int64 last_message_time = 5;
+}
+
+message SummarizeCommentThread {
+	string doc_id = 1;
+	string event_id = 2;
+	string thread_event_id = 3;
+}
+
+message NotifyNewTimelineComment {
+	string doc_id = 1;
+	string event_id = 2;	
+	repeated string exclude_user_ids = 3;
+}
+
+message NotifyNewMentionShare {
+	string doc_id = 1;
+	string event_id = 2;	
+	string recipient_id = 3;
+}
+
+message NotifyFirstOpen {
+	string doc_id = 1;	
+	string reader_id = 2;
+}

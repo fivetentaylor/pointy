@@ -1,0 +1,87 @@
+package templates
+
+import ()
+
+templ WaitlistStyles() {
+	<style>
+    .magic-link-container {
+      text-align: center;
+      font-size: 18px;
+      font-family: Roboto, sans-serif;
+      font-weight: 400;
+      line-height: 28px;
+    }
+    .magic-link-title {
+      color: #09090B;
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 0em;
+      text-align: center;
+    }
+    .magic-link-text {
+      text-align: center;
+      color: #09090B;
+      word-wrap: break-word;
+    }
+    .magic-link-text-muted {
+      text-align: center;
+      color: #A1A1AA;
+      font-size: 16px;
+      word-wrap: break-word;
+    }
+    .magic-link-button {
+      align-items: center;
+      background: #6D28D9;
+      border-radius: 6px;
+      box-shadow: 0px 1px 3px rgba(16, 24, 40, 0.10);
+      display: inline-flex;
+      font-size: 16px;
+      font-weight: 500;
+      gap: 8px;
+      justify-content: center;
+      letter-spacing: 0em;
+      line-height: 24px;
+      margin: auto;
+      padding: 0px 82px;
+      overflow: hidden;
+      text-align: left;
+      text-decoration: none;
+    }
+    .magic-link-button-text {
+      padding-left: 16px;
+      padding-right: 16px;
+      padding-top: 8px;
+      padding-bottom: 8px;
+      color: #F4F4F5;
+      font-size: 16px;
+      font-family: Roboto, sans-serif;
+      font-weight: 500;
+      line-height: 24px;
+      word-wrap: break-word;
+    }
+  </style>
+}
+
+templ WaitlistHTML(preheader, email string) {
+	@BaseEmail(preheader, WaitlistStyles()) {
+		<div class="magic-link-container">
+			<img class="logo" src={ appHostUrl(ctx, "/static/logo-w-white-bg.png") } alt="Reviso" style="width: 124px;"/>
+			<div class="magic-link-title" style="margin-top: 32px;">You're on the waitlist!</div>
+			<div class="magic-link-text" style="margin-top: 15px;">
+				We're thrilled to have you on the waitlist for writing with Reviso! You will receive another email when we’re ready to have you try Reviso.
+			</div>
+			<div class="magic-link-text" style="margin-top: 32px;">
+				Thank you for registering.
+			</div>
+			<div class="magic-link-text-muted" style="margin-top: 23px;">
+				This email was sent because you signed up for early access to revi.so.If you didn’t request this email, you can safely ignore it.
+			</div>
+		</div>
+	}
+}
+
+templ WaitlistText(email string) {
+	We're thrilled to have you on the waitlist for writing with Reviso! You will receive another email when we’re ready to haveyou try Reviso.
+	Thank you for registering.
+	This email was sent because you signed up for early access to revi.so. If you didn’t request this email, you can safely ignore it.
+}

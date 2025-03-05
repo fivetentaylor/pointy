@@ -1,0 +1,238 @@
+extend type Query {
+  getAskAiThreads(documentId: ID!): [Thread!]!
+  getAskAiThreadMessages(documentId: ID!, threadId: ID!): [Message!]!
+}
+
+extend type Mutation {
+  createAskAiThread(documentId: ID!): Thread!
+  createAskAiThreadMessage(
+    documentId: ID!
+    threadId: ID!
+    input: MessageInput!
+  ): Message!
+  updateMessageRevisionStatus(
+    containerId: ID!
+    messageId: ID!
+    status: MessageRevisionStatus!
+    contentAddress: String!
+  ): Message!
+}
+
+extend type Subscription {
+  messageUpserted(documentId: ID!, channelId: ID!): Message!
+  threadUpserted(documentId: ID!): Thread!
+}
+
+type Thread {
+  id: ID!
+  documentId: ID!
+  userId: ID!
+  title: String!
+  updatedAt: Time!
+  messages: [Message!]!
+
+  user: User!
+}
+
+enum ChanType {
+  UNKNOWN
+  REVISO
+  DIRECT
+  GENERAL
+}
+
+enum LifecycleStage {
+  UNKNOWN
+  PENDING
+  REVISING
+  REVISED
+  COMPLETED
+}
+
+enum MessageRevisionStatus {
+  UNSPECIFIED
+  ACCEPTED
+  DECLINED
+}
+
+type MsgMetadata {
+  allowDraftEdits: Boolean!
+  contentAddress: String!
+  llm: MsgLLM!
+  revisionStatus: MessageRevisionStatus!
+  contentAddressBefore: String!
+  contentAddressAfter: String!
+  contentAddressAfterTimestamp: Time
+}
+
+type Message {
+  id: ID!
+  containerId: ID!
+  channelId: ID!
+  chain: String!
+  createdAt: Time!
+  userId: ID!
+  authorId: ID!
+  content: String!
+  aiContent: AiContent
+  lifecycleStage: LifecycleStage!
+  lifecycleReason: String!
+  attachments: [AttachmentValue!]!
+  replyCount: Int!
+  parentContainerId: ID
+  forkedMessageIds: [ID!]!
+  replyingUserIds: [ID!]!
+  metadata: MsgMetadata!
+  hidden: Boolean!
+
+  parentMessageId: ID
+  user: User!
+  replies: [Message!]!
+  replyingUsers: [User!]!
+}
+
+type Chain {
+  id: ID!
+  messages: [Message!]!
+}
+
+type AiContent {
+  notes: String
+  concludingMessage: String
+  feedback: String
+}
+
+
+union AttachmentValue =
+    Selection
+  | Revision
+  | Suggestion
+  | AttachmentContent
+  | AttachmentError
+  | AttachmentFile
+  | AttachedRevisoDocument
+
+enum AttachmentProgressType {
+  UNKNOWN
+  THINKING
+  DONE
+}
+
+type AttachmentContent {
+  text: String!
+  role: String!
+}
+
+type AttachedRevisoDocument {
+  id: String!
+  title: String!
+}
+
+type AttachmentFile {
+  id: String!
+  filename: String!
+  contentType: String!
+}
+
+type AttachmentError {
+  title: String!
+  text: String!
+  error: String!
+}
+
+type Selection {
+  id: ID!
+  start: String!
+  end: String!
+  content: String!
+}
+
+type Revision {
+  start: String!
+  end: String!
+  updated: String!
+  marshalledOperations: String!
+  followUps: String
+  explanation: String
+  beforeAddress: String
+  afterAddress: String
+  appliedOps: String
+}
+
+type Suggestion {
+  content: String!
+}
+
+enum MsgLLM {
+  CLAUDE
+  GPT4O
+}
+
+input MessageInput {
+  replyTo: ID
+  authorId: ID!
+  content: String!
+  allowDraftEdits: Boolean!
+  llm: MsgLLM
+  contentAddress: String!
+
+  selection: SelectionInput
+  attachments: [AttachmentInput!]
+}
+
+input SelectionInput {
+  start: String!
+  end: String!
+  content: String!
+}
+
+input AttachmentInput {
+  id: ID!
+  type: AttachmentInputType!
+  name: String!
+  contentType: String
+}
+
+enum AttachmentInputType {
+  UNKNOWN
+  FILE
+  DRAFT
+}
+
+input MessageUpdateInput {
+  id: ID!
+  content: String!
+}
+
+type NotificationConnection {
+  edges: [Notification!]!
+}
+
+type Notification {
+  id: ID!
+  documentId: ID!
+  read: Boolean!
+  createdAt: Time!
+  payload: NotificationPayloadValue!
+}
+
+union NotificationPayloadValue = CommentNotificationPayloadValue
+
+enum CommentNotificationType {
+  UNKNOWN
+  COMMENT
+  REPLY
+  MENTION
+}
+
+type CommentNotificationPayloadValue {
+  commentType: CommentNotificationType!
+  documentId: ID!
+  channelId: ID!
+  containerId: ID!
+  messageId: ID!
+  authorId: ID!
+
+  author: User!
+  message: Message!
+}

@@ -1,0 +1,81 @@
+package templates
+
+import "strconv"
+import "github.com/teamreviso/code/rogue/v3"
+
+templ Tree(id string, root *v3.FugueNode) {
+	@DocLayout(id, "tree") {
+		<div class="bg-white text-black p-4 tf-tree">
+			<ul>
+				<li>
+					@node(root, "Root")
+				</li>
+			</ul>
+		</div>
+	}
+}
+
+templ nodes(nodes []*v3.FugueNode, side string) {
+	for _, n := range nodes {
+		<li>
+			@node(n, side)
+		</li>
+	}
+}
+
+templ node(node *v3.FugueNode, side string) {
+	<span class="tf-nc">
+		<span class="text-gray-400">
+			{ side }
+			if node.Parent != nil {
+				<span class="text-black">of { node.Parent.ID.String() }</span>
+			}
+		</span>
+		<br/>
+		<span class="text-blue-800">{ node.ID.Author }_{ strconv.Itoa(node.ID.Seq) }</span>
+		<pre>
+			<code>
+				@textWithTombstones(node.ID.Author, node.ID.Seq, node.Text, node.IsDeleted)
+			</code>
+		</pre>
+	</span>
+	if len(node.LeftChildren) != 0 || len(node.RightChildren) != 0 {
+		<ul>
+			if len(node.LeftChildren) > 0 {
+				@nodes(node.LeftChildren, "Left")
+			}
+			if len(node.RightChildren) > 0 {
+				@nodes(node.RightChildren, "Right")
+			}
+		</ul>
+	}
+}
+
+templ textWithTombstones(author string, seq int, text []uint16, isDeleted []bool) {
+	<div class="bg-white text-black p-4">
+		<table class="table-fixed border-collapse border border-slate-500">
+			<tr>
+				<th class="border border-slate-500">i</th>
+				for i := range text {
+					<td class="border border-slate-500 p-2">{ author }_{ strconv.Itoa(seq+i) }</td>
+				}
+			</tr>
+			<tr>
+				<th class="border border-slate-500">t</th>
+				for _, r := range text {
+					<td class="border border-slate-500 p-2">{ strconv.Quote(string(rune(r))) }</td>
+				}
+			</tr>
+			<tr>
+				<th class="border border-slate-500">🪦</th>
+				for _, r := range tombstones2Emoji(text, isDeleted) {
+					if r == "" {
+						<td class="border border-slate-500">&nbsp;</td>
+					} else {
+						<td class="border border-slate-500 p-2">{ string(r) }</td>
+					}
+				}
+			</tr>
+		</table>
+	</div>
+}

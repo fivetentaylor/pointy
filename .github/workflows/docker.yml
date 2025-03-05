@@ -1,0 +1,39 @@
+name: Docker
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches:
+      - "main"
+      - "staging"
+  workflow_dispatch:
+
+permissions: write-all
+
+jobs:
+  build-and-push:
+    if: github.event_name == 'push' || contains(github.event.pull_request.labels.*.name, 'docker')
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository containing the Dockerfile
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Log in to GitHub Container Registry
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # Build the Docker image
+      - name: Build Docker image
+        run: |
+          docker build -t ghcr.io/${{ github.repository_owner }}/go-dependency-image:latest -f .github/workflows/Dockerfile-go .
+
+      - name: Push Docker image to GHCR
+        run: |
+          docker push ghcr.io/${{ github.repository_owner }}/go-dependency-image:latest

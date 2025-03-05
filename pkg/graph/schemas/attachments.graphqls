@@ -1,0 +1,17 @@
+
+extend type Query {
+  getAttachmentSignedUrl(attachmentId: ID!): SignedImageUrl!
+  listDocumentAttachments(docId: ID!): [DocumentAttachment!]!
+  listUsersAttachments: [DocumentAttachment!]!
+}
+
+extend type Mutation {
+  uploadAttachment(file: Upload!, docId: ID!): DocumentAttachment!
+}
+
+type DocumentAttachment {
+  id: ID!
+  filename: String!
+  contentType: String!
+  createdAt: Time!
+}

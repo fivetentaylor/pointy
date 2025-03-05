@@ -1,0 +1,319 @@
+name: Staging
+
+on:
+  pull_request:
+    branches:
+      - staging
+    types: [opened, synchronize, reopened]
+  push:
+    branches:
+      - staging
+
+permissions:
+  actions: write
+  pull-requests: write
+  deployments: write
+  contents: write
+  checks: read
+
+jobs:
+  check-assets:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: "pkg/assets/src"
+
+    strategy:
+      matrix:
+        node-version: [18.x] # Define the version(s) of Node.js you want to test against
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+          cache-dependency-path: ./frontend/web/package-lock.json
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Prettier
+        run: npm run prettier:check
+
+  build_server:
+    name: "Staging Build Server"
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_REGION: "us-west-2"
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Configure AWS credentials (staging)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::533267310428:role/TerraformRole
+          aws-region: us-west-2
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build, tag, and push Reviso image to Amazon ECR
+        env:
+          NODE_ENV: production
+          WEB_HOST: https://www.reviso.biz
+          APP_HOST: https://app.reviso.biz
+          WS_HOST: wss://app.reviso.biz
+          SEGMENT_KEY: uxdIGs32QrtmzfdF7CipbU4EuTchimHf
+          POSTHOG_SERVER_FEATURE_FLAG_KEY: ${{ secrets.POSTHOG_SERVER_FEATURE_FLAG_KEY }}
+          PUBLIC_POSTHOG_KEY: phc_FOk7Jw5lm9yJ3XNnr1HdPzCmkjYc8t3ECJzzQPxaew3
+          PUBLIC_POSTHOG_HOST: https://us.posthog.com
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: reviso-server
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f cmd/reviso/Dockerfile --build-arg NODE_ENV=$NODE_ENV --build-arg WEB_HOST=$WEB_HOST --build-arg APP_HOST=$APP_HOST --build-arg WS_HOST=$WS_HOST --build-arg SEGMENT_KEY=$SEGMENT_KEY --build-arg PUBLIC_POSTHOG_HOST=$PUBLIC_POSTHOG_HOST --build-arg PUBLIC_POSTHOG_KEY=$PUBLIC_POSTHOG_KEY --build-arg POSTHOG_SERVER_FEATURE_FLAG_KEY=$POSTHOG_SERVER_FEATURE_FLAG_KEY --build-arg IMAGE_TAG=$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+  build_web:
+    name: "Staging Build Web"
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_REGION: "us-west-2"
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Configure AWS credentials (staging)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::533267310428:role/TerraformRole
+          aws-region: us-west-2
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build, tag, and push Web image to Amazon ECR
+        env:
+          NEXT_PUBLIC_GOOGLE_CLIENT_ID: 949864899692-hsueet6p4u1jtlb8lqb9mbk88ncb4p29.apps.googleusercontent.com
+          NEXT_PUBLIC_APP_HOST: https://app.revi.so
+          NEXT_PUBLIC_WS_HOST: wss://app.revi.so
+          NEXT_PUBLIC_POSTHOG_HOST: https://us.posthog.com
+          NEXT_PUBLIC_POSTHOG_KEY: phc_VNNLf6qkNVKgznDBxtofVhvGBumCsEE8S4UZLC5FPHb
+          NEXT_PUBLIC_SEGMENT_WRITE_KEY: Q5FeQZoWqZn884r40LWa52uOnm3AAdZP
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: reviso-web
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker buildx build --platform linux/x86_64 -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f frontend/web/Dockerfile \
+              --build-arg NEXT_PUBLIC_GOOGLE_CLIENT_ID=$NEXT_PUBLIC_GOOGLE_CLIENT_ID \
+              --build-arg NEXT_PUBLIC_APP_HOST=$NEXT_PUBLIC_APP_HOST  \
+              --build-arg NEXT_PUBLIC_WS_HOST=$NEXT_PUBLIC_WS_HOST \
+              --build-arg NEXT_PUBLIC_POSTHOG_HOST=$NEXT_PUBLIC_POSTHOG_HOST \
+              --build-arg NEXT_PUBLIC_POSTHOG_KEY=$NEXT_PUBLIC_POSTHOG_KEY \
+              --build-arg NEXT_PUBLIC_SEGMENT_WRITE_KEY=$NEXT_PUBLIC_SEGMENT_WRITE_KEY \
+             frontend/web
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+  plan:
+    name: "Staging Terraform Plan"
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: "terraform/postbuild/staging"
+
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_REGION: "us-west-2"
+      TF_VAR_server_sha: ${{ github.sha }}
+      TF_VAR_web_sha: ${{ github.sha }}
+      TF_VAR_pr_number: ${{ github.event.number }}
+      TF_VAR_slack_webhook_url: ${{ secrets.SLACK_STATUS_WEBHOOK_URL }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::533267310428:role/TerraformRole
+          aws-region: us-west-2
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.0.0
+
+      - name: Terraform init
+        id: init
+        run: |
+          terraform init
+        continue-on-error: true
+
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
+        continue-on-error: true
+
+      - name: Terraform fmt
+        id: fmt
+        run: terraform fmt -check
+        continue-on-error: true
+
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan -no-color
+        continue-on-error: true
+
+      - name: Terraform Comment
+        uses: actions/github-script@v6
+        env:
+          PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const output = `## Staging Plan
+            #### SHA: \`${{ env.TF_VAR_web_sha }}\`
+            #### PR: \`${{ env.TF_VAR_pr_number }}\`
+
+            #### ⚙️  Initialize \`${{ steps.init.outcome }}\`
+            #### 🗄️ Workspace \`${{ steps.workspace.outcome }}\`   
+            #### 📖 Plan \`${{ steps.plan.outcome }}\`
+
+            <details><summary>Show Plan</summary>
+
+            \`\`\`\n
+            ${process.env.PLAN}
+            \`\`\`
+
+            </details>
+
+            *Pushed by: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: output
+            })
+
+      - name: Terraform Plan Status
+        if: steps.plan.outcome == 'failure'
+        run: exit 1
+
+  deploy:
+    name: "Staging Deploy"
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: "terraform/postbuild/staging"
+
+    needs:
+      - build_web
+      - build_server
+
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_REGION: "us-west-2"
+      TF_VAR_server_sha: ${{ github.sha }}
+      TF_VAR_web_sha: ${{ github.sha }}
+      TF_VAR_slack_webhook_url: ${{ secrets.SLACK_STATUS_WEBHOOK_URL }}
+
+    steps:
+      - id: slack
+        uses: slackapi/slack-github-action@v1.25.0
+        with:
+          channel-id: "C0609EV8YS3"
+          payload: |
+            {
+              "text": "Staging Deployment started (In Progress)",
+              "attachments": [
+                {
+                  "pretext": "Staging Deployment started",
+                  "color": "dbab09",
+                  "fields": [
+                    {
+                      "title": "Status",
+                      "short": true,
+                      "value": "In Progress"
+                    }
+                  ]
+                }
+              ]
+            }
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN}}
+
+      - uses: actions/checkout@v2
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::533267310428:role/TerraformRole
+          aws-region: us-west-2
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.0.0
+
+      - name: Terraform Preview init
+        run: |
+          terraform init
+
+      - name: Terraform Apply
+        id: apply
+        run: terraform apply -auto-approve
+        continue-on-error: true
+
+      - name: Check deployment outcome and set color
+        id: set_color
+        run: |
+          if [ "${{ steps.apply.outcome }}" == "success" ]; then
+            echo "COLOR=28a745" >> $GITHUB_ENV
+          else
+            echo "COLOR=d73a4a" >> $GITHUB_ENV
+          fi
+
+      - uses: slackapi/slack-github-action@v1.25.0
+        with:
+          channel-id: "C0609EV8YS3"
+          update-ts: ${{ steps.slack.outputs.ts }}
+          payload: |
+            {
+              "text": "Staging Deployment finished (${{ steps.apply.outcome }})",
+              "attachments": [
+                {
+                  "pretext": "Deployment finished",
+                  "color": "${{ env.COLOR }}",
+                  "fields": [
+                    {
+                      "title": "Status",
+                      "short": true,
+                      "value": "${{ steps.apply.outcome }} https://www.reviso.biz"
+                    }
+                  ]
+                }
+              ]
+            }
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}

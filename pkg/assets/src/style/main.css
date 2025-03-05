@@ -1,0 +1,1003 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+
+    --accent: 240 5% 96%;
+    --accent-foreground: 240 6% 10%;
+    --background: 0 0% 98%;
+    --modal-background: 0, 0%, 100%, 0.5;
+    --border: 240 6% 90%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 4%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 98%;
+    --elevated: 240 4% 96%;
+    --foreground: 240 6% 10%;
+    --input: 240 6% 90%;
+    --modal-background: 0, 0%, 0%, 0.8;
+    --muted: 240 5% 96%;
+    --muted-foreground: 240 4% 46%;
+    --muted-icon: 240 5% 84%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 4%;
+    --primary: 263.4 70% 50%;
+    --primary-foreground: 0 0% 98%;
+    --reviso: 258.3 90% 66%;
+    --reviso-highlight: 255, 92%, 76%, 0.25;
+    --ring: 255.1 92% 76%;
+    --secondary: 240 4 96%;
+    --secondary-foreground: 240 6% 10%;
+    --blue: 201 95% 52%;
+    --light-green: 161 97% 59%;
+    --green: 163 94% 37%;
+    --font-serif: "Spectral", sans-serif;
+    --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto,
+      Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+      "Segoe UI Symbol";
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --accent: 240 4% 16%;
+    --accent-foreground: 0 0% 98%;
+    --background: 240 10% 4%;
+    --modal-background: 240, 10%, 4%, 0.5;
+    --border: 240 3.7% 15.9%;
+    --card: 240 6% 10%;
+    --card-foreground: 0 0% 98%;
+    --destructive: 0 91% 71%;
+    --destructive-foreground: 0 75% 16%;
+    --elevated: 240 6% 10%;
+    --foreground: 0 0% 98%;
+    --input: 240 5% 34%;
+    --modal-background: 0, 0%, 0%, 0.8;
+    --muted: 240 6% 10%;
+    --muted-foreground: 240 5% 64.9%;
+    --muted-icon: 240 5% 26%;
+    --popover: 240 6% 10%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 258.3 90% 66%;
+    --primary-foreground: 240 6% 90%;
+    --reviso: 258.3 90% 66%;
+    --reviso-highlight: 262, 83%, 58%, 0.25;
+    --ring: 262.1 83% 58%;
+    --secondary: 240 4% 16%;
+    --secondary-foreground: 0 0% 98%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@supports (overflow-wrap: anywhere) {
+  .break-anywhere {
+    overflow-wrap: anywhere;
+  }
+  .break-anywhere-important {
+    overflow-wrap: anywhere !important;
+  }
+}
+
+@supports not (overflow-wrap: anywhere) {
+  .break-anywhere {
+    word-break: break-word;
+  }
+  .break-anywhere-important {
+    word-break: break-word !important;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+  }
+  .font-serif {
+    font-family: var(--font-serif);
+  }
+  .font-sans {
+    font-family: var(--font-sans);
+  }
+}
+
+.MessageContainerScrollArea,
+.TimelineContainerScrollArea {
+  & > div {
+    display: flex;
+    & > div {
+      height: 100%;
+    }
+  }
+}
+
+.selected-text-preview {
+  p {
+    @apply mb-3 last:mb-0;
+  }
+  h1 {
+    @apply mb-3 font-semibold text-[1.25rem] leading-[2];
+  }
+  h2 {
+    @apply mb-3 font-semibold text-[1.125rem] leading-[1.67];
+  }
+  h3 {
+    @apply mb-3 font-semibold text-[1rem] leading-[1.5];
+  }
+  ul {
+    @apply list-disc ml-4 mb-3 text-[0.875rem] leading-[1.25];
+  }
+  ol {
+    @apply list-decimal ml-4 mb-3 text-[0.875rem] leading-[1.3125];
+  }
+  li {
+    @apply mt-1 leading-[1.3125rem];
+  }
+  strong {
+    @apply font-semibold;
+  }
+  blockquote {
+    @apply border-l-2 border-border pl-3 mb-3;
+  }
+}
+
+.prose {
+  font-family: var(--font-serif);
+  font-size: 1.125rem;
+  line-height: 1.875rem;
+  @media print {
+    max-width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  strong,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    font-family: var(--font-serif);
+    @media print {
+      break-after: avoid;
+    }
+  }
+  h1 {
+    font-weight: 700;
+  }
+}
+
+.ql-cursor {
+  .ql-reviso-flag {
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px; /* 133.333% */
+    border-radius: 8px 8px 8px 0px !important;
+    padding: 0px !important;
+    margin-bottom: 8px !important;
+  }
+
+  .ql-reviso-name {
+    display: inline-flex;
+    padding: 2px 7px;
+
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    margin: 0px !important;
+  }
+  .ql-cursor-selection-block {
+    padding: 13px 0px;
+    margin-top: -4px;
+  }
+
+  .ql-cursor-selections > *:first-child {
+    border-radius: 4px 0px 0px 4px;
+  }
+
+  .ql-cursor-selections > *:last-child {
+    border-radius: 0px 4px 4px 0px;
+  }
+
+  .ql-cursor-caret {
+    height: 26px;
+    margin-top: -4px;
+  }
+}
+
+/* messageEditor quill */
+.message-editor {
+  &.ql-container {
+    overflow: visible;
+  }
+
+  .ql-editor {
+    ::selection {
+      background-color: auto;
+    }
+    min-height: auto;
+    &.ql-blank::before {
+      color: hsla(var(--muted-foreground));
+      content: attr(data-placeholder);
+      pointer-events: none;
+      position: absolute;
+    }
+  }
+}
+
+/* quill overrides */
+.ql-editor {
+  outline: none;
+  min-height: 75dvh;
+  white-space: pre-wrap;
+
+  ::selection {
+    background-color: hsla(var(--reviso-highlight));
+  }
+
+  comment {
+    cursor: pointer;
+    text-decoration: underline 2px hsla(var(--reviso));
+  }
+
+  highlight {
+    background-color: hsla(var(--reviso-highlight));
+    padding: 0.25em 0 0.25em 0;
+
+    &::selection {
+      background-color: transparent;
+    }
+  }
+  @keyframes highlightFadeIn {
+    from {
+      background-color: transparent;
+    }
+    to {
+      background-color: hsla(var(--reviso-highlight));
+    }
+  }
+
+  @keyframes highlightFadeOut {
+    from {
+      background-color: hsla(var(--reviso-highlight));
+    }
+    to {
+      background-color: transparent;
+    }
+  }
+
+  hoverhighlight {
+    background-color: transparent;
+    padding: 0.25em 0 0.25em 0;
+
+    &::selection {
+      background-color: transparent;
+    }
+  }
+
+  .highlightFadeIn {
+    animation: highlightFadeIn 0.5s ease forwards; /* Adjust time as needed */
+  }
+
+  .highlightFadeOut {
+    animation: highlightFadeOut 1.5s ease forwards; /* Adjust time as needed */
+  }
+
+  insert {
+    padding: 0.25em 0 0.25em 0;
+    color: hsla(var(--reviso));
+
+    &::selection {
+      background-color: transparent;
+    }
+  }
+
+  deletion {
+    background-color: hsla(var(--destructive));
+    padding: 0.25em 0 0.25em 0;
+    text-decoration: line-through;
+
+    &::selection {
+      background-color: transparent;
+    }
+  }
+
+  strong {
+    font-family: var(--font-serif);
+    font-weight: 700;
+  }
+
+  ol,
+  ul {
+    margin: 0 0 1rem;
+    padding-left: 0;
+  }
+
+  ol + ul {
+    margin-top: -1rem;
+  }
+
+  ol > li,
+  ul > li {
+    list-style-type: none;
+  }
+  ul > li::before {
+    content: "\2022";
+  }
+  ul[data-checked="true"],
+  ul[data-checked="false"] {
+    pointer-events: none;
+  }
+  ul[data-checked="true"] > li *,
+  ul[data-checked="false"] > li * {
+    pointer-events: all;
+  }
+  ul[data-checked="true"] > li::before,
+  ul[data-checked="false"] > li::before {
+    cursor: pointer;
+    pointer-events: all;
+  }
+  ul[data-checked] {
+    margin: 0;
+  }
+  ul[data-checked] li {
+    list-style-type: none; /* Removes default bullet points */
+    position: relative;
+  }
+  ul[data-checked] li:before {
+    content: "☑️";
+    padding-right: 0.5em;
+  }
+  ul[data-checked="true"] li:before {
+    content: "✅";
+  }
+  ul[data-checked="false"] li:before {
+    content: "☑️";
+  }
+  li::before {
+    display: inline-block;
+    white-space: nowrap;
+    width: 1.2em;
+  }
+  li:not(.ql-direction-rtl)::before {
+    margin-left: -1.5em;
+    margin-right: 0.3em;
+    text-align: right;
+  }
+  li.ql-direction-rtl::before {
+    margin-left: 0.3em;
+    margin-right: -1.5em;
+  }
+  ol li:not(.ql-direction-rtl),
+  ul li:not(.ql-direction-rtl) {
+    padding-left: 1.5em;
+  }
+  ol li.ql-direction-rtl,
+  ul li.ql-direction-rtl {
+    padding-right: 1.5em;
+  }
+  ol li {
+    counter-reset: list-1 list-2 list-3 list-4 list-5 list-6 list-7 list-8
+      list-9;
+    counter-increment: list-0;
+  }
+  ol li:before {
+    content: counter(list-0, decimal) ". ";
+  }
+  ol li.ql-indent-1 {
+    counter-increment: list-1;
+  }
+  ol li.ql-indent-1:before {
+    content: counter(list-1, lower-alpha) ". ";
+  }
+  ol li.ql-indent-1 {
+    counter-reset: list-2 list-3 list-4 list-5 list-6 list-7 list-8 list-9;
+  }
+  ol li.ql-indent-2 {
+    counter-increment: list-2;
+  }
+  ol li.ql-indent-2:before {
+    content: counter(list-2, lower-roman) ". ";
+  }
+  ol li.ql-indent-2 {
+    counter-reset: list-3 list-4 list-5 list-6 list-7 list-8 list-9;
+  }
+  ol li.ql-indent-3 {
+    counter-increment: list-3;
+  }
+  ol li.ql-indent-3:before {
+    content: counter(list-3, decimal) ". ";
+  }
+  ol li.ql-indent-3 {
+    counter-reset: list-4 list-5 list-6 list-7 list-8 list-9;
+  }
+  ol li.ql-indent-4 {
+    counter-increment: list-4;
+  }
+  ol li.ql-indent-4:before {
+    content: counter(list-4, lower-alpha) ". ";
+  }
+  ol li.ql-indent-4 {
+    counter-reset: list-5 list-6 list-7 list-8 list-9;
+  }
+  ol li.ql-indent-5 {
+    counter-increment: list-5;
+  }
+  ol li.ql-indent-5:before {
+    content: counter(list-5, lower-roman) ". ";
+  }
+  ol li.ql-indent-5 {
+    counter-reset: list-6 list-7 list-8 list-9;
+  }
+  ol li.ql-indent-6 {
+    counter-increment: list-6;
+  }
+  ol li.ql-indent-6:before {
+    content: counter(list-6, decimal) ". ";
+  }
+  ol li.ql-indent-6 {
+    counter-reset: list-7 list-8 list-9;
+  }
+  ol li.ql-indent-7 {
+    counter-increment: list-7;
+  }
+  ol li.ql-indent-7:before {
+    content: counter(list-7, lower-alpha) ". ";
+  }
+  ol li.ql-indent-7 {
+    counter-reset: list-8 list-9;
+  }
+  ol li.ql-indent-8 {
+    counter-increment: list-8;
+  }
+  ol li.ql-indent-8:before {
+    content: counter(list-8, lower-roman) ". ";
+  }
+  ol li.ql-indent-8 {
+    counter-reset: list-9;
+  }
+  ol li.ql-indent-9 {
+    counter-increment: list-9;
+  }
+  ol li.ql-indent-9:before {
+    content: counter(list-9, decimal) ". ";
+  }
+  li.ql-indent-1:not(.ql-direction-rtl) {
+    padding-left: 3rem;
+  }
+  li.ql-indent-1.ql-direction-rtl.ql-align-right {
+    padding-right: 3rem;
+  }
+  li.ql-indent-2:not(.ql-direction-rtl) {
+    padding-left: 4.5rem;
+  }
+  li.ql-indent-2.ql-direction-rtl.ql-align-right {
+    padding-right: 4.5rem;
+  }
+
+  li.ql-indent-3:not(.ql-direction-rtl) {
+    padding-left: 6rem;
+  }
+  li.ql-indent-3.ql-direction-rtl.ql-align-right {
+    padding-right: 6rem;
+  }
+
+  li.ql-indent-4:not(.ql-direction-rtl) {
+    padding-left: 7.5rem;
+  }
+  li.ql-indent-4.ql-direction-rtl.ql-align-right {
+    padding-right: 7.5rem;
+  }
+
+  li.ql-indent-5:not(.ql-direction-rtl) {
+    padding-left: 9rem;
+  }
+  li.ql-indent-5.ql-direction-rtl.ql-align-right {
+    padding-right: 9rem;
+  }
+
+  li.ql-indent-6:not(.ql-direction-rtl) {
+    padding-left: 10.5rem;
+  }
+  li.ql-indent-6.ql-direction-rtl.ql-align-right {
+    padding-right: 10.5rem;
+  }
+  li.ql-indent-7:not(.ql-direction-rtl) {
+    padding-left: 12rem;
+  }
+  li.ql-indent-7.ql-direction-rtl.ql-align-right {
+    padding-right: 12rem;
+  }
+  li.ql-indent-8:not(.ql-direction-rtl) {
+    padding-left: 13.5rem;
+  }
+  li.ql-indent-8.ql-direction-rtl.ql-align-right {
+    padding-right: 13.5rem;
+  }
+
+  li.ql-indent-9:not(.ql-direction-rtl) {
+    padding-left: 15rem;
+  }
+  li.ql-indent-9.ql-direction-rtl.ql-align-right {
+    padding-right: 15rem;
+  }
+}
+
+.ql-clipboard {
+  left: -100000px;
+  height: 1px;
+  overflow-y: hidden;
+  position: absolute;
+  top: 50%;
+}
+
+.shimmer {
+  color: hsla(var(--reviso));
+  display: inline-block;
+  -webkit-mask: linear-gradient(-60deg, #000 30%, #0005, #000 70%) right/300%
+    100%;
+  background-repeat: no-repeat;
+  animation: shimmer 2.5s infinite;
+  font-size: 50px;
+  max-width: 200px;
+}
+
+@keyframes shimmer {
+  100% {
+    -webkit-mask-position: left;
+  }
+}
+
+rogue-editor {
+  font-family: var(--font-serif);
+  white-space: pre-wrap;
+  word-wrap: break-word;
+
+  ::selection {
+    background-color: transparent;
+  }
+
+  .readonly > &,
+  &.readonly {
+    ::selection {
+      background-color: hsla(var(--reviso) / 0.5);
+    }
+  }
+
+  .content {
+    min-height: 100vh;
+
+    > *:first-child {
+      margin-top: 0;
+    }
+  }
+
+  hr {
+    user-select: none;
+    pointer-events: none;
+    height: 1.875rem;
+    line-height: 1.875rem;
+    border: none;
+    margin-top: -0.75rem;
+
+    &:before {
+      content: "";
+      height: 1px;
+      background-color: hsl(var(--border));
+      display: block;
+      width: 100%;
+      margin: 0.9735rem 0;
+    }
+  }
+
+  figure {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  figure img {
+    /* Ensure the image doesn't exceed the figure's width */
+    max-width: 100%;
+    height: auto;
+  }
+
+  figure figcaption[data-rid] {
+    min-height: 1em;
+    cursor: text;
+    text-align: center;
+    width: 100%; /* Ensures the figcaption takes full width for proper centering */
+  }
+
+  figure figcaption[data-rid]:empty::before {
+    content: "\200B"; /* Zero-width space */
+    display: inline-block;
+  }
+}
+
+rogue-editor h1 {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 2.125rem;
+  line-height: 3rem;
+  margin: 1rem 0;
+}
+
+rogue-editor h2 {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 1.875rem;
+  line-height: 2.625rem;
+  margin: 0.5rem 0;
+}
+
+rogue-editor h3 {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 2.375rem;
+  margin: 0.5rem 0;
+}
+
+rogue-editor [data-author-prefix="!"] {
+  background-color: hsla(var(--reviso) / 0.5);
+}
+
+rogue-editor [data-author-prefix="#"] {
+  background-color: hsla(var(--green) / 0.5);
+}
+
+rogue-editor [data-author-prefix="$"] {
+  background-color: hsla(var(--light-green) / 0.5);
+}
+
+rogue-editor [data-author-prefix="0"],
+rogue-editor [data-author-prefix="1"],
+rogue-editor [data-author-prefix="2"],
+rogue-editor [data-author-prefix="3"],
+rogue-editor [data-author-prefix="4"],
+rogue-editor [data-author-prefix="5"],
+rogue-editor [data-author-prefix="6"],
+rogue-editor [data-author-prefix="7"],
+rogue-editor [data-author-prefix="8"],
+rogue-editor [data-author-prefix="9"],
+rogue-editor [data-author-prefix="A"],
+rogue-editor [data-author-prefix="B"],
+rogue-editor [data-author-prefix="C"],
+rogue-editor [data-author-prefix="D"],
+rogue-editor [data-author-prefix="E"],
+rogue-editor [data-author-prefix="F"] {
+  background-color: hsla(var(--blue) / 0.5);
+}
+
+rogue-editor {
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: 1.25rem;
+    line-height: 2rem;
+    margin: 0.5rem 0;
+  }
+
+  code {
+    background-color: hsla(var(--elevated));
+    border: 1px solid hsla(var(--border));
+    border-radius: 4px;
+    display: inline-block;
+    overflow-x: auto;
+    text-wrap: nowrap;
+    padding: 0.125em 0.3125rem 0 0.3125rem;
+    width: 100%;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 400;
+  }
+  pre code {
+    padding: 0.875rem 1rem;
+    display: block;
+  }
+}
+
+rogue-editor a {
+  color: #0ea5e9;
+}
+
+rogue-editor p {
+  font-size: 1.125rem;
+  line-height: 1.875rem;
+  margin-bottom: 0.75rem;
+}
+
+rogue-editor p:empty {
+  min-height: 1.5em;
+  display: block;
+  width: 100%;
+}
+
+rogue-editor h1:empty,
+rogue-editor h2:empty,
+rogue-editor h3:empty,
+rogue-editor h4:empty,
+rogue-editor h5:empty,
+rogue-editor h6:empty {
+  min-height: 1.5em;
+  display: block;
+  width: 100%;
+}
+
+rogue-editor strong {
+  font-weight: bold;
+}
+
+rogue-editor em,
+rogue-editor blockquote {
+  font-family: "var(--font-serif) variant1";
+  font-style: italic;
+}
+
+rogue-editor blockquote {
+  border-left: 2px solid hsla(var(--border));
+  padding-left: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+rogue-highlight-block {
+  position: absolute;
+  pointer-events: none;
+  cursor: text;
+  opacity: 0.5;
+  z-index: 10;
+}
+
+rogue-caret {
+  position: absolute;
+  pointer-events: none;
+}
+
+/* ROGUE-EDITOR LISTS */
+rogue-editor ol,
+rogue-editor ul {
+  font-size: 1.125rem;
+  line-height: 1.875rem;
+  margin: 0 0 1rem;
+  padding-left: 2.5em; /* Increased padding to accommodate larger numbers */
+}
+
+rogue-editor li {
+  position: relative;
+  min-height: 1.5em;
+}
+
+rogue-editor ul > li {
+  list-style-type: none;
+}
+
+rogue-editor ul > li::before {
+  content: "\2022";
+  position: absolute;
+  left: -1.5em;
+  width: 1em;
+  text-align: center;
+}
+
+rogue-editor ol {
+  counter-reset: list;
+}
+
+rogue-editor ol > li {
+  list-style-type: none;
+  counter-increment: list;
+}
+
+rogue-editor ol > li::before {
+  content: counter(list) ".";
+  position: absolute;
+  left: -2.5em; /* Increased space for numbers */
+  width: 2em; /* Wider to accommodate larger numbers */
+  text-align: right;
+  white-space: nowrap; /* Prevents wrapping of number and period */
+}
+
+/* Nested list styles */
+rogue-editor ol ol,
+rogue-editor ul ul,
+rogue-editor ol ul,
+rogue-editor ul ol {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  padding-left: 2.5em; /* Consistent with top-level lists */
+}
+
+/* Reset counter for each nested ordered list */
+rogue-editor ol ol {
+  counter-reset: list;
+}
+
+/* Nested unordered list markers */
+rogue-editor ul ul > li::before {
+  content: "\25E6"; /* White bullet */
+}
+
+rogue-editor ul ul ul > li::before {
+  content: "\25AA"; /* Black small square */
+}
+
+rogue-editor ul ul ul ul > li::before {
+  content: "\25AB"; /* White small square */
+}
+
+rogue-editor ul ul ul ul ul > li::before {
+  content: "\25C6"; /* Black small diamond */
+}
+rogue-editor ul ul ul ul ul ul > li::before {
+  content: "\25C7"; /* White small diamond */
+}
+rogue-editor ul ul ul ul ul ul ul > li::before {
+  content: "\2B27"; /* Black lozenge */
+}
+rogue-editor ul ul ul ul ul ul ul ul > li::before {
+  content: "\25CA"; /* white lozenge */
+}
+
+/* Ensure list items always have content for cursor placement */
+rogue-editor li:empty::after {
+  content: "\200B"; /* Zero-width space */
+  display: inline-block;
+}
+/* END ROGUE-EDITOR LISTS */
+
+rogue-editor ins {
+  cursor: pointer;
+  text-decoration: none;
+  background-color: rgb(220 252 231);
+  color: #15803d;
+  padding: 0 0.2ch;
+}
+
+rogue-editor del {
+  display: inline-block;
+  font-size: 0;
+  color: transparent;
+  margin: 0;
+  padding: 0;
+  line-height: 0;
+  cursor: pointer;
+}
+
+rogue-editor del br {
+  display: none;
+}
+
+rogue-editor del.show br {
+  display: block;
+}
+
+rogue-editor del::after {
+  visibility: visible;
+  display: inline;
+  content: " ";
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2IiBmaWxsPSJub25lIj48cGF0aCBkPSJNMTEuOTk5OSA2LjAwMDA0TDcuOTk5OTIgMTBNNy45OTk5MiA2LjAwMDA0TDExLjk5OTkgMTBNMTMuMzMzMyAzLjMzMzM3SDUuOTk5OTJMMS4zMzMyNSA4LjAwMDA0TDUuOTk5OTIgMTIuNjY2N0gxMy4zMzMzQzEzLjY4NjkgMTIuNjY2NyAxNC4wMjYgMTIuNTI2MiAxNC4yNzYxIDEyLjI3NjJDMTQuNTI2MSAxMi4wMjYxIDE0LjY2NjYgMTEuNjg3IDE0LjY2NjYgMTEuMzMzNFY0LjY2NjcxQzE0LjY2NjYgNC4zMTMwOSAxNC41MjYxIDMuOTczOTUgMTQuMjc2MSAzLjcyMzlDMTQuMDI2IDMuNDczODUgMTMuNjg2OSAzLjMzMzM3IDEzLjMzMzMgMy4zMzMzN1oiIHN0cm9rZT0iI0I5MUMxQyIgc3Ryb2tlLXdpZHRoPSIxLjMzMzMzIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz48L3N2Zz4=");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: rgb(254 226 226);
+  color: rgb(185 28 28);
+  padding: 0 1ch;
+}
+
+rogue-editor li del {
+  display: inline-block;
+  font-size: 1.125em;
+  width: 1.125em;
+
+  &::after {
+    display: inline-block;
+    font-size: 1.125em;
+    line-height: 1.125;
+    width: 1.125em;
+  }
+}
+
+rogue-editor del.show {
+  display: inline;
+  visibility: visible;
+  font-size: inherit;
+  background-color: rgb(254 226 226);
+  color: #b91c1c;
+  text-decoration: none;
+}
+
+rogue-editor del.show::after {
+  visibility: invisible;
+  display: none;
+  content: "";
+  background-image: none;
+  color: transparent;
+  padding: 0;
+  margin: 0;
+}
+
+rogue-editor rogue-delta-modal {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid hsla(var(--border));
+  border-radius: 6px;
+  box-shadow:
+    0px 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0px 2px 4px -2px rgba(16, 24, 40, 0.1);
+  background-color: hsla(var(--background));
+  font-family: var(--font-sans);
+  white-space: normal;
+  z-index: 1000;
+
+  button {
+    display: flex;
+    height: 36px;
+    padding: 8px 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+  }
+
+  button:hover {
+    background-color: hsla(var(--accent));
+  }
+}
+
+rogue-editor h1 del::after {
+  font-size: 2.125rem;
+}
+
+rogue-editor h2 del::after {
+  font-size: 1.875rem;
+}
+
+rogue-editor h3 del::after {
+  font-size: 1.5rem;
+}
+
+rogue-editor p del::after {
+  font-size: 1.125rem;
+  line-height: 1.875rem;
+}
+
+/*hr {
+  position: relative;
+  height: 1px;
+  background-color: #000;
+  border: none;
+  margin: 10px 0;
+}
+hr::before {
+  content: "\200B";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  cursor: text;
+}*/

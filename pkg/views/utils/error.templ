@@ -1,0 +1,32 @@
+package utils
+
+import "github.com/teamreviso/code/pkg/views/layouts"
+import "github.com/teamreviso/code/pkg/views/ui"
+
+templ Error() {
+	@layouts.App("Error") {
+		<div class="w-full p-8">
+			<a href="http://www.revi.so/" class="scale-[0.85] mt-[-0.25rem]">
+				@ui.Logo()
+			</a>
+		</div>
+		<section class="flex flex-col items-center justify-center h-[calc(100dvh-6.2rem)] text-center">
+			<div class="mb-4">
+				@ErrorIcon()
+			</div>
+			<p class="text-[1rem] leading-1.5rem] font-semibold mb-4">This page couldn’t be loaded due to an error.<br/>
+Our team has been notified and will investigate.</p>
+      <p className="mt-2 text-center text-foreground text-xs">
+        Still having issues? Email us at{" "}
+        <a href="mailto:support@revi.so">support@revi.so</a>
+      </p>
+		</section>
+	}
+}
+
+// Add this function to your ui package
+templ ErrorIcon() {
+	<div class="w-12 h-12 bg-rose-100 rounded-full flex items-center justify-center">
+		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="stroke-rose-500"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+	</div>
+}

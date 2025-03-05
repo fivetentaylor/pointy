@@ -1,0 +1,101 @@
+scalar Time
+
+extend type Query {
+  documents(limit: Int, offset: Int): DocumentConnection!
+  baseDocuments(limit: Int, offset: Int): DocumentConnection!
+  sharedDocuments(limit: Int, offset: Int): DocumentConnection!
+  folderDocuments(folderID: ID!, limit: Int, offset: Int): DocumentConnection!
+  searchDocuments(query: String!, limit: Int, offset: Int): DocumentConnection!
+  document(id: ID!): Document
+  branches(id: ID!): [Document!]!
+}
+
+extend type Mutation {
+  createDocument: Document!
+  createFolder: Document!
+  createFlaggedVersion(documentId: ID!, input: FlaggedVersionInput!): Boolean!
+  editFlaggedVersion(
+    flaggedVersionId: ID!
+    input: FlaggedVersionInput!
+  ): Boolean!
+  deleteFlaggedVersion(flaggedVersionId: ID!, timelineEventId: ID!): Boolean!
+  updateDocument(id: ID!, input: DocumentInput!): Document
+  deleteDocument(id: ID!, deleteChildren: Boolean): Boolean
+  softDeleteDocument(id: ID!): Boolean
+  copyDocument(id: ID!, isBranch: Boolean, address: String): Document
+  moveDocument(id: ID!, folderID: ID): Document
+  updateDocumentPreference(
+    id: ID!
+    input: DocumentPreferenceInput!
+  ): DocumentPreference
+}
+
+extend type Subscription {
+  documentInserted(userId: ID!): Document!
+  documentUpdated(documentId: ID!): Document!
+}
+
+input DocumentInput {
+  title: String
+  isPublic: Boolean
+}
+
+input FlaggedVersionInput {
+  name: String!
+  updateID: String!
+}
+
+type Document {
+  id: ID!
+  parentID: ID
+  title: String!
+  ownedBy: User!
+  editors: [User!]!
+  createdAt: Time!
+  updatedAt: Time!
+  isPublic: Boolean!
+  rootParentID: ID!
+  parentAddress: String
+  isFolder: Boolean!
+  folderID: ID
+
+  hasUnreadNotifications: Boolean!
+  preferences: DocumentPreference!
+  screenshots: DocumentScreenshots
+  branchCopies: [Document!]!
+  access: String!
+}
+
+type DocumentScreenshots {
+  lightUrl: String!
+  darkUrl: String!
+}
+
+type DocumentEdge {
+  node: Document!
+  cursor: String!
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+}
+
+type DocumentConnection {
+  totalCount: Int!
+  edges: [DocumentEdge!]!
+  pageInfo: PageInfo!
+}
+
+type DocumentPreference {
+  enableFirstOpenNotifications: Boolean!
+  enableMentionNotifications: Boolean!
+  enableDMNotifications: Boolean!
+  enableAllCommentNotifications: Boolean!
+}
+
+input DocumentPreferenceInput {
+  enableFirstOpenNotifications: Boolean!
+  enableMentionNotifications: Boolean!
+  enableDMNotifications: Boolean!
+  enableAllCommentNotifications: Boolean!
+}

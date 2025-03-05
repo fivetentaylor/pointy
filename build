@@ -1,0 +1,40 @@
+#!/bin/bash
+
+# Run both commands in the background
+go run -mod=mod github.com/a-h/templ/cmd/templ generate -path pkg/ &
+PID1=$!
+
+GOOS=js GOARCH=wasm go build -o pkg/assets/static/rogue.wasm rogue/v3/wasm/main.go &
+PID2=$!
+
+
+# Wait for both commands to finish
+wait $PID1
+EXIT_STATUS1=$?
+
+wait $PID2
+EXIT_STATUS2=$?
+
+# Initialize an error flag
+ERROR_OCCURRED=0
+
+# Check if the first command failed
+if [ $EXIT_STATUS1 -ne 0 ]; then
+    echo "Error: The 'templ generate' command failed."
+    ERROR_OCCURRED=1
+fi
+
+# Check if the second command failed
+if [ $EXIT_STATUS2 -ne 0 ]; then
+    echo "Error: The 'go build for wasm' command failed."
+    ERROR_OCCURRED=1
+fi
+
+# Exit if any command failed
+if [ $ERROR_OCCURRED -ne 0 ]; then
+    exit 1
+fi
+
+# Proceed with the rest of the script if both commands succeeded
+cp pkg/assets/static/rogue.wasm pkg/admin/static/rogue.wasm
+go build -v -o ./tmp/main ./cmd/reviso/main.go

@@ -1,0 +1,33 @@
+package templates
+
+templ BaseAdmin(title string) {
+	<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			<meta charset="UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+			<title>Admin | { title }</title>
+			<link rel="stylesheet" href="https://unpkg.com/treeflex/dist/css/treeflex.css"/>
+			<link
+				rel="stylesheet"
+				href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,700;1,400&family=Inter"
+			/>
+			<link rel="stylesheet" href="/admin/static/admin.css"/>
+			<link rel="stylesheet" href="/admin/static/htmx.css"/>
+			<script src="/admin/src/main.js" defer></script>
+			<script src="/src/rogue.js" defer></script>
+			@style()
+		</head>
+		<body class="bg-gray-800 text-white font_inter font_marat">
+			{ children... }
+		</body>
+	</html>
+}
+
+templ style() {
+	<style>
+    .userhovered {
+      border: 1px solid red;
+    }
+  </style>
+}

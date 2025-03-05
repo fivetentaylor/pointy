@@ -1,0 +1,25 @@
+syntax = "proto3";
+package models;
+
+option go_package = "github.com/teamreviso/code/pkg/models";
+
+message UserPreference {
+  bool enable_activity_notifications = 1;
+  int32 unread_activity_frequency_minutes = 2; // deprecated
+}
+
+message DocumentPreference {
+  NotificationMode mode = 1; // deprecated
+  bool enable_first_open_notifications = 2;
+  bool enable_mention_notifications = 3;
+  bool enable_dm_notifications = 4; // deprecated
+  bool enable_all_comment_notifications = 5;
+}
+
+enum NotificationMode {
+  UnspecifiedMode = 0;
+  Nothing = 1;
+  AllComments = 2;
+  RepliesAndMentions = 3;
+}
+

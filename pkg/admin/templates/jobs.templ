@@ -1,0 +1,48 @@
+package templates
+
+templ Jobs() {
+	@AdminLayout("jobs") {
+		<div class="bg-white text-black p-4 mb-4">
+			<h1 class="text-3xl mb-4">Jobs</h1>
+			<h2 class="text-2xl mb-4">Start a job:</h2>
+			<ul>
+				<li class="mb-4">
+					<h3 class="text-lg mb-4">Screenshot</h3>
+					<button
+						id="startJobButton"
+						class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+						hx-post="/admin/jobs/start/screenshot-all"
+						hx-confirm="Are you sure you want to generate screenshots for all documents?"
+					>
+						Screenshot All documents
+					</button>
+				</li>
+				<li class="mb-4">
+					<h3 class="text-lg mb-4">Snapshot</h3>
+					<form hx-post="/admin/jobs/start/snapshot" hx-target="#snapshot-response-target">
+						<input type="text" name="document_id" placeholder="Document ID"/>
+						<button
+							id="startSnapshotButton"
+							class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+							type="submit"
+						>
+							Start snapshot
+						</button>
+					</form>
+					<div id="snapshot-response-target"></div>
+					<form hx-post="/admin/jobs/start/snapshot-all" hx-target="#snapshot-all-response-target">
+						<input type="text" name="version" placeholder="Version"/>
+						<button
+							id="startSnapshotAllButton"
+							class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+							type="submit"
+						>
+							Start snapshot all
+						</button>
+					</form>
+					<div id="snapshot-all-response-target"></div>
+				</li>
+			</ul>
+		</div>
+	}
+}

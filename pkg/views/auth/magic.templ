@@ -1,0 +1,36 @@
+package auth
+
+import "github.com/teamreviso/code/pkg/views/ui"
+
+templ MagicFailed(segmentKey, reason string) {
+	@Layout(segmentKey) {
+		<div class="w-screen h-screen flex flex-col pt-4 px-9">
+			<nav class="flex items-center">
+				<div class="flex-1">
+					<a href="/">
+						@ui.Logo()
+					</a>
+				</div>
+			</nav>
+			<div class="flex justify-center items-center h-screen text-center">
+				<div class="flex flex-col items-center w-screen">
+					<img alt="open envelope" loading="lazy" width="120" height="140" decoding="async" data-nimg="1" class="block dark:hidden" src="/static/errorLight.svg" style="color: transparent;"/>
+					<img alt="open envelope" loading="lazy" width="120" height="140" decoding="async" data-nimg="1" class="hidden dark:block" src="/static/errorDark.svg" style="color: transparent;"/>
+					<h1 class="mt-4 text-4xl font-bold leading-[3rem] text-foreground">
+						Something went wrong
+					</h1>
+					<p class="mt-4">
+						There was a problem with logging into your account. { reason }
+					</p>
+					@ui.Button(ui.ButtonOptions{
+						Variant: "reviso",
+						Class:   "mt-5 bg-secondary hover:bg-secondary/90 text-secondary-foreground",
+						Href:    "/login",
+					}) {
+						Try Again
+					}
+				</div>
+			</div>
+		</div>
+	}
+}

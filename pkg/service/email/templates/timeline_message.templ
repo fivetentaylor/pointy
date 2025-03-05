@@ -1,0 +1,261 @@
+package templates
+
+import (
+        "strings"
+	"context"
+        "encoding/base64"
+	"fmt"
+	"github.com/teamreviso/code/pkg/models"
+	"html"
+	"io"
+)
+
+templ TimelineMessageStyles() {
+	<style>
+    .msg-container {
+        margin-left: 6px;
+        text-align: left;
+        font-size: 18px;
+        font-family: Roboto, sans-serif;
+        font-weight: 400;
+        line-height: 28px;
+    }
+    .logo {
+        margin-bottom: 28px;
+    }
+    .header {
+        color: #18181B;
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 28px;
+        word-wrap: break-word;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #e1e1e1;
+        margin-bottom: 22px;
+    }
+    .title {
+        color: #18181B;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 28px;
+        word-wrap: break-word;
+        margin-top: 23px;
+        margin-bottom: 18px;
+    }
+    .avatar-container {
+        vertical-align: top;
+        width: 61px;
+    }
+    .avatar img {
+        width: 40px;
+        height: 40px;
+        border-radius: 9999px;
+    }
+    .avatar-initials {
+        width: 40px;
+        height: 40px;
+        border-radius: 9999px;
+        background: #18181B;
+        color: #F4F4F5;
+        line-height: 40px;
+        text-align: center;
+    }
+    .msg-title {
+        font-size: 14px;
+        margin-bottom: 5px;
+    }
+    .msg-date {
+        color: #71717A;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 28px;
+        word-wrap: break-word
+    }
+    .msg {
+        margin-bottom: 18px;
+    }
+    .msg-content {
+        color: #18181B;
+        font-size: 16px;
+        word-wrap: break-word
+    }
+    .msg-attachments {
+        margin-bottom: 16px;
+    }
+    .attachment {
+        margin-top: 8px;
+        border: 1px solid #e1e1e1;
+        border-radius: 6px;
+        padding: 14px 10px;
+    }
+    .view-more {
+        color: #6D28D9;
+        display: inline-block;
+    }
+    .attachment {
+        padding: 16px;
+    }
+    .attachment p {
+        font-size: 16px;
+    }
+    .attachment p:first-of-type {
+        display: inline;
+    }
+    .attachment h1, h2, h3, h4, h5, h6 {
+        margin-top: 0px;
+        margin-bottom: 16px;
+        font-size: 18px;
+    }
+
+    a {
+        color: #6D28D9;
+        text-decoration: none;
+    }
+    .button {
+        display: inline-block;
+        background: #6D28D9;
+        border-radius: 6px;
+        box-shadow: 0px 1px 3px rgba(16, 24, 40, 0.10);
+        font-size: 16px;
+        font-weight: 500;
+        gap: 8px;
+        letter-spacing: 0em;
+        line-height: 24px;
+        margin: auto;
+        overflow: hidden;
+        text-align: left;
+        text-decoration: none;
+    }
+    .button-text {
+        text-align: center;
+        padding-left: 16px;
+        padding-right: 16px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        color: #F4F4F5;
+        font-size: 16px;
+        font-family: Roboto, sans-serif;
+        font-weight: 500;
+        line-height: 24px;
+        word-wrap: break-word;
+    }
+    .username {
+        color: #6D28D9;
+        background: #E8E1FE;
+    }
+  </style>
+}
+
+type TimelineMessageData struct {
+	Document  *models.Document
+	Message   *models.TimelineMessageV1
+	FromUser  *models.User
+	Selection string
+        IsMentioned bool
+}
+
+templ TimelineMessageHTML(preheader string, data *TimelineMessageData) {
+	@BaseEmail(preheader, TimelineMessageStyles()) {
+		<img class="logo" src={ appHostUrl(ctx, "/static/logo-w-white-bg.png") } alt="Reviso" style="width: 124px;"/>
+		<div class="msg-container">
+			<div class="header">
+				{ data.FromUser.DisplayName } { timelineHeaderText(data) }
+			</div>
+			<div class="msg">
+				<table>
+					<tr>
+						<td class="avatar-container">
+							@Avatar(data.FromUser)
+						</td>
+						<td class="msg-content-container">
+							<div class="msg-title">
+								<strong>
+									{ data.FromUser.Name } { timelineHeaderText(data) }
+									<a href={ templ.SafeURL(TimelineEventUrl(ctx, data.Document.ID)) }>{ data.Document.Title }</a>
+								</strong>
+							</div>
+							<div class="msg-content">
+								@TimelineMessagesContent(data.Message.Content)
+							</div>
+							if data.Selection != "" {
+								<div style="width: 100%; height: 100%; border-radius: 8px; border: 1px #E4E4E7 solid; margin-bottom: 12px;">
+									<div style="color: #18181B; font-size: 16px; font-family: Roboto; font-weight: 400; line-height: 28px; word-wrap: break-word; margin: 13px 16px 10px 16px;">
+										@templ.Raw(data.Selection)
+									</div>
+								</div>
+							}
+							<div class="button-container">
+								<a class="button" href={ templ.SafeURL(TimelineEventUrl(ctx, data.Document.ID)) }>
+									<div class="button-text">Reply</div>
+								</a>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	}
+}
+
+func timelineHeaderText(data *TimelineMessageData) string {
+        if data.IsMentioned {
+                return `mentioned you` 
+        } else {
+                return `commented`
+        }
+}
+
+func timelineTitleText(data *TimelineMessageData) string {
+        if data.IsMentioned {
+                return `mentioned you in` 
+        } else {
+                return `commented on`
+        }
+}
+
+templ TimelineMessageText(data *TimelineMessageData) {
+	{ data.FromUser.Name } { timelineTitleText(data) } { data.Document.Title }
+	Click here to read it: { TimelineEventUrl(ctx, data.Document.ID) }
+}
+
+func TimelineEventUrl(ctx context.Context, docId string) string {
+	return appHostUrl(ctx, fmt.Sprintf("/drafts/%s?sb=t", docId))
+}
+
+func TimelineMessagesContent(content string) templ.Component {
+	replaced := atMentionRegex.ReplaceAllStringFunc(content, func(match string) string {
+		submatches := atMentionRegex.FindStringSubmatch(match)
+		if len(submatches) > 1 {
+			return fmt.Sprintf("<span class='username'>@%s</span>",
+				html.EscapeString(submatches[1]),
+			)
+		}
+		return match
+	})
+
+        replaced = atMentionRegexV2.ReplaceAllStringFunc(replaced, func(match string) string {
+                submatches := atMentionRegexV2.FindStringSubmatch(match)
+                if len(submatches) > 1 {
+                        decoded, err := base64.StdEncoding.DecodeString(submatches[1])
+                        if err != nil {
+                                fmt.Println("Error decoding string:", err)
+                                return match
+                        }
+
+                        parts := strings.Split(string(decoded), ":")
+                        if len(parts) != 4 {
+                                return match
+                        }
+
+			return fmt.Sprintf("<span class='username'>@%s</span>",
+                                html.EscapeString(parts[3]),
+                        )
+                }
+                return match
+        })
+
+	return templ.ComponentFunc(func(ctx context.Context, w io.Writer) error {
+		_, err := w.Write([]byte(replaced))
+		return err
+	})
+}

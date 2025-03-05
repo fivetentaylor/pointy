@@ -1,0 +1,69 @@
+syntax = "proto3";
+package models;
+
+option go_package = "github.com/teamreviso/code/pkg/models";
+
+message AttachmentList {
+  repeated Attachment attachments = 1;
+}
+
+message Attachment {
+  oneof value {
+    DocumentSelection document = 1;
+    DocumentRevision revision = 2;
+    DocumentSuggestion suggestion = 3 [deprecated = true];
+    Content content = 4;
+    Error error = 5;
+    FileAttachment file = 6;
+    RevisoDocument reviso_document = 7;
+  }
+}
+
+message Content {
+  string text = 1;
+  string role = 2;
+}
+
+message FileAttachment {
+  string id = 1;
+  string filename = 2;
+  string content_type = 3;
+}
+
+message RevisoDocument {
+  string id = 1;
+  string title = 2;
+}
+
+message Error {
+  string title = 1;
+  string text = 2;
+  string error = 3;
+}
+
+message DocumentSelection {
+  string start = 1;
+  string end = 2;
+  string content = 3;
+  string author_id = 4 [deprecated = true];
+  string id = 5;
+}
+
+message DocumentRevision {
+  string start = 1;
+  string end = 2;
+  string updated = 3;
+  bytes marshalled_operations = 4 [deprecated = true];
+  string explanation = 5 [deprecated = true];
+  string followUps = 6 [deprecated = true];
+  string id = 7;
+  string beforeAddress = 8 [deprecated = true];
+  string afterAddress = 9 [deprecated = true];
+  string appliedOps = 10 [deprecated = true];
+}
+
+message DocumentSuggestion {
+  string content = 1;
+  string id = 2;
+}
+

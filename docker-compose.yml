@@ -1,0 +1,59 @@
+services:
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: dev
+      POSTGRES_PASSWORD: dev
+      POSTGRES_DB: development
+    ports:
+      - "5431:5432"
+    volumes:
+      - ./localdata/postgres:/var/lib/postgresql/data
+
+  redis:
+    image: redis:latest
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./localdata/redis:/data
+
+  dynamodb:
+    image: amazon/dynamodb-local
+    command: "-jar DynamoDBLocal.jar -sharedDb -dbPath /dynamodb_local_db"
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./localdata/dynamodb:/dynamodb_local_db
+
+  dynamodb-admin:
+    image: aaronshaf/dynamodb-admin
+    ports:
+      - "8001:8001"
+    environment:
+      DYNAMO_ENDPOINT: "http://dynamodb:8000"
+      AWS_REGION: "us-west-2"
+      AWS_ACCESS_KEY_ID: localaccesskey
+      AWS_SECRET_ACCESS_KEY: localsecretkey
+    depends_on:
+      - dynamodb
+
+  s3:
+    image: minio/minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - ./localdata/minio:/data
+      - ./dev/certs:/certs
+    environment:
+      MINIO_ROOT_USER: localaccesskey
+      MINIO_ROOT_PASSWORD: localsecretkey
+    command: server --console-address ":9001" --address ":9000" --certs-dir /certs /data
+
+volumes:
+  dynamodb-data:
+  postgres_data:
+  redis_data:
+  minio-data:

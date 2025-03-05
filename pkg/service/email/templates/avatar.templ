@@ -1,0 +1,35 @@
+package templates
+
+import "github.com/teamreviso/code/pkg/models"
+
+templ Avatar(user *models.User) {
+	<style>
+    .avatar-container {
+        vertical-align: top;
+        width: 61px;
+    }
+    .avatar img {
+        width: 40px;
+        height: 40px;
+        border-radius: 9999px;
+    }
+    .avatar-initials {
+        width: 40px;
+        height: 40px;
+        border-radius: 9999px;
+        background: #18181B;
+        color: #F4F4F5;
+        line-height: 40px;
+        text-align: center;
+    }
+	</style>
+	if user.Picture == nil {
+		<div class="avatar-initials">
+			{ user.Initials() }
+		</div>
+	} else {
+		<div class="avatar">
+			<img src={ appHostUrl(ctx, "/api/v1/users/"+user.ID+"/avatar") } alt="Avatar"/>
+		</div>
+	}
+}

@@ -1,0 +1,78 @@
+package templates
+
+import (
+	"bytes"
+	"github.com/yuin/goldmark"
+	"github.com/yuin/goldmark/ast"
+	"github.com/yuin/goldmark/parser"
+	"github.com/yuin/goldmark/text"
+	"github.com/yuin/goldmark/util"
+)
+
+templ Markdown(s string) {
+	@templ.Raw(toMarkdown(s))
+}
+
+// Define a custom AST transformer
+type tailwindASTTransformer struct{}
+
+// Implement the ASTTransformer interface
+func (a *tailwindASTTransformer) Transform(node *ast.Document, reader text.Reader, pc parser.Context) {
+	// Traverse the AST nodes
+	ast.Walk(node, func(n ast.Node, entering bool) (ast.WalkStatus, error) {
+		if entering {
+			switch n.Kind() {
+			case ast.KindHeading:
+				heading := n.(*ast.Heading)
+				level := heading.Level
+				var class string
+				switch level {
+				case 1:
+					class = "text-4xl font-bold mt-2 mb-4"
+				case 2:
+					class = "text-3xl font-bold mt-2 mb-3"
+				case 3:
+					class = "text-2xl font-bold mt-2 mb-2"
+				case 4:
+					class = "text-xl font-bold mt-2 mb-1"
+				default:
+					class = "text-lg font-bold mt-2"
+				}
+				n.SetAttributeString("class", []byte(class))
+			case ast.KindParagraph:
+				n.SetAttributeString("class", []byte("mb-4 text-base leading-relaxed"))
+			case ast.KindList:
+				list := n.(*ast.List)
+				if list.IsOrdered() {
+					n.SetAttributeString("class", []byte("list-decimal list-inside mb-4"))
+				} else {
+					n.SetAttributeString("class", []byte("list-disc list-inside mb-4"))
+				}
+			case ast.KindBlockquote:
+				n.SetAttributeString("class", []byte("border-l-4 border-gray-300 pl-4 italic mb-4"))
+			case ast.KindCodeBlock:
+				n.SetAttributeString("class", []byte("bg-gray-100 rounded p-4 mb-4 font-mono text-sm"))
+				// Add cases for other node types as needed
+			}
+		}
+		return ast.WalkContinue, nil
+	})
+}
+
+func toMarkdown(s string) string {
+	var htmlBuffer bytes.Buffer
+
+	mdParser := goldmark.New(
+		goldmark.WithParserOptions(
+			parser.WithASTTransformers(
+				util.Prioritized(&tailwindASTTransformer{}, 100),
+			),
+		),
+	)
+
+	if err := mdParser.Convert([]byte(s), &htmlBuffer); err != nil {
+		return "Oops, we had an error: " + err.Error()
+	}
+
+	return htmlBuffer.String()
+}

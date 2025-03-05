@@ -1,0 +1,42 @@
+package templates
+
+templ IntroDoc(introDocID string) {
+	@AdminLayout("settings") {
+		<div class="bg-white text-black p-4 mb-4">
+			<h1 class="text-3xl mb-4">Intro Document Settings</h1>
+			<div class="max-w-md">
+				<h2 class="text-2xl mb-4">Intro Document ID</h2>
+				<form hx-post="/admin/intro_doc" hx-target="#save-response" class="space-y-4">
+					<div class="flex flex-col space-y-2">
+						<label for="intro_doc_id" class="text-sm font-medium text-gray-700">
+							Intro Document ID
+						</label>
+						<input
+							type="text"
+							id="intro_doc_id"
+							name="intro_doc_id"
+							placeholder="Enter document ID"
+							value={ introDocID }
+							class="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+						/>
+					</div>
+					@CurrentIntroDocID(introDocID)
+					<button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full">
+						Save Intro Document ID
+					</button>
+				</form>
+			</div>
+		</div>
+	}
+}
+
+templ CurrentIntroDocID(introDocID string) {
+	<div id="save-response" class="mt-4">
+		<div class="mt-6 p-4 bg-gray-50 rounded-md">
+			<h3 class="text-lg font-medium text-gray-900 mb-2">Current Setting</h3>
+			<p class="text-gray-600">
+				Current intro document ID: <span class="font-mono bg-gray-100 px-2 py-1 rounded">{ introDocID }</span>
+			</p>
+		</div>
+	</div>
+}

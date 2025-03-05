@@ -1,0 +1,53 @@
+FROM --platform=linux/amd64 alpine:latest
+
+# Install basic utilities and dependencies
+RUN apk add --no-cache \
+    bash \
+    build-base \
+    ca-certificates \
+    chromium \
+    chromium-chromedriver \
+    cmake \
+    curl \
+    docker \
+    docker-cli \
+    docker-compose \
+    fuse-overlayfs \
+    git \
+    glib-dev \
+    gpgme-dev \
+    iptables \
+    libjpeg-turbo-dev \
+    libpng-dev \
+    npm \
+    nss-dev \
+    openjpeg-dev \
+    pkgconfig \
+    poppler-utils \
+    tar \
+    tiff-dev \
+    unrtf \
+    && update-ca-certificates
+
+# Install Go
+ENV GO_VERSION=1.23.1
+RUN curl -OL https://golang.org/dl/go${GO_VERSION}.linux-amd64.tar.gz && \
+    tar -C /usr/local -xzf go${GO_VERSION}.linux-amd64.tar.gz && \
+    rm go${GO_VERSION}.linux-amd64.tar.gz
+
+# Set Go environment variables
+ENV PATH=$PATH:/usr/local/go/bin
+ENV GOPATH=/go
+ENV PATH=$PATH:$GOPATH/bin
+
+# Install gotestsum
+RUN go install gotest.tools/gotestsum@v1.11.0
+
+# Set the working directory
+WORKDIR /app
+
+# Start the Docker daemon in the container
+RUN mkdir -p /var/lib/docker
+
+# Use bash as the default shell
+CMD ["/bin/bash"]

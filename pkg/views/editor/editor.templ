@@ -1,0 +1,11 @@
+package editor
+
+import v3 "github.com/teamreviso/code/rogue/v3"
+
+templ Editor(id string, doc *v3.Rogue) {
+	<rogue-editor id={ id } docid={ id }>
+		<div class="content ring-0 focus:outline-none">
+			@templ.Raw(doc.DisplayAllHtml(true, false))
+		</div>
+	</rogue-editor>
+}

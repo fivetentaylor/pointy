@@ -1,0 +1,488 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+
+    --accent: 240 5% 96%;
+    --accent-foreground: 240 6% 10%;
+    --background: 0 0% 100%;
+    --modal-background: 0, 0%, 100%, 0.5;
+    --border: 240 6% 90%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 4%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 98%;
+    --elevated: 240 5% 96%;
+    --foreground: 240 6% 10%;
+    --input: 240 6% 90%;
+    --modal-background: 0, 0%, 0%, 0.8;
+    --muted: 240 5% 96%;
+    --muted-foreground: 240 4% 46%;
+    --muted-icon: 240 5% 84%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 4%;
+    --primary: 263.4 70% 50%;
+    --primary-foreground: 0 0% 98%;
+    --reviso: 258.3 90% 66%;
+    --reviso-highlight: 255, 92%, 76%, 0.25;
+    --ring: 255.1 92% 76%;
+    --secondary: 0 0% 98%;
+    --secondary-foreground: 240 6% 10%;
+  }
+
+  .dark {
+    --accent: 240 4% 16%;
+    --accent-foreground: 0 0% 98%;
+    --background: 240 10% 4%;
+    --modal-background: 240, 10%, 4%, 0.5;
+    --border: 240 5% 34%;
+    --card: 240 6% 10%;
+    --card-foreground: 0 0% 98%;
+    --destructive: 0 91% 71%;
+    --destructive-foreground: 0 75% 16%;
+    --elevated: 240 6% 10%;
+    --foreground: 0 0% 98%;
+    --input: 240 5% 34%;
+    --modal-background: 0, 0%, 0%, 0.8;
+    --muted: 240 6% 10%;
+    --muted-foreground: 240 4% 46%;
+    --muted-icon: 240 5% 26%;
+    --popover: 240 6% 10%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 258.3 90% 66%;
+    --primary-foreground: 240 6% 90% --reviso: 258.3 90% 66%;
+    --reviso-highlight: 262, 83%, 58%, 0.25;
+    --ring: 262.1 83% 58%;
+    --secondary: 240 4% 16%;
+    --secondary-foreground: 0 0% 98%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-inter);
+    font-size: 0.875rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .item-card[data-custom-height] {
+    height: var(--custom-height);
+  }
+}
+
+.prose {
+  font-family: var(--font-marat);
+  font-size: 1.125rem;
+  line-height: 1.875rem;
+  @media print {
+    max-width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  strong,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    font-family: var(--font-marat-medium);
+    @media print {
+      break-after: avoid;
+    }
+  }
+  h1 {
+    font-weight: 700;
+  }
+}
+
+.ql-cursor {
+  .ql-reviso-flag {
+    font-family: var(--font-inter);
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px; /* 133.333% */
+    border-radius: 8px 8px 8px 0px !important;
+    padding: 0px !important;
+    margin-bottom: 8px !important;
+  }
+
+  .ql-reviso-name {
+    display: inline-flex;
+    padding: 2px 7px;
+
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    margin: 0px !important;
+  }
+  .ql-cursor-selection-block {
+    padding: 13px 0px;
+    margin-top: -4px;
+  }
+
+  .ql-cursor-selections > *:first-child {
+    border-radius: 4px 0px 0px 4px;
+  }
+
+  .ql-cursor-selections > *:last-child {
+    border-radius: 0px 4px 4px 0px;
+  }
+
+  .ql-cursor-caret {
+    height: 26px;
+    margin-top: -4px;
+  }
+}
+
+/* messageEditor quill */
+.message-editor {
+  &.ql-container {
+    overflow: visible;
+  }
+
+  .ql-editor {
+    ::selection {
+      background-color: auto;
+    }
+    min-height: auto;
+    &.ql-blank::before {
+      color: hsla(var(--muted-foreground));
+      content: attr(data-placeholder);
+      pointer-events: none;
+      position: absolute;
+    }
+  }
+}
+
+/* quill overrides */
+.ql-editor {
+  outline: none;
+  min-height: 75vh;
+  white-space: pre-wrap;
+
+  ::selection {
+    background-color: hsla(var(--reviso-highlight));
+  }
+
+  comment {
+    cursor: pointer;
+    text-decoration: underline 2px hsla(var(--reviso));
+  }
+
+  highlight {
+    background-color: hsla(var(--reviso-highlight));
+    padding: 0.25em 0 0.25em 0;
+
+    &::selection {
+      background-color: transparent;
+    }
+  }
+  @keyframes highlightFadeIn {
+    from {
+      background-color: transparent;
+    }
+    to {
+      background-color: hsla(var(--reviso-highlight));
+    }
+  }
+
+  @keyframes highlightFadeOut {
+    from {
+      background-color: hsla(var(--reviso-highlight));
+    }
+    to {
+      background-color: transparent;
+    }
+  }
+
+  hoverhighlight {
+    background-color: transparent;
+    padding: 0.25em 0 0.25em 0;
+
+    &::selection {
+      background-color: transparent;
+    }
+  }
+
+  .highlightFadeIn {
+    animation: highlightFadeIn 0.5s ease forwards; /* Adjust time as needed */
+  }
+
+  .highlightFadeOut {
+    animation: highlightFadeOut 1.5s ease forwards; /* Adjust time as needed */
+  }
+
+  insert {
+    padding: 0.25em 0 0.25em 0;
+    color: hsla(var(--reviso));
+
+    &::selection {
+      background-color: transparent;
+    }
+  }
+
+  deletion {
+    background-color: hsla(var(--destructive));
+    padding: 0.25em 0 0.25em 0;
+    text-decoration: line-through;
+
+    &::selection {
+      background-color: transparent;
+    }
+  }
+
+  strong {
+    font-family: var(--font-marat-medium);
+    font-weight: 700;
+  }
+
+  ol,
+  ul {
+    margin: 0 0 1rem;
+    padding-left: 0;
+  }
+
+  ol + ul {
+    margin-top: -1rem;
+  }
+
+  ol > li,
+  ul > li {
+    list-style-type: none;
+  }
+  ul > li::before {
+    content: "\2022";
+  }
+  ul[data-checked="true"],
+  ul[data-checked="false"] {
+    pointer-events: none;
+  }
+  ul[data-checked="true"] > li *,
+  ul[data-checked="false"] > li * {
+    pointer-events: all;
+  }
+  ul[data-checked="true"] > li::before,
+  ul[data-checked="false"] > li::before {
+    cursor: pointer;
+    pointer-events: all;
+  }
+  ul[data-checked] {
+    margin: 0;
+  }
+  ul[data-checked] li {
+    list-style-type: none; /* Removes default bullet points */
+    position: relative;
+  }
+  ul[data-checked] li:before {
+    content: "☑️";
+    padding-right: 0.5em;
+  }
+  ul[data-checked="true"] li:before {
+    content: "✅";
+  }
+  ul[data-checked="false"] li:before {
+    content: "☑️";
+  }
+  li::before {
+    display: inline-block;
+    white-space: nowrap;
+    width: 1.2em;
+  }
+  li:not(.ql-direction-rtl)::before {
+    margin-left: -1.5em;
+    margin-right: 0.3em;
+    text-align: right;
+  }
+  li.ql-direction-rtl::before {
+    margin-left: 0.3em;
+    margin-right: -1.5em;
+  }
+  ol li:not(.ql-direction-rtl),
+  ul li:not(.ql-direction-rtl) {
+    padding-left: 1.5em;
+  }
+  ol li.ql-direction-rtl,
+  ul li.ql-direction-rtl {
+    padding-right: 1.5em;
+  }
+  ol li {
+    counter-reset: list-1 list-2 list-3 list-4 list-5 list-6 list-7 list-8
+      list-9;
+    counter-increment: list-0;
+  }
+  ol li:before {
+    content: counter(list-0, decimal) ". ";
+  }
+  ol li.ql-indent-1 {
+    counter-increment: list-1;
+  }
+  ol li.ql-indent-1:before {
+    content: counter(list-1, lower-alpha) ". ";
+  }
+  ol li.ql-indent-1 {
+    counter-reset: list-2 list-3 list-4 list-5 list-6 list-7 list-8 list-9;
+  }
+  ol li.ql-indent-2 {
+    counter-increment: list-2;
+  }
+  ol li.ql-indent-2:before {
+    content: counter(list-2, lower-roman) ". ";
+  }
+  ol li.ql-indent-2 {
+    counter-reset: list-3 list-4 list-5 list-6 list-7 list-8 list-9;
+  }
+  ol li.ql-indent-3 {
+    counter-increment: list-3;
+  }
+  ol li.ql-indent-3:before {
+    content: counter(list-3, decimal) ". ";
+  }
+  ol li.ql-indent-3 {
+    counter-reset: list-4 list-5 list-6 list-7 list-8 list-9;
+  }
+  ol li.ql-indent-4 {
+    counter-increment: list-4;
+  }
+  ol li.ql-indent-4:before {
+    content: counter(list-4, lower-alpha) ". ";
+  }
+  ol li.ql-indent-4 {
+    counter-reset: list-5 list-6 list-7 list-8 list-9;
+  }
+  ol li.ql-indent-5 {
+    counter-increment: list-5;
+  }
+  ol li.ql-indent-5:before {
+    content: counter(list-5, lower-roman) ". ";
+  }
+  ol li.ql-indent-5 {
+    counter-reset: list-6 list-7 list-8 list-9;
+  }
+  ol li.ql-indent-6 {
+    counter-increment: list-6;
+  }
+  ol li.ql-indent-6:before {
+    content: counter(list-6, decimal) ". ";
+  }
+  ol li.ql-indent-6 {
+    counter-reset: list-7 list-8 list-9;
+  }
+  ol li.ql-indent-7 {
+    counter-increment: list-7;
+  }
+  ol li.ql-indent-7:before {
+    content: counter(list-7, lower-alpha) ". ";
+  }
+  ol li.ql-indent-7 {
+    counter-reset: list-8 list-9;
+  }
+  ol li.ql-indent-8 {
+    counter-increment: list-8;
+  }
+  ol li.ql-indent-8:before {
+    content: counter(list-8, lower-roman) ". ";
+  }
+  ol li.ql-indent-8 {
+    counter-reset: list-9;
+  }
+  ol li.ql-indent-9 {
+    counter-increment: list-9;
+  }
+  ol li.ql-indent-9:before {
+    content: counter(list-9, decimal) ". ";
+  }
+  li.ql-indent-1:not(.ql-direction-rtl) {
+    padding-left: 3rem;
+  }
+  li.ql-indent-1.ql-direction-rtl.ql-align-right {
+    padding-right: 3rem;
+  }
+  li.ql-indent-2:not(.ql-direction-rtl) {
+    padding-left: 4.5rem;
+  }
+  li.ql-indent-2.ql-direction-rtl.ql-align-right {
+    padding-right: 4.5rem;
+  }
+
+  li.ql-indent-3:not(.ql-direction-rtl) {
+    padding-left: 6rem;
+  }
+  li.ql-indent-3.ql-direction-rtl.ql-align-right {
+    padding-right: 6rem;
+  }
+
+  li.ql-indent-4:not(.ql-direction-rtl) {
+    padding-left: 7.5rem;
+  }
+  li.ql-indent-4.ql-direction-rtl.ql-align-right {
+    padding-right: 7.5rem;
+  }
+
+  li.ql-indent-5:not(.ql-direction-rtl) {
+    padding-left: 9rem;
+  }
+  li.ql-indent-5.ql-direction-rtl.ql-align-right {
+    padding-right: 9rem;
+  }
+
+  li.ql-indent-6:not(.ql-direction-rtl) {
+    padding-left: 10.5rem;
+  }
+  li.ql-indent-6.ql-direction-rtl.ql-align-right {
+    padding-right: 10.5rem;
+  }
+  li.ql-indent-7:not(.ql-direction-rtl) {
+    padding-left: 12rem;
+  }
+  li.ql-indent-7.ql-direction-rtl.ql-align-right {
+    padding-right: 12rem;
+  }
+  li.ql-indent-8:not(.ql-direction-rtl) {
+    padding-left: 13.5rem;
+  }
+  li.ql-indent-8.ql-direction-rtl.ql-align-right {
+    padding-right: 13.5rem;
+  }
+
+  li.ql-indent-9:not(.ql-direction-rtl) {
+    padding-left: 15rem;
+  }
+  li.ql-indent-9.ql-direction-rtl.ql-align-right {
+    padding-right: 15rem;
+  }
+}
+
+.ql-clipboard {
+  left: -100000px;
+  height: 1px;
+  overflow-y: hidden;
+  position: absolute;
+  top: 50%;
+}
+
+.shimmer {
+  color: hsla(var(--reviso));
+  display: inline-block;
+  -webkit-mask: linear-gradient(-60deg, #000 30%, #0005, #000 70%) right/300%
+    100%;
+  background-repeat: no-repeat;
+  animation: shimmer 2.5s infinite;
+  font-size: 50px;
+  max-width: 200px;
+}
+
+@keyframes shimmer {
+  100% {
+    -webkit-mask-position: left;
+  }
+}

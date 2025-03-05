@@ -1,0 +1,166 @@
+package templates
+
+import (
+"fmt"
+v3 "github.com/teamreviso/code/rogue/v3"
+)
+
+templ Table(id string, doc *v3.Rogue) {
+@DocLayout(id, "table") {
+<div class="mb-4">
+  <a class="border p-1 rounded hover:bg-gray-200 bg-white text-black" href={
+    templ.SafeURL(fmt.Sprintf("/admin/documents/%s/table/history", id)) }>
+    History
+  </a>
+</div>
+<div class="bg-white text-black p-4">
+  <table class="">
+    for _, root := range doc.Roots {
+    for _, node := range root.Flatten() {
+    <tr>
+      <td class="border p-1">
+        { node.ID.String() }
+      </td>
+      <td class="border p-1">
+        if node.Parent != nil {
+        { node.Side.String() }
+        { node.Parent.ID.String() }
+        }
+      </td>
+      <td class="border p-0">
+        <table class="border text-mono">
+          <tr>
+            for _, tup := range node.TextTuples() {
+            <td class="border p1">
+              { tup.Text }
+            </td>
+            }
+          </tr>
+          <tr>
+            for _, tup := range node.TextTuples() {
+            <td class="border p1">
+              if doc.CharHistory[tup.ID] != nil {
+              for _, m := range doc.CharHistory[tup.ID].AsSlice() {
+              <div class="text-mono" data-id={ m.ID.String() }>
+                if m.IsDel {
+                X
+                } else {
+                O
+                }
+              </div>
+              }
+              }
+            </td>
+            }
+          </tr>
+        </table>
+      </td>
+    </tr>
+    }
+    }
+  </table>
+</div>
+}
+}
+
+templ HistoryForm(id string) {
+@DocLayout(id, "table") {
+<div class="bg-white text-black p-4">
+  @historyForm("")
+</div>
+}
+}
+
+templ HistoryTable(id string, contentAddress string, vis *v3.FugueDiff, span, line *v3.NOS, html string) {
+@DocLayout(id, "table") {
+<div class="bg-white text-black p-4">
+  @historyForm(contentAddress)
+  <hr class="my-4" />
+  @historyTable(vis, span, line)
+  <hr class="my-4" />
+  <h4 class="text-bold">HTML</h4>
+  @htmlContentStyle()
+  <div class="html-content">
+    @templ.Raw(html)
+  </div>
+</div>
+}
+}
+
+templ historyTable(vis *v3.FugueDiff, span, line *v3.NOS) {
+<style>
+  .tooltip {
+    position: absolute;
+    display: none;
+    z-index: 1000;
+  }
+</style>
+<div class="flex">
+  <div class="flex-1 mr-2 font-mono">
+    <h4 class="text-bold">FugueVis</h4>
+    <div>
+      for i := range vis.IDs {
+      <span class="cursor-pointer hover:text-blue-800 hover:bg-gray-200" tooltip={ fmt.Sprintf("%d - %s", i,
+        vis.IDs[i].String()) } onmouseover="showTooltip(event, this)" onmouseout="hideTooltip()">
+        { v3.Uint16ToStr(vis.Text[i:i+1]) }
+      </span>
+      }
+      <div id="tooltip" class="tooltip bg-gray-800 text-white text-xs rounded p-2 shadow-lg"></div>
+    </div>
+  </div>
+  @nosTable("Span", span)
+  @nosTable("Line", line)
+</div>
+<script>
+  const tooltip = document.getElementById('tooltip');
+  console.log(tooltip);
+
+  function showTooltip(event, element) {
+    const data = element.getAttribute('tooltip');
+    tooltip.innerHTML = data;
+    tooltip.style.display = 'block';
+    tooltip.style.left = `${event.pageX + 5}px`;
+    tooltip.style.top = `${event.pageY + 5}px`;
+  }
+
+  function hideTooltip() {
+    tooltip.style.display = 'none';
+  }
+
+  document.addEventListener('mousemove', function (event) {
+    if (tooltip.style.display === 'block') {
+      tooltip.style.left = `${event.pageX + 5}px`;
+      tooltip.style.top = `${event.pageY + 5}px`;
+    }
+  });
+</script>
+}
+
+templ nosTable(title string, nos *v3.NOS) {
+<div class="flex-1">
+  <h4 class="text-bold">{ title }</h4>
+  <table class="">
+    for _, node := range nos.AsSlice() {
+    <tr>
+      <td class="border p-1">
+        { fmt.Sprintf("%d", node.StartIx) }
+      </td>
+      <td class="border p-1">
+        { fmt.Sprintf("%d", node.EndIx) }
+      </td>
+      <td class="border p-1">
+        { fmt.Sprintf("%#v", node.Format) }
+      </td>
+    </tr>
+    }
+  </table>
+</div>
+}
+
+templ historyForm(contentAddress string) {
+<form method="GET">
+  <input id="addressInput" name="address" placeholder="Content Address" class="border p-1 w-full" value={ contentAddress
+    } />
+  <button type="submit" class="color-primary border p-1 rounded mt-1">Show History</button>
+</form>
+}

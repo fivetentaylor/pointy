@@ -1,0 +1,18 @@
+- id: d2e3f4a5-b6c7-5d8e-9f0a-567890123def
+  document_id: a2b3c4d5-e6f7-48a9-b0c1-3456789012ab
+  thread_id: a2b3c4d5-e6f7-48a9-b0c1-345678901def
+  user_id: c1a2b3c4-d5e6-47f8-9f01-123456789abc
+  body: This is the first comment.
+
+- id: e3f4a5b6-c7d8-6e0f-a1b2-789012345cde
+  document_id: a2b3c4d5-e6f7-48a9-b0c1-3456789012ab
+  thread_id: 2b5cda8d-f7fd-4cf0-bff4-6e38dd1a3de5
+  user_id: b2c3d4e5-f6a7-48f9-a0b2-234567890def
+  body: This is the second comment in the same thread.
+
+- id: f4a5b6c7-d8e9-7f0a-b1c2-890123456def
+  document_id: b3c4d5e6-f7a8-59b0-a1b2-456789012def
+  thread_id: 7ef9e6f8-d2da-440c-961e-20b47b4f6477
+  user_id: c1a2b3c4-d5e6-47f8-9f01-123456789abc
+  body: This is a comment in a different thread.
+

@@ -1,0 +1,173 @@
+package templates
+
+import "github.com/teamreviso/code/pkg/models"
+
+templ FirstOpenStyles() {
+	<style>
+.container {
+    font-family: Roboto, sans-serif;
+}
+
+.logo {
+    margin-left: -11px;
+}
+
+.title {
+    margin-top: 27px;
+    margin-bottom: 33px;
+    padding-bottom: 12px;
+    color: #18181B;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 28px;
+    word-wrap: break-word;
+    border-bottom: 1px solid #E4E4E7;
+}
+
+.avatar-container {
+    vertical-align: top;
+    width: 57px;
+}
+
+.avatar img {
+    width: 40px;
+    height: 40px;
+    border-radius: 9999px;
+}
+
+.avatar-initials {
+    width: 40px;
+    height: 40px;
+    border-radius: 9999px;
+    background: #18181B;
+    color: #F4F4F5;
+    line-height: 40px;
+    text-align: center;
+}
+
+.msg-content-container {
+    color: #18181B;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 28px;
+    word-wrap: break-word;
+}
+
+a {
+    text-decoration: none;
+}
+
+.screenshot {
+    margin-top: 19px;
+    width: 13.9375rem;
+}
+
+.screenshot-container {
+    box-sizing: border-box;
+    border-style: solid;
+    position: relative;
+    height: 12.16875rem;
+    overflow: hidden;
+    border-radius: 0.5rem;
+    border-width: 1px;
+    border-color: #e4e4e7;
+    background-color: #f4f4f5;
+    padding-left: 1.125rem;
+    padding-right: 1.125rem;
+    padding-top: 0.611rem;
+}
+
+.screenshot-inner-window {
+    height: 12.16875rem;
+    background-color: #FFFFFF;
+    border-style: solid;
+    border-radius: 8px;
+    border-width: 1px;
+    border-color: #e4e4e7;
+}
+
+.screenshot-img {
+    display: block;
+    width: 100%;
+    border-radius: 8px;
+}
+
+.screenshot-gradient {
+    background-image: linear-gradient(rgba(0, 0, 0, 0), rgb(255, 255, 255));
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 3.9375rem;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.button-container {
+        margin-top: 32px;
+}
+.button {
+        display: inline-block;
+        background: #6D28D9;
+        border-radius: 6px;
+        box-shadow: 0px 1px 3px rgba(16, 24, 40, 0.10);
+        font-size: 16px;
+        font-weight: 500;
+        gap: 8px;
+        letter-spacing: 0em;
+        line-height: 24px;
+        margin: auto;
+        overflow: hidden;
+        text-align: left;
+        text-decoration: none;
+}
+.button-text {
+        text-align: center;
+        padding-left: 16px;
+        padding-right: 16px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        color: #F4F4F5;
+        font-size: 16px;
+        font-family: Roboto, sans-serif;
+        font-weight: 500;
+        line-height: 24px;
+        word-wrap: break-word;
+}
+
+  </style>
+}
+
+templ FirstOpenHTML(preheader string, user *models.User, doc *models.Document) {
+	@BaseEmail(preheader, FirstOpenStyles()) {
+		<div>
+			<img class="logo" src={ appHostUrl(ctx, "/static/logo-w-white-bg.png") } alt="Reviso" style="width: 124px;"/>
+			<div class="title">
+				{ user.DisplayName } is reading your document!
+			</div>
+			<table>
+				<tr>
+					<td class="avatar-container">
+						@Avatar(user)
+					</td>
+					<td class="msg-content-container">
+						<span>{ user.DisplayName }</span> opened 
+						<a href={ templ.SafeURL(DocUrl(ctx, doc)) }>{ doc.Title }</a>
+						{ "for" } the first time
+					</td>
+				</tr>
+			</table>
+			<div class="button-container">
+				<a class="button" href={ templ.SafeURL(DocUrl(ctx, doc)) }>
+					<div class="button-text">Open Document</div>
+				</a>
+			</div>
+		</div>
+	}
+}
+
+templ FirstOpenText(user *models.User, doc *models.Document) {
+	{ user.DisplayName } is reading your document!
+	{ user.DisplayName } opened { doc.Title } { "for" } the first time
+	{ DocUrl(ctx, doc) }
+}

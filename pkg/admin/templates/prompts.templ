@@ -1,0 +1,130 @@
+package templates
+
+import (
+	"encoding/json"
+	"fmt"
+	"github.com/teamreviso/code/pkg/models"
+	"time"
+)
+
+templ Prompts(prompts []*models.Prompt) {
+	@AdminLayout("prompts") {
+		<style>
+		@keyframes bounce {
+		    0%, 100% {
+			transform: translateY(0);
+		    }
+		    50% {
+			transform: translateY(-20px);
+		    }
+		}
+		@keyframes rotate {
+		    0% {
+			transform: rotate(0deg);
+		    }
+		    100% {
+			transform: rotate(360deg);
+		    }
+		}
+		.loader{
+			display: none;
+		}
+		.htmx-request .loader{
+			display: block;
+		}
+		.htmx-request.loader{
+			display: block;
+		}
+	    </style>
+		<div class="bg-white text-black p-4 mb-4">
+			<h1 class="text-3xl mb-4">Prompts</h1>
+			<button
+				class="relative px-8 py-4 font-bold text-white transition-transform duration-300 ease-in-out bg-reviso rounded-full shadow-lg hover:scale-110 hover:shadow-xl"
+				hx-post="/admin/prompts/refresh"
+				hx-trigger="click"
+				hx-swap="outerHTML"
+				hx-target="body"
+				hx-indicator=".loader"
+			>
+				Refresh
+				<span class="absolute bottom-0 left-0 w-full h-full bg-reviso opacity-25 rounded-full hover:animate-ping"></span>
+				<div class="loader">
+					<div class="flex space-x-4">
+						<div class="w-6 h-6 bg-white rounded-full animate-bounce"></div>
+						<div class="w-6 h-6 bg-white rounded-full animate-bounce" style="animation-delay: 0.2s;"></div>
+						<div class="w-6 h-6 bg-white rounded-full animate-bounce" style="animation-delay: 0.4s;"></div>
+					</div>
+				</div>
+			</button>
+			<div class="mt-4">
+				for _, prompt := range prompts {
+					@Prompt(prompt)
+				}
+			</div>
+		</div>
+	}
+}
+
+templ Prompt(prompt *models.Prompt) {
+	<div class="p-6 bg-gray-100 rounded-lg shadow-md">
+		<div class="text-xl font-bold mb-4">
+			ID: { fmt.Sprint(prompt.ID) }
+		</div>
+		<div class="text-sm text-gray-600 mb-4">
+			Updated: { prompt.UpdatedAt.Format("2006-01-02 15:04:05 MST") }
+			( { fmt.Sprintf("%s", time.Now().Sub(prompt.UpdatedAt)) } ago )
+		</div>
+		<div class="text-lg font-semibold mb-2">
+			Name: { prompt.PromptName }
+		</div>
+		<div class="text-sm text-gray-600 mb-4">
+			Version: { prompt.Version }
+		</div>
+		<div class="text-sm text-gray-600 mb-4">
+			Provider: { prompt.Provider }
+		</div>
+		<div class="text-sm text-gray-600 mb-4">
+			Model: { prompt.ModelName }
+		</div>
+		if prompt.SystemContent != nil {
+			<details>
+				<summary class="text-sm cursor-pointer">System Prompt</summary>
+				<div class="drawer-content">
+					<pre>
+						<code>
+							{ *prompt.SystemContent }
+						</code>
+					</pre>
+				</div>
+			</details>
+		}
+		<details>
+			<summary class="text-sm cursor-pointer">Content</summary>
+			<div class="drawer-content">
+				<pre>
+					<code>
+						{ prompt.ContentJSON }
+					</code>
+				</pre>
+			</div>
+		</details>
+		<details>
+			<summary class="text-sm cursor-pointer">Full Record</summary>
+			<div class="drawer-content">
+				<pre>
+					<code>
+						{ JSON(prompt) }
+					</code>
+				</pre>
+			</div>
+		</details>
+	</div>
+}
+
+func JSON(data interface{}) string {
+	b, err := json.MarshalIndent(data, "", "  ")
+	if err != nil {
+		return err.Error()
+	}
+	return string(b)
+}

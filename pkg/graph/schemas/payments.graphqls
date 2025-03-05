@@ -1,0 +1,24 @@
+extend type Query {
+  subscriptionPlans: [SubscriptionPlan!]!
+}
+
+extend type Mutation {
+  checkoutSubscriptionPlan(id: ID!): Checkout!
+  billingPortalSession: BillingPortalSession!
+}
+
+type Checkout {
+  url: String!
+}
+
+type BillingPortalSession {
+  url: String!
+}
+
+type SubscriptionPlan { 
+  id: ID!
+  name: String!
+  priceCents: Int!
+  currency: String!
+  interval: String!
+}

@@ -1,0 +1,42 @@
+extend type Query {
+  sharedLink(inviteLink: String!): SharedDocumentLink
+  sharedLinks(documentID: ID!): [SharedDocumentLink!]!
+
+  unauthenticatedSharedLink(inviteLink: String!): UnauthenticatedSharedLink
+}
+
+extend type Mutation {
+  shareDocument(
+    documentID: ID!
+    emails: [String!]!
+    message: String
+  ): [SharedDocumentLink!]!
+  unshareDocument(documentID: ID!, editorID: ID!): Document!
+  createShareLinks(
+    documentID: ID!
+    emails: [String!]!
+    message: String
+  ): [SharedDocumentLink!]!
+  updateShareLink(inviteLink: String!, isActive: Boolean!): SharedDocumentLink!
+  joinShareLink(inviteLink: String!): Document!
+  sendAccessLinkForInvite(inviteLink: String!): Boolean
+}
+
+type UnauthenticatedSharedLink {
+  inviteLink: String!
+  documentTitle: String!
+  invitedByEmail: String!
+  invitedByName: String!
+}
+
+type SharedDocumentLink {
+  inviteLink: String!
+  createdAt: Time!
+  updatedAt: Time!
+  inviteeEmail: String!
+  inviteeUser: User
+  isActive: Boolean!
+
+  document: Document!
+  invitedBy: User!
+}

@@ -1,0 +1,38 @@
+overwrite: true
+schema:
+  - "https://app.reviso.dev:9090/graphql/query"
+documents: ["src/**/*.tsx", "src/**/*.ts", "!src/__generated__/**/*"]
+generates:
+  "./src/__generated__/":
+    preset: "client"
+    presetConfig:
+      gqlTagName: "gql"
+    config:
+      addUnderscoreToArgsType: true
+      declarationKind: "interface"
+      emitLegacyCommonJSImports: false
+      enumsAsTypes: true
+      futureProofUnions: true
+      noExport: true
+      scalars:
+        Time: "string"
+        JSON: "string"
+      strictScalars: true
+      useTypeImports: true
+
+  "types/graphql.d.ts":
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+    config:
+      addUnderscoreToArgsType: true
+      declarationKind: "interface"
+      emitLegacyCommonJSImports: false
+      enumsAsTypes: true
+      futureProofUnions: true
+      noExport: true
+      scalars:
+        Time: "string"
+        JSON: "string"
+      strictScalars: true
+      useTypeImports: true

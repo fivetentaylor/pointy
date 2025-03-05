@@ -1,0 +1,135 @@
+package templates
+
+import "fmt"
+import "encoding/base64"
+import "time"
+import "strings"
+import "strconv"
+import "github.com/teamreviso/code/pkg/constants"
+
+type PendingOp struct {
+	Op    string
+	Score float64
+}
+
+type DocumentStorageSnapshot struct {
+	Key          string
+	LastModified time.Time
+}
+
+templ Spinner(id, class string) {
+	<svg id={ id } class={ class } xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+		<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+		<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+	</svg>
+}
+
+templ DocumentStorage(id string, snapshots []DocumentStorageSnapshot, pendingOps []PendingOp) {
+	@DocLayout(id, "storage") {
+		<div class="bg-white text-black p-4">
+			<h2 class="text-lg font-bold border-b mb-4">Storage</h2>
+			<div class="flex mb-4">
+				<button
+					class="flex bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded"
+					hx-post={ fmt.Sprintf("/admin/documents/%s/snapshot", id) }
+					hx-indicator="#snapshotSpinner"
+				>
+					Snapshot 
+					@Spinner("snapshotSpinner", "animate-spin ml-2 -mb-1 h-5 w-5 text-red-100 htmx-indicator")
+				</button>
+				<a
+					class="flex bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white ml-2 py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+					href={ templ.SafeURL(fmt.Sprintf("/admin/documents/%s/snapshot", id)) }
+				>
+					Download Current Snapshot
+				</a>
+			</div>
+			<div class="mb-10">
+				<h2 class="text-lg font-bold border-b mb-4">Snapshots</h2>
+				<div class="flex">
+					<div class="w-1/3">
+						<table class="table-auto w-full">
+							<thead>
+								<tr>
+									<th class="text-left">Sequence #</th>
+									<th class="text-left">Last Modified</th>
+								</tr>
+							</thead>
+							<tbody>
+								for _, obj := range snapshots {
+									<tr
+										class="cursor-pointer hover:bg-gray-200"
+										hx-get={ fmt.Sprintf("/admin/documents/%s/snapshots/%s", id, base64.StdEncoding.EncodeToString([]byte(obj.Key))) }
+										hx-target="#docHtml"
+									>
+										<td>{ IdOfKey(obj.Key) }</td>
+										<td class="text-gray-500 text-sm">{ obj.LastModified.Format(time.RFC1123) }</td>
+									</tr>
+								}
+							</tbody>
+						</table>
+					</div>
+					<div class="w-2/3" id="docHtml"></div>
+				</div>
+			</div>
+			<div class="">
+				<h2 class="text-lg font-bold border-b mb-4">Buffered Operations</h2>
+				@BufferedOps(id, pendingOps)
+			</div>
+		</div>
+	}
+}
+
+templ DocumentStorageSnapshotView(id, key, docHTML string) {
+	<div>
+		<h2 class="text-lg font-bold border-b mb-4">Snapshot sequence #{ IdOfKey(key) }</h2>
+		<div class="flex gap-4 mb-4">
+			<button
+				class="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded"
+				hx-post={ fmt.Sprintf("/admin/documents/%s/snapshots/%s/revert", id, base64.StdEncoding.EncodeToString([]byte(key))) }
+			>
+				Revert Document 
+			</button>
+			<button
+				class="bg-transparent hover:bg-green-500 text-green-700 font-semibold hover:text-white py-2 px-4 border border-green-500 hover:border-transparent rounded"
+				hx-post={ fmt.Sprintf("/admin/documents/%s/snapshots/%s/new_document", id, base64.StdEncoding.EncodeToString([]byte(key))) }
+			>
+				New Document
+			</button>
+			<a
+				class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+				href={ templ.SafeURL(fmt.Sprintf("/admin/documents/%s/snapshots/%s/download", id, base64.StdEncoding.EncodeToString([]byte(key)))) }
+			>
+				Download Snapshot
+			</a>
+		</div>
+		<pre class="whitespace-pre-wrap max-w-full p-4 bg-gray-100 overflow-auto">
+			<code>
+				@templ.Raw(docHTML)
+			</code>
+		</pre>
+	</div>
+}
+
+templ BufferedOps(docID string, pendingOps []PendingOp) {
+	<div class="bufferedOps">
+		<ol>
+			for _, pop := range pendingOps {
+				<li>
+					<a class="cursor-pointer hover:underline text-red-500" hx-delete={ fmt.Sprintf("/admin/documents/%s/storage/%d", docID, int(pop.Score)) } hx-target=".bufferedOps">x</a> { fmt.Sprintf("%0.1f: ", pop.Score) } { pop.Op }
+				</li>
+			}
+		</ol>
+	</div>
+}
+
+func IdOfKey(key string) string {
+	parts := strings.Split(key, "/")
+
+	id, err := strconv.Atoi(parts[len(parts)-1])
+	if err != nil {
+		return parts[len(parts)-1]
+	}
+
+	return fmt.Sprintf("%d", constants.MaxSeqValue-int64(id))
+}

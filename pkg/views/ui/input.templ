@@ -1,0 +1,39 @@
+package ui
+
+type InputOptions struct {
+	Variant string
+	Size    string
+	Class   string
+	Attrs   templ.Attributes
+}
+
+templ Input(t string, opts InputOptions) {
+	<input
+		type={ t }
+		class={ inputClass(opts) }
+		{ opts.Attrs... }
+	/>
+}
+
+var inputVariants = map[string]string{
+	"default":     " bg-zinc-900 text-primary-foreground hover:bg-zinc-900/90",
+	"reviso":      " bg-primary hover:bg-primary/90 text-primary-foreground hover:bg-primary/90",
+	"icon":        " bg-background text-primary-foreground hover:bg-background/90 border border-border",
+	"destructive": " bg-destructive text-destructive-foreground hover:bg-destructive/90",
+	"outline":     " border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+	"secondary":   " bg-secondary text-secondary-foreground hover:bg-secondary/80 shadow-sm",
+	"ghost":       " hover:bg-accent hover:text-accent-foreground",
+	"link":        " text-primary underline-offset-4 hover:underline",
+	"highlight":   " bg-highlight text-highlight-foreground hover:bg-highlight/90",
+}
+
+func inputClass(opts InputOptions) string {
+	var class string
+	class = "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+
+	if opts.Class != "" {
+		class = opts.Class + " " + class
+	}
+
+	return class
+}

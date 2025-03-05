@@ -1,0 +1,435 @@
+name: 'Production'
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches:
+      - "main"
+
+permissions:
+  actions: write
+  pull-requests: write
+  deployments: write
+  contents: write
+  checks: read
+
+jobs:
+  check-assets:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: "pkg/assets/src"
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+          cache-dependency-path: ./frontend/web/package-lock.json
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Prettier
+        run: npm run prettier:check
+
+  build_server:
+    name: "Production Build Server"
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_REGION: "us-west-2"
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Configure AWS credentials (production)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: us-west-2
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build, tag, and push Reviso image to Amazon ECR
+        env:
+          NODE_ENV: production
+          WEB_HOST: https://www.revi.so
+          APP_HOST: https://app.revi.so
+          WS_HOST: wss://app.revi.so
+          SEGMENT_KEY: Q5FeQZoWqZn884r40LWa52uOnm3AAdZP
+          POSTHOG_SERVER_FEATURE_FLAG_KEY: ${{ secrets.POSTHOG_SERVER_FEATURE_FLAG_KEY }}
+          PUBLIC_POSTHOG_KEY: phc_VNNLf6qkNVKgznDBxtofVhvGBumCsEE8S4UZLC5FPHb
+          PUBLIC_POSTHOG_HOST: https://us.posthog.com
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: reviso-server
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f cmd/reviso/Dockerfile --build-arg NODE_ENV=$NODE_ENV --build-arg WEB_HOST=$WEB_HOST --build-arg APP_HOST=$APP_HOST --build-arg WS_HOST=$WS_HOST --build-arg SEGMENT_KEY=$SEGMENT_KEY --build-arg PUBLIC_POSTHOG_HOST=$PUBLIC_POSTHOG_HOST --build-arg PUBLIC_POSTHOG_KEY=$PUBLIC_POSTHOG_KEY --build-arg POSTHOG_SERVER_FEATURE_FLAG_KEY=$POSTHOG_SERVER_FEATURE_FLAG_KEY --build-arg IMAGE_TAG=$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+  build_web:
+    name: "Production Build Web"
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_REGION: "us-west-2"
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Configure AWS credentials (production)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: us-west-2
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build, tag, and push Web image to Amazon ECR
+        env:
+          NEXT_PUBLIC_GOOGLE_CLIENT_ID: 949864899692-hsueet6p4u1jtlb8lqb9mbk88ncb4p29.apps.googleusercontent.com
+          NEXT_PUBLIC_APP_HOST: https://app.revi.so
+          NEXT_PUBLIC_WS_HOST: wss://app.revi.so
+          NEXT_PUBLIC_POSTHOG_HOST: https://us.posthog.com
+          NEXT_PUBLIC_POSTHOG_KEY: phc_VNNLf6qkNVKgznDBxtofVhvGBumCsEE8S4UZLC5FPHb
+          NEXT_PUBLIC_SEGMENT_WRITE_KEY: Q5FeQZoWqZn884r40LWa52uOnm3AAdZP
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: reviso-web
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker buildx build --platform linux/x86_64 -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f frontend/web/Dockerfile \
+              --build-arg NEXT_PUBLIC_GOOGLE_CLIENT_ID=$NEXT_PUBLIC_GOOGLE_CLIENT_ID \
+              --build-arg NEXT_PUBLIC_APP_HOST=$NEXT_PUBLIC_APP_HOST  \
+              --build-arg NEXT_PUBLIC_WS_HOST=$NEXT_PUBLIC_WS_HOST \
+              --build-arg NEXT_PUBLIC_POSTHOG_HOST=$NEXT_PUBLIC_POSTHOG_HOST \
+              --build-arg NEXT_PUBLIC_POSTHOG_KEY=$NEXT_PUBLIC_POSTHOG_KEY \
+              --build-arg NEXT_PUBLIC_SEGMENT_WRITE_KEY=$NEXT_PUBLIC_SEGMENT_WRITE_KEY \
+             frontend/web
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+  plan:
+    name: "Production Terraform Plan"
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: "terraform/postbuild/prod"
+
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_REGION: "us-west-2"
+      TF_VAR_server_sha: ${{ github.sha }}
+      TF_VAR_web_sha: ${{ github.sha }}
+      TF_VAR_pr_number: ${{ github.event.number }}
+      TF_VAR_slack_webhook_url: ${{ secrets.SLACK_STATUS_WEBHOOK_URL }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: us-west-2
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_wrapper: false
+          terraform_version: 1.0.0
+
+      - name: Terraform init
+        id: init
+        run: |
+          terraform init
+        continue-on-error: true
+
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
+        continue-on-error: true
+
+      - name: Terraform fmt
+        id: fmt
+        run: terraform fmt -check
+        continue-on-error: true
+
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan -no-color
+        continue-on-error: true
+
+      - name: Terraform Comment
+        uses: actions/github-script@v6
+        env:
+          PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const output = `## Production Plan
+            #### SHA: \`${{ env.TF_VAR_web_sha }}\`
+            #### PR: \`${{ env.TF_VAR_pr_number }}\`
+
+            #### ⚙️  Initialize \`${{ steps.init.outcome }}\`
+            #### 🗄️ Workspace \`${{ steps.workspace.outcome }}\`   
+            #### 📖 Plan \`${{ steps.plan.outcome }}\`
+
+            <details><summary>Show Plan</summary>
+
+            \`\`\`\n
+            ${process.env.PLAN}
+            \`\`\`
+
+            </details>
+
+            *Pushed by: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: output
+            })
+
+      - name: Terraform Plan Status
+        if: steps.plan.outcome == 'failure'
+        run: exit 1
+
+  deploy:
+    name: "Production Deploy"
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: "terraform/postbuild/prod"
+
+    needs:
+      - build_web
+      - build_server
+
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_REGION: "us-west-2"
+      TF_VAR_server_sha: ${{ github.sha }}
+      TF_VAR_web_sha: ${{ github.sha }}
+      TF_VAR_slack_webhook_url: ${{ secrets.SLACK_STATUS_WEBHOOK_URL }}
+
+    steps:
+      - id: slack
+        uses: slackapi/slack-github-action@v1.25.0
+        with:
+          channel-id: "C0609EV8YS3"
+          payload: |
+            {
+              "text": "Production Deployment",
+              "attachments": [
+                {
+                  "pretext": "Production Deployment started",
+                  "color": "dbab09",
+                  "fields": [
+                    {
+                      "title": "Status",
+                      "short": true,
+                      "value": "In Progress"
+                    }
+                  ]
+                }
+              ]
+            }
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN}}
+
+      - uses: actions/checkout@v2
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: us-west-2
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_wrapper: false
+          terraform_version: 1.0.0
+
+      - name: Terraform Preview init
+        run: |
+          terraform init
+
+      - name: Terraform Apply
+        id: apply
+        run: terraform apply -auto-approve
+        continue-on-error: true
+
+      - name: Terraform outcome and set color
+        id: set_tf_color
+        run: |
+          if [ "${{ steps.apply.outcome }}" == "success" ]; then
+            echo "TF_COLOR=28a745" >> $GITHUB_ENV
+          else
+            echo "TF_COLOR=d73a4a" >> $GITHUB_ENV
+          fi
+
+      - uses: slackapi/slack-github-action@v1.25.0
+        with:
+          channel-id: "C0609EV8YS3"
+          update-ts: ${{ steps.slack.outputs.ts }}
+          payload: |
+            {
+              "text": "Production Deployment",
+              "attachments": [
+                {
+                  "pretext": "<https://us-west-2.console.aws.amazon.com/ecs/v2/clusters/reviso/services/reviso-server/deployments?region=us-west-2|Production Deployment in progress>",
+                  "color": "dbab09",
+                  "fields": [
+                    {
+                      "title": "Status",
+                      "short": true,
+                      "value": "In Progress"
+                    }
+                  ]
+                },
+                {
+                  "pretext": "Terraform completed",
+                  "color": "${{ env.TF_COLOR }}",
+                  "fields": [
+                    {
+                      "title": "Status",
+                      "short": true,
+                      "value": "${{ steps.apply.outcome }}"
+                    }
+                  ]
+                }
+              ]
+            }
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN}}
+
+      - name: 'Set vars'
+        id: vars
+        run: |
+          deployment_id=$(terraform output -raw ecs_deployment_task_definition)
+          echo "deployment_id=${deployment_id}" >> "$GITHUB_ENV"
+          printf "deployment_id=%s\n" "$deployment_id" >> "$GITHUB_OUTPUT"
+          echo "Set deployment_id to: $deployment_id"
+
+      - name: Debug deployment_id
+        run: echo "Deployment ID is ${{ steps.vars.outputs.deployment_id }}"
+
+      - name: Wait for ECS Server Deployment to Complete
+        id: wait_for_server_deployment
+        run: |
+          SERVICE_NAME=reviso-server
+          CLUSTER_NAME=reviso
+
+          echo "Starting deployment check"
+
+          # Capture the output of the terraform command and handle errors
+          deployment_id=${{ steps.vars.outputs.deployment_id }}
+          if [ -z "$deployment_id" ]; then
+            echo "Error: deployment_id is empty."
+            exit 1
+          fi
+          
+          echo "Found task definition: $deployment_id"
+          
+          DEPLOYMENT_STATUS="UNKNOWN"
+          MAX_ATTEMPTS=60
+          ATTEMPT=0
+          
+          while [ $ATTEMPT -lt $MAX_ATTEMPTS ]; do
+            DEPLOYMENT_STATUS=$(aws ecs describe-services --cluster ${CLUSTER_NAME} --services ${SERVICE_NAME} --query "services[0].deployments[?taskDefinition=='${deployment_id}'].rolloutState" --output text)
+            
+            if [ "$DEPLOYMENT_STATUS" == "COMPLETED" ]; then
+              echo "Deployment completed successfully."
+              break
+            elif [ "$DEPLOYMENT_STATUS" == "FAILED" ]; then
+              echo "Deployment failed."
+              break
+            else
+              echo "Deployment status of ${deployment_id}: ${DEPLOYMENT_STATUS}. Waiting for completion... Attempt $((ATTEMPT+1))/$MAX_ATTEMPTS"
+              sleep 10
+            fi
+            
+            ATTEMPT=$((ATTEMPT+1))
+          done
+
+          if [ "$DEPLOYMENT_STATUS" != "COMPLETED" ]; then
+            echo "Deployment did not complete successfully after $MAX_ATTEMPTS attempts."
+            exit 1
+          fi
+
+          echo "DEPLOYMENT_STATUS=${DEPLOYMENT_STATUS}" >> $GITHUB_ENV
+
+      - name: Set deployment outcome color
+        id: set_color
+        run: |
+          if [ "${{ env.DEPLOYMENT_STATUS }}" == "COMPLETED" ]; then
+            echo "COLOR=28a745" >> $GITHUB_ENV
+          else
+            echo "COLOR=d73a4a" >> $GITHUB_ENV
+          fi
+
+      - name: Update deployment slack message
+        uses: slackapi/slack-github-action@v1.25.0
+        with:
+          channel-id: "C0609EV8YS3"
+          update-ts: ${{ steps.slack.outputs.ts }}
+          payload: |
+            {
+              "text": "Production Deployment",
+              "attachments": [
+                {
+                  "pretext": "<https://us-west-2.console.aws.amazon.com/ecs/v2/clusters/reviso/services/reviso-server/deployments?region=us-west-2|Production Deployment Complete>",
+                  "color": "${{ env.COLOR }}",
+                  "fields": [
+                    {
+                      "title": "Status",
+                      "short": true,
+                      "value": "${{ env.DEPLOYMENT_STATUS }}"
+                    }
+                  ]
+                }
+              ]
+            }
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN}}
+
+      - name: Create final slack message
+        uses: slackapi/slack-github-action@v1.25.0
+        with:
+          channel-id: "C0609EV8YS3"
+          payload: |
+            {
+              "text": "Production Deployment finished ${{ github.sha }}",
+              "attachments": [
+                {
+                  "pretext": "https://app.revi.so"
+                },
+                {
+                  "pretext": "https://www.revi.so"
+                }
+              ]
+            }
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}

@@ -1,0 +1,49 @@
+services:
+  test-redis:
+    image: redis:latest
+    command: redis-server --save ""
+    restart: always
+    ports:
+      - 26379:6379
+    networks:
+      - test
+
+  test-db:
+    image: postgres:latest
+    tmpfs:
+      - /var/lib/postgresql/data
+    restart: always
+    environment:
+      POSTGRES_USER: test
+      POSTGRES_PASSWORD: test
+      POSTGRES_DB: test
+    ports:
+      - 25432:5432
+    networks:
+      - test
+
+  test-dynamodb:
+    image: amazon/dynamodb-local
+    command: -jar DynamoDBLocal.jar -inMemory
+    ports:
+      - 28000:8000
+    networks:
+      - test
+
+  test-s3:
+    image: minio/minio
+    ports:
+      - 29000:9000
+      - 29001:9001
+    environment:
+      MINIO_ROOT_USER: testkey
+      MINIO_ROOT_PASSWORD: testsecret
+    command: server --console-address ":9001" /data
+    tmpfs:
+      - /data
+    networks:
+      - test
+
+networks:
+  test:
+    driver: bridge

@@ -1,0 +1,35 @@
+package views
+
+import (
+	"github.com/teamreviso/code/pkg/views/layouts"
+	"github.com/teamreviso/code/pkg/views/ui"
+)
+
+templ NotFound() {
+	@layouts.App("Not Found") {
+		<div class="w-full p-8">
+			<a href="http://www.revi.so/" class="scale-[0.85] mt-[-0.25rem]">
+				@ui.Logo()
+			</a>
+		</div>
+		<section class="flex flex-col items-center justify-center h-[calc(100dvh-6.2rem)] text-center">
+			<div class="mb-4">
+				@NotFoundIcon()
+			</div>
+			<div class="mb-2">
+				<span class="px-3 py-1 text-foreground text-[0.75rem] leading-[1rem]">Error 404</span>
+			</div>
+			<h1 class="text-[1rem] leading-1.5rem] font-semibold mb-4">Sorry, page not found.</h1>
+			<a href="/drafts" class="px-4 py-2 bg-secondary text-secondary-foreground rounded-md hover:bg-secondary:90 transition-colors">
+				Go back to home
+			</a>
+		</section>
+	}
+}
+
+// Add this function to your ui package
+templ NotFoundIcon() {
+	<div class="w-12 h-12 bg-muted rounded-full flex items-center justify-center">
+		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="hsl(var(--muted-foreground))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search-x"><path d="m13.5 8.5-5 5"></path><path d="m8.5 8.5 5 5"></path><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+	</div>
+}

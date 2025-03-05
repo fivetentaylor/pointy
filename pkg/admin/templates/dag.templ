@@ -1,0 +1,734 @@
+package templates
+
+import (
+	"encoding/base64"
+	"fmt"
+	"github.com/teamreviso/code/pkg/dag"
+	"github.com/teamreviso/code/pkg/storage/dynamo"
+	v3 "github.com/teamreviso/code/rogue/v3"
+	"strings"
+	"time"
+)
+
+type DagRunFile struct {
+	ID        string
+	ParentID  string
+	Name      string
+	RunID     string
+	Step      string
+	Timestamp time.Time
+	FileName  string
+}
+
+func (l DagRunFile) Base64Key() string {
+	return base64.StdEncoding.EncodeToString([]byte(l.ID))
+}
+
+// DagRunFileFromKey will return a DagRunFileFromKey from a key in the format:
+func DagRunFileFromKey(key string) (*DagRunFile, error) {
+	parts := strings.Split(key, "/")
+	if len(parts) != 6 {
+		return nil, fmt.Errorf("invalid key: %s", key)
+	}
+
+	msgIDparts := strings.Split(parts[4], "_")
+	if len(msgIDparts) != 2 {
+		return nil, fmt.Errorf("invalid msg id key: %s", parts[4])
+	}
+
+	timestamp, err := time.Parse(time.RFC3339, msgIDparts[1])
+	if err != nil {
+		return nil, fmt.Errorf("invalid timestamp: %s %s", msgIDparts[1], err)
+	}
+
+	return &DagRunFile{
+		ID:        key,
+		ParentID:  parts[1],
+		Name:      parts[2],
+		RunID:     msgIDparts[0],
+		Timestamp: timestamp,
+		FileName:  parts[5],
+	}, nil
+}
+
+templ Dag(id string, files []*DagRunFile) {
+	@DocLayout(id, "dags") {
+		<div class="mx-auto p-4">
+			<div class="grid grid-cols-4 gap-4">
+				<div class="bg-white text-black p-4">
+					<h2 class="text-lg font-bold border-b mb-4">Dag Runs:</h2>
+					<div class="font-mono">
+						for i, f := range files {
+							if i == 0 || files[i-1].ParentID != f.ParentID {
+								<h1 class="text-xl font-bold border-b mb-4">{ f.ParentID }</h1>
+							}
+							if i == 0 || files[i-1].Name != f.Name {
+								<h2 class="px-4 text-lg font-bold border-b mb-4">{ f.Name }</h2>
+							}
+							if i == 0 || files[i-1].RunID != f.RunID {
+								<h2 class="px-6 text-md font-bold border-b mb-4" data-run-id={ f.RunID }>
+									<span class="text-gray-500">{ f.RunID[0:8] }</span> - Started: { f.Timestamp.Format(time.RFC1123) }
+								</h2>
+							}
+							<div class="px-12 text-sm mb-4">
+								<a href="#" hx-get={ fmt.Sprintf("/admin/documents/%s/dags/%s", id, f.Base64Key()) } hx-target="#code-block">
+									<span class="text-gray-500">
+										{ f.Timestamp.Format("15:04:05 MST") } -
+									</span>
+									{ f.FileName }
+								</a>
+							</div>
+						}
+					</div>
+				</div>
+				<div class="bg-white text-black p-4 overflow-auto col-span-3">
+					<pre class="whitespace-pre-wrap font-mono">
+						<code id="code-block" class="language-json"></code>
+					</pre>
+				</div>
+			</div>
+		</div>
+	}
+}
+
+templ DagChecks(dags map[string]func() *dag.Dag) {
+	@AdminLayout("dags") {
+		<div class="bg-white text-black p-4 mb-4">
+			<h1 class="text-3xl mb-4">Functional Dag Checks</h1>
+			<ul>
+				for name := range dags {
+					<li class="mb-4">
+						<a
+							id="startJobButton"
+							class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+							href={ templ.SafeURL(fmt.Sprintf("/admin/checks/dags/%s", base64.StdEncoding.EncodeToString([]byte(name)))) }
+						>
+							{ fmt.Sprintf("%s", name) }
+						</a>
+					</li>
+				}
+			</ul>
+		</div>
+	}
+}
+
+templ DagCheck(
+	dag *dag.Dag,
+	check *dag.FunctionalCheckFile,
+	results []dag.FunctionalCheckFileResult,
+	examples []dag.FunctionalCheckExampleFile) {
+	@AdminLayout("dags") {
+		<style>
+  .indicator .button-text {
+    display: inline-block;
+  }
+
+  .indicator.htmx-request .button-text {
+    display: none;
+  }
+
+  .indicator .spinner {
+    display: none;
+  }
+
+  .indicator.htmx-request .spinner {
+    display: flex;
+  }
+
+  .indicator .spinner-text {
+    display: none;
+  }
+
+  .indicator.htmx-request .spinner-text {
+    display: inline-block;
+  }
+</style>
+		<div class="bg-white text-black p-4 mb-4">
+			<h1 class="text-3xl mb-4">Functional Dag Check</h1>
+			<h2 class="mb-4">
+				<a
+					href={ templ.SafeURL(fmt.Sprintf("/admin/checks/dags/%s", base64.StdEncoding.EncodeToString([]byte(dag.Name)))) }
+					class="hover:underline"
+				>
+					{ dag.Name }
+				</a>
+			</h2>
+			<table class="border-collapse table-auto w-full text-sm">
+				<thead>
+					<tr>
+						<th
+							class="border-b dark:border-slate-600 font-medium p-4 pl-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left"
+						>
+							ID
+						</th>
+						<th
+							class="border-b dark:border-slate-600 font-medium p-4 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left"
+						>
+							Name
+						</th>
+						<th
+							class="border-b dark:border-slate-600 font-medium p-4 pr-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left"
+						>
+							Actions
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400">
+							{ check.ID }
+						</td>
+						<td class="border-b border-slate-100 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400">
+							{ check.CheckName }
+						</td>
+						<td class="border-b border-slate-100 dark:border-slate-700 p-4 pr-8 text-slate-500 dark:text-slate-400">
+							<a
+								hx-post={ fmt.Sprintf("/admin/checks/dags/%s/run/%s", base64.StdEncoding.EncodeToString([]byte(dag.Name)),
+            check.ID) }
+								hx-indicator={ ".check-" + check.ID }
+								class="h-10 inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+							>
+								<div class={ "indicator flex items-center justify-center check-" + check.ID }>
+									<div class="button-text">Run</div>
+									<div class="spinner-text">Running...</div>
+									<div class="spinner flex items-center justify-center ml-3">
+										<svg
+											class="animate-spin h-5 w-5 text-white"
+											xmlns="http://www.w3.org/2000/svg"
+											fill="none"
+											viewBox="0 0 24 24"
+										>
+											<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+											<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+										</svg>
+									</div>
+								</div>
+							</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<h2 class="mb-4 mt-8">Examples</h2>
+			<table class="border-collapse table-auto w-full text-sm">
+				<thead>
+					<tr>
+						<th
+							class="border-b dark:border-slate-600 font-medium p-4 pl-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left"
+						>
+							ID
+						</th>
+						<th
+							class="border-b dark:border-slate-600 font-medium p-4 pr-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left"
+						>
+							Created At
+						</th>
+						<th
+							class="border-b dark:border-slate-600 font-medium p-4 pr-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left"
+						>
+							Actions
+						</th>
+						<th
+							class="border-b dark:border-slate-600 font-medium p-4 pr-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left"
+						>
+							Type
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					for _, example := range examples {
+						<tr>
+							<td class="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400">
+								{ example.ID }
+							</td>
+							<td class="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400">
+								{ time.Unix(example.CreatedAt, 0).Format(time.RFC1123) }
+							</td>
+							<td class="border-b border-slate-100 dark:border-slate-700 p-4 pr-8 text-slate-500 dark:text-slate-400">
+								<a
+									href={ templ.SafeURL(fmt.Sprintf("/admin/checks/dags/%s/%s/examples/%s",
+            base64.StdEncoding.EncodeToString([]byte(dag.Name)), example.CheckID, example.ID)) }
+									class="relative bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+								>
+									<span class="button-text">
+										View
+									</span>
+								</a>
+							</td>
+							<td class="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400">
+								if example.Approved {
+									✅ Positive
+								} else {
+									❌ Negative
+								}
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+			<h2 class="mb-4 mt-8">Local Results</h2>
+			<table class="border-collapse table-auto w-full text-sm">
+				<thead>
+					<tr>
+						<th
+							class="border-b dark:border-slate-600 font-medium p-4 pl-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left"
+						>
+							ID
+						</th>
+						<th
+							class="border-b dark:border-slate-600 font-medium p-4 pr-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left"
+						>
+							Created At
+						</th>
+						<th
+							class="border-b dark:border-slate-600 font-medium p-4 pr-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left"
+						>
+							Actions
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					for _, result := range results {
+						<tr>
+							<td class="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400">
+								{ result.ID }
+							</td>
+							<td class="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400">
+								{ time.Unix(result.CreatedAt, 0).Format(time.RFC1123) }
+							</td>
+							<td class="border-b border-slate-100 dark:border-slate-700 p-4 pr-8 text-slate-500 dark:text-slate-400">
+								if result.Assessment == "" {
+									🔄
+								} else {
+									if result.Assessment == "GOOD" {
+										✅ { result.Assessment }
+									} else {
+										❌ { result.Assessment }
+									}
+								}
+								<a
+									href={ templ.SafeURL(fmt.Sprintf("/admin/checks/dags/%s/%s/results/%s",
+            base64.StdEncoding.EncodeToString([]byte(dag.Name)), result.CheckID, result.ID)) }
+									class="relative bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+								>
+									<span class="button-text">
+										View
+									</span>
+								</a>
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+		<script>
+  document.addEventListener('htmx:afterRequest', function (evt) {
+    location.reload();
+  });
+</script>
+	}
+}
+
+templ ChecksForDag(dag *dag.Dag, checks []dag.FunctionalCheckFile) {
+	@AdminLayout("dags") {
+		<style>
+  .indicator .button-text {
+    display: inline-block;
+  }
+
+  .indicator.htmx-request .button-text {
+    display: none;
+  }
+
+  .indicator .spinner {
+    display: none;
+  }
+
+  .indicator.htmx-request .spinner {
+    display: flex;
+  }
+
+  .indicator .spinner-text {
+    display: none;
+  }
+
+  .indicator.htmx-request .spinner-text {
+    display: inline-block;
+  }
+</style>
+		<div class="bg-white text-black p-4 mb-4">
+			<h1 class="text-3xl mb-4">Functional Dag Check</h1>
+			<h2 class="mb-4">{ dag.Name }</h2>
+			<table class="border-collapse table-auto w-full text-sm">
+				<thead>
+					<tr>
+						<th
+							class="border-b dark:border-slate-600 font-medium p-4 pl-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left"
+						>
+							ID
+						</th>
+						<th
+							class="border-b dark:border-slate-600 font-medium p-4 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left"
+						>
+							Name
+						</th>
+						<th
+							class="border-b dark:border-slate-600 font-medium p-4 pr-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left"
+						>
+							Actions
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					for _, check := range checks {
+						<tr>
+							<td class="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400">
+								{ check.ID }
+							</td>
+							<td class="border-b border-slate-100 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400">
+								{ check.CheckName }
+							</td>
+							<td class="border-b border-slate-100 dark:border-slate-700 p-4 pr-8 text-slate-500 dark:text-slate-400">
+								<a
+									hx-post={ fmt.Sprintf("/admin/checks/dags/%s/run/%s", base64.StdEncoding.EncodeToString([]byte(dag.Name)),
+            check.ID) }
+									hx-indicator={ ".check-" + check.ID }
+									hx-swap="outerHTML"
+									class="h-10 inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+								>
+									<div class={ "indicator flex items-center justify-center check-" + check.ID }>
+										<div class="button-text">Run</div>
+										<div class="spinner-text">Running...</div>
+										<div class="spinner flex items-center justify-center ml-3">
+											<svg
+												class="animate-spin h-5 w-5 text-white"
+												xmlns="http://www.w3.org/2000/svg"
+												fill="none"
+												viewBox="0 0 24 24"
+											>
+												<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+												<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+											</svg>
+										</div>
+									</div>
+								</a>
+								<a
+									href={ templ.SafeURL(fmt.Sprintf("/admin/checks/dags/%s/%s/results",
+            base64.StdEncoding.EncodeToString([]byte(dag.Name)), check.ID)) }
+									class="h-10 inline-block relative bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+								>
+									View Results
+								</a>
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	}
+}
+
+templ ViewButton(key string, result *dag.FunctionalCheckFileResult) {
+	<a
+		href={ templ.SafeURL(fmt.Sprintf("/admin/checks/dags/%s/%s/results/%s", key, result.CheckID, result.ID)) }
+		class="h-10 inline-block relative bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+	>
+		if result.Assessment == "GOOD" {
+			✅
+		} else {
+			❌
+		}
+		{ result.Assessment }
+	</a>
+}
+
+templ RunFailed(err error) {
+	<div class="bg-gray-500 text-white font-bold py-2 px-4 rounded border-red-500 border-2">
+		❗️ { err.Error() }
+	</div>
+}
+
+templ NewDagCheck(doc *v3.Rogue, docID, threadID string, dags map[string]func() *dag.Dag) {
+	@AdminLayout("dags") {
+		@htmlContentStyle()
+		<div class="bg-white text-black p-4 mb-4">
+			<h1 class="text-3xl mb-4">New Functional Dag Check</h1>
+			<div class="flex align-middle mb-4">
+				<div class="bg-white text-black p-4 ql-editor w-1/2">
+					<div class="html-content">
+						@templ.Raw(doc.DisplayAllHtml(true, false))
+					</div>
+				</div>
+				<div class="w-1/2 ml-4">
+					<form action="/admin/checks/dags" method="POST" class="form-class">
+						<div id="error-message" class="text-red-500"></div>
+						<input type="hidden" name="document_id" value={ docID }/>
+						<input type="hidden" name="thread_id" value={ threadID }/>
+						<div class="mb-4">
+							<label for="dag" class="block text-gray-700 text-sm font-bold mb-2">Check name (description):</label>
+							<input
+								type="text"
+								name="checkName"
+								id="checkName"
+								placeholder="checking dag for..."
+								class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+							/>
+						</div>
+						<div class="mb-4">
+							<label for="dag" class="block text-gray-700 text-sm font-bold mb-2">Dag:</label>
+							<select
+								name="dag"
+								id="dag"
+								class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+							>
+								for name := range dags {
+									<option value={ name }>{ name }</option>
+								}
+							</select>
+						</div>
+						<div class="flex items-center justify-between">
+							<button
+								type="submit"
+								class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+							>
+								Submit
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	}
+}
+
+type ViewDagCheckResultData struct {
+	Dag             *dag.Dag
+	Check           *dag.FunctionalCheckFile
+	CheckDoc        *v3.Rogue
+	Messages        []*dynamo.Message
+	Result          *dag.FunctionalCheckFileResult
+	ResultDoc       *v3.Rogue
+	BeforeDoc       *v3.Rogue
+	ExistingExample *dag.FunctionalCheckExampleFile
+}
+
+templ ViewDagCheckResult(data ViewDagCheckResultData) {
+	@AdminLayout("dags") {
+		@htmlContentStyle()
+		<div class="bg-white text-black p-4 mb-4">
+			<div class="flex align-left">
+				<div>
+					<h1 class="text-3xl mb-4">
+						<a href="/admin/checks/dags" class="hover:underline">
+							Functional Dag Check
+						</a>
+					</h1>
+					<h2 class="mb-4">
+						<a
+							href={ templ.SafeURL(fmt.Sprintf("/admin/checks/dags/%s",
+          base64.StdEncoding.EncodeToString([]byte(data.Dag.Name)))) }
+							class="hover:underline"
+						>
+							{ data.Dag.Name }
+						</a>
+						&gt;
+						<a
+							href={ templ.SafeURL(fmt.Sprintf("/admin/checks/dags/%s/%s/results",
+          base64.StdEncoding.EncodeToString([]byte(data.Dag.Name)), data.Check.ID)) }
+							class="hover:underline"
+						>
+							{ data.Check.CheckName }
+						</a>
+					</h2>
+				</div>
+				<div class="flex-grow">
+					if data.ExistingExample != nil {
+						<div class="text-right mr-4">
+							<button
+								disabled
+								class="bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+							>
+								if data.ExistingExample.Approved {
+									✅ Approved
+								} else {
+									❌ Rejected
+								}
+							</button>
+						</div>
+					} else {
+						<div class="flex items-end justify-end">
+							<form
+								action={ templ.SafeURL(fmt.Sprintf("/admin/checks/dags/check/%s/examples", data.Result.CheckID)) }
+								method="POST"
+								class="form-class"
+							>
+								<input type="hidden" name="result_id" value={ data.Result.ID }/>
+								<input type="hidden" name="approved" value={ "true" }/>
+								<div class="text-right mr-4">
+									<button
+										type="submit"
+										class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+									>
+										Approve Result
+									</button>
+								</div>
+							</form>
+							<form
+								action={ templ.SafeURL(fmt.Sprintf("/admin/checks/dags/check/%s/examples", data.Result.CheckID)) }
+								method="POST"
+								class="form-class"
+							>
+								<input type="hidden" name="result_id" value={ data.Result.ID }/>
+								<input type="hidden" name="approved" value={ "false" }/>
+								<div class="text-right mr-4">
+									<button
+										type="submit"
+										class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+									>
+										Reject Result
+									</button>
+								</div>
+							</form>
+						</div>
+					}
+				</div>
+			</div>
+			<div class="flex align-middle">
+				<div class="bg-white text-black p-4 ql-editor w-1/4">
+					<h4 class="mb-4 text-reviso font-bold border-b-2 border-reviso">Check</h4>
+					<div class="html-content">
+						@templ.Raw(data.CheckDoc.DisplayAllHtml(true, false))
+					</div>
+				</div>
+				<div class="bg-white text-black p-4 ql-editor w-1/4">
+					<h4 class="mb-4 text-reviso font-bold border-b-2 border-reviso">Links</h4>
+					<div>
+						<ul class="list-disc mb-4 ml-4">
+							<li>
+								<a
+									class="hover:underline"
+									target="_blank"
+									href={ templ.SafeURL(fmt.Sprintf("/drafts/%s/%s",
+              data.Check.DocumentId, data.Result.ThreadId)) }
+								>
+									Message Thread
+								</a>
+							</li>
+							<li>
+								<a
+									class="hover:underline"
+									target="_blank"
+									href={ templ.SafeURL(
+              fmt.Sprintf("/admin/documents/%s/dag/%s/%s", data.Check.DocumentId, data.Check.DagName, data.Result.DagId,
+              )) }
+								>
+									Dag Logs
+								</a>
+							</li>
+						</ul>
+					</div>
+					<h4 class="mb-4 text-reviso font-bold border-b-2 border-reviso">Messages</h4>
+					@DisplayMessages(data.Messages)
+				</div>
+				<div class="w-1/4 ml-4 bg-white text-black p-4 ql-editor">
+					<h4 class="mb-4 text-reviso font-bold border-b-2 border-reviso">Before</h4>
+					<div class="html-content">
+						@templ.Raw(data.BeforeDoc.DisplayAllHtml(true, false))
+					</div>
+					<h4 class="mb-4 text-reviso font-bold border-b-2 border-reviso">Result</h4>
+					<div class="html-content">
+						@templ.Raw(data.ResultDoc.DisplayAllHtml(true, false))
+					</div>
+				</div>
+				<div class="w-1/4 ml-4 bg-white text-black p-4 ql-editor">
+					<h4 class="mb-4 text-reviso font-bold border-b-2 border-reviso">Assessment</h4>
+					<div class="mb-4">
+						{ data.Result.Assessment } -
+						{ fmt.Sprintf("%.1f", data.Result.Score) } / 10
+					</div>
+					<h4 class="mb-4 text-reviso font-bold border-b-2 border-reviso">Justification</h4>
+					<div>
+						@Markdown(data.Result.Justification)
+					</div>
+					<h4 class="mb-4 text-reviso font-bold border-b-2 border-reviso">Prompt</h4>
+					<div>
+						<pre>
+							{ data.Result.Prompt }
+						</pre>
+					</div>
+					<h4 class="mb-4 text-reviso font-bold border-b-2 border-reviso">Response</h4>
+					<div>
+						<pre>
+							{ data.Result.RawResponse }
+						</pre>
+					</div>
+				</div>
+			</div>
+		</div>
+	}
+}
+
+type ViewDagCheckExampleData struct {
+	Dag       *dag.Dag
+	Check     *dag.FunctionalCheckFile
+	CheckDoc  *v3.Rogue
+	Messages  []*dynamo.Message
+	Example   *dag.FunctionalCheckExampleFile
+	ResultDoc *v3.Rogue
+	BeforeDoc *v3.Rogue
+}
+
+templ ViewDagCheckExample(data ViewDagCheckExampleData) {
+	@AdminLayout("dags") {
+		@htmlContentStyle()
+		<div class="bg-white text-black p-4 mb-4">
+			<div class="flex align-left">
+				<div>
+					<h1 class="text-3xl mb-4">
+						<a href="/admin/checks/dags" class="hover:underline">
+							Functional Dag Check
+						</a>
+					</h1>
+					<h2 class="mb-4">
+						<a
+							href={ templ.SafeURL(fmt.Sprintf("/admin/checks/dags/%s",
+          base64.StdEncoding.EncodeToString([]byte(data.Dag.Name)))) }
+							class="hover:underline"
+						>
+							{ data.Dag.Name }
+						</a>
+						&gt;
+						<a
+							href={ templ.SafeURL(fmt.Sprintf("/admin/checks/dags/%s/%s/results",
+          base64.StdEncoding.EncodeToString([]byte(data.Dag.Name)), data.Check.ID)) }
+							class="hover:underline"
+						>
+							{ data.Check.CheckName }
+						</a>
+					</h2>
+				</div>
+			</div>
+			<div class="flex align-middle">
+				<div class="bg-white text-black p-4 ql-editor w-1/3">
+					<h4 class="mb-4 text-reviso font-bold border-b-2 border-reviso">Check</h4>
+					<div class="html-content">
+						@templ.Raw(data.CheckDoc.DisplayAllHtml(true, false))
+					</div>
+				</div>
+				<div class="bg-white text-black p-4 ql-editor w-1/3">
+					<h4 class="mb-4 text-reviso font-bold border-b-2 border-reviso">Messages</h4>
+					@DisplayMessages(data.Messages)
+				</div>
+				<div class="ml-4 bg-white text-black p-4 ql-editor w-1/3">
+					<h4 class="mb-4 text-reviso font-bold border-b-2 border-reviso">Before</h4>
+					<div class="html-content">
+						@templ.Raw(data.BeforeDoc.DisplayAllHtml(true, false))
+					</div>
+					<h4 class="mb-4 text-reviso font-bold border-b-2 border-reviso">Result</h4>
+					<div class="html-content">
+						@templ.Raw(data.ResultDoc.DisplayAllHtml(true, false))
+					</div>
+				</div>
+			</div>
+		</div>
+	}
+}

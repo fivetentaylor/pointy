@@ -1,0 +1,102 @@
+name: Go
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches:
+      - "main"
+      - "staging"
+
+permissions: write-all
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/teamreviso/go-dependency-image:latest
+      options: --privileged 
+
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_USER: test
+          POSTGRES_PASSWORD: test
+          POSTGRES_DB: test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd=pg_isready
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+      redis:
+        image: redis:latest
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd="redis-cli ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+      localstack:
+        image: localstack/localstack
+        env:
+          SERVICES: s3,dynamodb
+        ports:
+          - 4566:4566
+        options: >-
+          --health-cmd="curl -f http://localhost:4566/_localstack/health"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Cache Go modules
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/go/pkg/mod
+            ~/.cache/go-build
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
+
+      - name: Run tests
+        run: go run scripts/loadenv/loadenv.go .env.test gotestsum -f testname --jsonfile json.log -- -p 1 ./...
+
+      - name: Print slowest tests
+        run: gotestsum tool slowest --jsonfile json.log --threshold 500ms
+
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/teamreviso/go-dependency-image:latest
+      options: --privileged 
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Cache Go modules
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/go/pkg/mod
+            ~/.cache/go-build
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
+
+      # Execute installs
+      - name: Run install assets
+        run: (cd pkg/assets/src && npm install --include=dev)
+
+      - name: Run install admin
+        run: (cd pkg/admin/src && npm install)
+
+      - name: Building assets
+        run: go run scripts/loadenv/loadenv.go .env.test go run cmd/reviso/main.go --build
+
+      - name: Run build script
+        run: ./build.sh

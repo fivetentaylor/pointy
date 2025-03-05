@@ -1,0 +1,12 @@
+syntax = "proto3";
+package models;
+
+option go_package = "github.com/teamreviso/code/pkg/models";
+
+message AIContent {
+  string notes = 1;
+  string concludingMessage = 2;
+  string analysis = 3;
+  string reasoning = 4;
+  string feedback = 5;
+}

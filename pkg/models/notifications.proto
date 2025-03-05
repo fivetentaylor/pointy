@@ -1,0 +1,28 @@
+syntax = "proto3";
+package models;
+
+option go_package = "github.com/teamreviso/code/pkg/models";
+
+message NotificationPayload {
+  oneof value {
+    MessagingComment comment = 1;
+  }
+}
+
+enum CommentType {
+  UnspecifiedType = 0;
+  Comment = 1;
+  Reply = 2; // deprecated
+  Mention = 3;
+  DirectMessage = 4;
+  Message = 5;
+}
+
+message MessagingComment {
+  CommentType type = 1;
+  string document_id = 2;
+  string channel_id = 3;
+  string container_id = 4;
+  string message_id = 5;
+  string author_id = 6;
+}

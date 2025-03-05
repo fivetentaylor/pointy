@@ -1,0 +1,86 @@
+package templates
+
+import (
+	"fmt"
+	"github.com/teamreviso/code/pkg/models"
+	"time"
+)
+
+templ SubscriptionPlans(plans []*models.SubscriptionPlan) {
+	@AdminLayout("subscriptions") {
+		<style>
+		@keyframes bounce {
+		    0%, 100% {
+			transform: translateY(0);
+		    }
+		    50% {
+			transform: translateY(-20px);
+		    }
+		}
+		@keyframes rotate {
+		    0% {
+			transform: rotate(0deg);
+		    }
+		    100% {
+			transform: rotate(360deg);
+		    }
+		}
+		.loader{
+			display: none;
+		}
+		.htmx-request .loader{
+			display: block;
+		}
+		.htmx-request.loader{
+			display: block;
+		}
+	    </style>
+		<div class="bg-white text-black p-4 mb-4">
+			<h1 class="text-3xl mb-4">Prompts</h1>
+			<button
+				class="relative px-8 py-4 font-bold text-white transition-transform duration-300 ease-in-out bg-reviso rounded-full shadow-lg hover:scale-110 hover:shadow-xl"
+				hx-post="/admin/payment/subscription/plans"
+				hx-trigger="click"
+				hx-swap="outerHTML"
+				hx-target="body"
+				hx-indicator=".loader"
+			>
+				Refresh
+				<span class="absolute bottom-0 left-0 w-full h-full bg-reviso opacity-25 rounded-full hover:animate-ping"></span>
+				<div class="loader">
+					<div class="flex space-x-4">
+						<div class="w-6 h-6 bg-white rounded-full animate-bounce"></div>
+						<div class="w-6 h-6 bg-white rounded-full animate-bounce" style="animation-delay: 0.2s;"></div>
+						<div class="w-6 h-6 bg-white rounded-full animate-bounce" style="animation-delay: 0.4s;"></div>
+					</div>
+				</div>
+			</button>
+			<div class="mt-4">
+				for _, p := range plans {
+					@Plan(p)
+				}
+			</div>
+		</div>
+	}
+}
+
+templ Plan(plan *models.SubscriptionPlan) {
+	<div class="p-6 bg-gray-100 rounded-lg shadow-md">
+		<div class="text-xl font-bold mb-4">
+			ID: { fmt.Sprint(plan.ID) } ({ plan.Status })
+		</div>
+		<div class="text-sm text-gray-600 mb-4">
+			Updated: { plan.UpdatedAt.Format("2006-01-02 15:04:05 MST") }
+			( { fmt.Sprintf("%s", time.Now().Sub(plan.UpdatedAt)) } ago )
+		</div>
+		<div class="text-lg font-semibold mb-2">
+			Name: { plan.Name }
+		</div>
+		<div class="text-sm text-gray-600 mb-4">
+			Stripe ID: { plan.StripePriceID }
+		</div>
+		<div class="text-sm text-gray-600 mb-4">
+			Price: { fmt.Sprintf("%.2f %s", float64(plan.PriceCents) / 100, plan.Currency) }
+		</div>
+	</div>
+}

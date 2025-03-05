@@ -1,0 +1,220 @@
+package templates
+
+import (
+	"fmt"
+	"github.com/teamreviso/code/pkg/constants"
+	"github.com/teamreviso/code/pkg/models"
+	"github.com/teamreviso/code/pkg/storage/dynamo"
+	"github.com/teamreviso/code/pkg/utils"
+)
+
+templ Threads(id string, threadsByUser map[*models.User][]*dynamo.Thread) {
+	@DocLayout(id, "messaging") {
+		<div class="bg-white text-black p-4">
+			<h1 class="text-xl mb-4">AI Threads</h1>
+			for user, threads := range threadsByUser {
+				<h2 class="text-lg mb-4">{ user.Name }</h2>
+				<ul class="list-disc mb-4 ml-4">
+					for _, thread := range threads {
+						<li>
+							<span>{ utils.UnixNanoToTime(thread.UpdatedAt).Format("2006-01-02 15:04:05 MST") }</span> •
+							<a class="hover:underline" href={ templ.SafeURL(fmt.Sprintf("/admin/documents/%s/messaging/threads/%s", id, thread.ThreadID)) }>
+								{ thread.Title }
+							</a>
+						</li>
+					}
+				</ul>
+			}
+		</div>
+	}
+}
+
+templ Thread(docID string, thread *dynamo.Thread, messages []*dynamo.Message) {
+	@DocLayout(docID, "messaging") {
+		<div class="bg-white text-black p-4">
+			<div class="flex justify-between w-full">
+				<h1 class="text-xl mb-4">AI Thread</h1>
+				<a class="ml-4 content-center hover:bg-gray-200 color-reviso font-bold border border-reviso px-2 py-1 rounded" href={ templ.SafeURL(fmt.Sprintf("/admin/checks/dags/new/document/%s/thread/%s", docID, thread.ThreadID)) }>
+					Use Thread for Dag Functional Check
+				</a>
+			</div>
+			<h2 class="text-lg mb-4">
+				<span>{ utils.UnixNanoToTime(thread.UpdatedAt).Format("2006-01-02 15:04:05 MST") }</span> •
+				{ thread.Title }
+			</h2>
+			@InspectMessages(messages)
+		</div>
+	}
+}
+
+templ DisplayMessages(messages []*dynamo.Message) {
+	<div>
+		for _, msg := range messages {
+			if msg.UserID == constants.RevisoUserID {
+				@revisoMessage(msg)
+			} else {
+				@userMessage(msg)
+			}
+		}
+	</div>
+}
+
+templ userMessage(message *dynamo.Message) {
+	<div class="flex flex-col justify-center first:mt-auto">
+		<div class="flex items-center justify-end mt-4">
+			<div class="max-w-md"></div>
+		</div>
+		<div class="flex items-center justify-end mb-4">
+			<div class="ml-4 rounded-[26px] bg-elevated p-4">
+				<p class="mb-3 last:mb-0">{ message.Content }</p>
+			</div>
+		</div>
+	</div>
+}
+
+templ revisoMessage(message *dynamo.Message) {
+	<div class="mb-4 first:mt-auto">
+		<div class="flex items-start">
+			<div class="flex-shrink">
+				<span class="relative flex shrink-0 overflow-hidden rounded-full w-6 h-6">
+					<span class="flex h-full w-full items-center justify-center rounded-full text-background bg-reviso">R</span>
+				</span>
+			</div>
+			<div class="flex-grow ml-4">
+				for _, a := range message.Attachments.Attachments {
+					@attachment(a)
+				}
+				<div class="mb-2">
+					<p class="mb-3 last:mb-0">
+						@Markdown(message.Content)
+					</p>
+				</div>
+				<div class="max-w-md"></div>
+				<p class="mb-3 last:mb-0">
+					{ message.AIContent.ConcludingMessage }
+				</p>
+				if message.AIContent.Notes != "" {
+					<p class="mb-3 last:mb-0 overflow-x-auto font-mono text-slate-700">
+						🤖 Notes: { message.AIContent.Notes }
+					</p>
+				}
+				if message.AIContent.Analysis != "" {
+					<p class="mb-3 last:mb-0 overflow-x-auto font-mono text-slate-700">
+						🤖 Analysis: { message.AIContent.Analysis }
+					</p>
+				}
+				if message.AIContent.Reasoning != "" {
+					<p class="mb-3 last:mb-0 overflow-x-auto font-mono text-slate-700">
+						🤖 Reasoning: { message.AIContent.Reasoning }
+					</p>
+				}
+				if message.AIContent.Feedback != "" {
+					<p class="mb-3 last:mb-0 overflow-x-auto font-mono text-slate-700">
+						🤖 Feedback: { message.AIContent.Feedback }
+					</p>
+				}
+			</div>
+		</div>
+	</div>
+}
+
+templ attachment(attachment *models.Attachment) {
+	switch v := attachment.Value.(type) {
+		case *models.Attachment_Content:
+			<div class="mb-2">
+				<p class="mb-3 last:mb-0">
+					@Markdown(v.Content.Text)
+				</p>
+			</div>
+	}
+}
+
+templ InspectMessages(messages []*dynamo.Message) {
+	<div class="list-disc mb-4 ml-4">
+		for _, message := range messages {
+			<div class="mb-4">
+				<span class="text-gray-500">{ utils.UnixNanoToTime(message.CreatedAt).Format("2006-01-02 15:04:05 MST") }</span>
+				<div>
+					<strong>Lifecycle Stage:</strong> { message.LifecycleStage.String() }
+					<br/>
+					<strong>Content:</strong>
+					<pre class="bg-gray-100 p-2">{ message.Content }</pre>
+					<strong>Attachments:</strong>
+					<pre class="bg-gray-100 p-2">{ JSON(message.Attachments) }</pre>
+					<br/>
+					<strong>AI Content:</strong>
+					<table class="text-left bg-gray-100">
+						<tbody>
+							<tr class="border-b">
+								<th class="font-bold">Note:</th>
+								<td>{ message.AIContent.Notes }</td>
+							</tr>
+							<tr class="border-b">
+								<th class="font-bold">Concluding Message:</th>
+								<td>{ message.AIContent.ConcludingMessage }</td>
+							</tr>
+							<tr class="border-b">
+								<th class="font-bold">Analysis:</th>
+								<td>{ message.AIContent.Analysis }</td>
+							</tr>
+							<tr class="border-b">
+								<th class="font-bold">Reasoning:</th>
+								<td>{ message.AIContent.Reasoning }</td>
+							</tr>
+							<tr class="border-b">
+								<th class="font-bold">Feedback:</th>
+								<td>{ message.AIContent.Feedback }</td>
+							</tr>
+						</tbody>
+					</table>
+					<br/>
+					<strong>Message Metadata:</strong>
+					<table class="text-left bg-gray-100">
+						<tbody>
+							<tr class="border-b">
+								<th class="font-bold">Allow Draft Edits:</th>
+								<td>{ fmt.Sprintf("%t", message.MessageMetadata.GetAllowDraftEdits()) }</td>
+							</tr>
+							<tr class="border-b">
+								<th class="font-bold">Revision Status:</th>
+								<td>{ message.MessageMetadata.GetRevisionStatus().String() }</td>
+							</tr>
+							<tr class="border-b">
+								<th class="font-bold">Content Address Before:</th>
+								<td>{ message.MessageMetadata.GetContentAddressBefore() }</td>
+							</tr>
+							<tr class="border-b">
+								<th class="font-bold">Content Address:</th>
+								<td>{ message.MessageMetadata.GetContentAddress() }</td>
+							</tr>
+							<tr class="border-b">
+								<th class="font-bold">Content Address After:</th>
+								<td>{ message.MessageMetadata.GetContentAddressAfter() }</td>
+							</tr>
+							<tr class="border-b">
+								<th class="font-bold">Content Address After Timestamp:</th>
+								<td>{ message.MessageMetadata.GetContentAddressAfterTimestamp().AsTime().Format("2006-01-02 15:04:05 MST") }</td>
+							</tr>
+						</tbody>
+					</table>
+					<br/>
+					<strong>Doc ID:</strong> { message.DocID }
+					<br/>
+					<strong>Message ID:</strong> { message.MessageID }
+					<br/>
+					<strong>Container ID:</strong> { message.ContainerID }
+					<br/>
+					<strong>Chain:</strong> { message.Chain }
+					<br/>
+					<strong>User ID:</strong> { message.UserID }
+					<br/>
+					<strong>Author ID:</strong> { message.AuthorID }
+					<br/>
+					<strong>Channel ID:</strong> { message.ChannelID }
+					<br/>
+				</div>
+			</div>
+			<hr class="mb-4"/>
+		}
+	</div>
+}
