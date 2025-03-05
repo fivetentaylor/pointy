@@ -51,9 +51,9 @@ resource "aws_s3_object" "loading_gif" {
     aws_s3_bucket.images_bucket,
     aws_s3_bucket_acl.images_bucket_acl,
   ]
-  bucket = aws_s3_bucket.images_bucket.id
-  key    = "default/loading.gif"
-  source = "${path.module}/loading.gif"
+  bucket       = aws_s3_bucket.images_bucket.id
+  key          = "default/loading.gif"
+  source       = "${path.module}/loading.gif"
   content_type = "image/gif"
 
   tags = {

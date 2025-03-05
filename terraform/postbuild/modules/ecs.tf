@@ -5,20 +5,20 @@ data "aws_iam_role" "task_execution_role" {
   name = "task_execution_role"
 }
 
-data "aws_ecr_repository" "reviso-server" {
-  name = "reviso-server"
+data "aws_ecr_repository" "server" {
+  name = "${var.name}-server"
 }
 
-data "aws_ecr_repository" "reviso-web" {
-  name = "reviso-web"
+data "aws_ecr_repository" "web" {
+  name = "${var.name}-web"
 }
 
-resource "aws_ecs_cluster" "reviso" {
-  name = "${var.preview_prefix}reviso"
+resource "aws_ecs_cluster" "default" {
+  name = "${var.preview_prefix}${var.name}"
 }
 
-resource "aws_ecs_task_definition" "reviso-server" {
-  family                   = "${var.preview_prefix}reviso-server"
+resource "aws_ecs_task_definition" "server" {
+  family                   = "${var.preview_prefix}${var.name}-server"
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
   execution_role_arn       = data.aws_iam_role.task_execution_role.arn
@@ -33,7 +33,7 @@ resource "aws_ecs_task_definition" "reviso-server" {
 
   container_definitions = jsonencode([{
     name                 = "main"
-    image                = "${data.aws_ecr_repository.reviso-server.repository_url}:${var.server_sha}"
+    image                = "${data.aws_ecr_repository.server.repository_url}:${var.server_sha}"
     essential            = true
     enableExecuteCommand = true
 
@@ -265,8 +265,8 @@ resource "aws_ecs_task_definition" "reviso-server" {
   }])
 }
 
-resource "aws_ecs_task_definition" "reviso-web" {
-  family                   = "${var.preview_prefix}reviso-web"
+resource "aws_ecs_task_definition" "web" {
+  family                   = "${var.preview_prefix}${var.name}-web"
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
   execution_role_arn       = data.aws_iam_role.task_execution_role.arn
@@ -281,7 +281,7 @@ resource "aws_ecs_task_definition" "reviso-web" {
 
   container_definitions = jsonencode([{
     name      = "main"
-    image     = "${data.aws_ecr_repository.reviso-web.repository_url}:${var.web_sha}"
+    image     = "${data.aws_ecr_repository.web.repository_url}:${var.web_sha}"
     essential = true
 
     portMappings = [
@@ -341,7 +341,7 @@ resource "aws_ecs_task_definition" "reviso-web" {
       logDriver = "awslogs"
       options = {
         "awslogs-create-group"  = "true"
-        "awslogs-group"         = "/ecs/${var.preview_prefix}reviso-web/main"
+        "awslogs-group"         = "/ecs/${var.preview_prefix}${var.name}-web/main"
         "awslogs-region"        = local.region
         "awslogs-stream-prefix" = "ecs"
       }
@@ -349,15 +349,15 @@ resource "aws_ecs_task_definition" "reviso-web" {
   }])
 }
 
-resource "aws_ecs_service" "reviso-server" {
-  name            = "${var.preview_prefix}reviso-server"
-  cluster         = aws_ecs_cluster.reviso.id
-  task_definition = aws_ecs_task_definition.reviso-server.arn
+resource "aws_ecs_service" "server" {
+  name            = "${var.preview_prefix}${var.name}-server"
+  cluster         = aws_ecs_cluster.default.id
+  task_definition = aws_ecs_task_definition.server.arn
   desired_count   = var.desired_server_count
   launch_type     = "FARGATE"
 
   load_balancer {
-    target_group_arn = aws_lb_target_group.reviso_server_tg.arn
+    target_group_arn = aws_lb_target_group.server_tg.arn
     container_name   = "main"
     container_port   = 9090
   }
@@ -387,15 +387,15 @@ resource "aws_ecs_service" "reviso-server" {
   ]
 }
 
-resource "aws_ecs_service" "reviso-web" {
-  name            = "${var.preview_prefix}reviso-web"
-  cluster         = aws_ecs_cluster.reviso.id
-  task_definition = aws_ecs_task_definition.reviso-web.arn
+resource "aws_ecs_service" "web" {
+  name            = "${var.preview_prefix}${var.name}-web"
+  cluster         = aws_ecs_cluster.default.id
+  task_definition = aws_ecs_task_definition.web.arn
   desired_count   = var.desired_web_count
   launch_type     = "FARGATE"
 
   load_balancer {
-    target_group_arn = aws_lb_target_group.reviso_web_tg.arn
+    target_group_arn = aws_lb_target_group.web_tg.arn
     container_name   = "main"
     container_port   = 3000
   }

@@ -35,8 +35,8 @@ const SelectEditTargetDocument = `<document>
 const SelectEditTargetMessages = `<user_message>
 {{.Message.Content}}
 {{- range $val := .Message.Selections}}
-<selection id={{$val.Id}}>
-{{$val.Content}}
+<selection>
+{{$val}}
 </selection>
 {{- end}}
 </user_message>
@@ -238,7 +238,6 @@ func (n *SelectEditTargetNode) Data(ctx context.Context, doc *v3.Rogue, input *S
 }
 
 func (n *SelectEditTargetNode) EditTargets(ctx context.Context, doc *v3.Rogue, input *SelectEditTargetNodeInput, msg *dynamo.Message, llmResponse string) ([]EditTarget, error) {
-	log := env.SLog(ctx)
 	xml, err := utils.ParseIncompleteXML(llmResponse)
 	if err != nil {
 		return nil, fmt.Errorf("error parsing xml: %s", err)
@@ -294,8 +293,7 @@ func (n *SelectEditTargetNode) EditTargets(ctx context.Context, doc *v3.Rogue, i
 	for _, section := range relevantSections {
 		ts, err := n.findRelevantSection(doc, msg, section)
 		if err != nil {
-			log.Error("error finding relevant section", "error", err)
-			saveLogFile(ctx, "error_finding_relevant_section.txt", err.Error())
+			return nil, fmt.Errorf("error finding relevant section: %s", err)
 		}
 		targets = append(targets, ts...)
 	}

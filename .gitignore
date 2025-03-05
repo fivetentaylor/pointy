@@ -8,6 +8,7 @@
 *.so
 *.dylib
 *.log
+.env.aws
 
 # Test binary, built with `go test -c`
 *.test
@@ -22,6 +23,7 @@
 go.work
 
 .env
+.env.pointy
 .env.live
 .env.functional
 .env.staging
@@ -38,10 +40,7 @@ node_modules
 tmp
 json.log
 
-dev/certs/_wildcard.reviso.dev-key.pem
-dev/certs/_wildcard.reviso.dev.pem
-dev/certs/private.key
-dev/certs/public.crt
+dev/certs/*
 
 reviso
 

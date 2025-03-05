@@ -3,18 +3,18 @@ data "aws_route53_zone" "dns_zone" {
   zone_id  = var.route53_zone
 }
 
-# Request a certificate for the app subdomain
+# Request certificates for the original domains
 resource "aws_acm_certificate" "app_cert" {
   domain_name       = "${var.preview_prefix}${var.app_domain}"
   validation_method = "DNS"
 }
 
-# Request a certificate for the www subdomain
 resource "aws_acm_certificate" "www_cert" {
   domain_name       = "${var.preview_prefix}${var.web_domain}"
   validation_method = "DNS"
 }
 
+# Validation records for original domains
 resource "aws_route53_record" "app_cert_validation" {
   provider = aws.dns_role
   for_each = {
@@ -49,6 +49,7 @@ resource "aws_route53_record" "www_cert_validation" {
   ttl     = 60
 }
 
+# Certificate validations for original domains
 resource "aws_acm_certificate_validation" "app_cert_validation" {
   certificate_arn         = aws_acm_certificate.app_cert.arn
   validation_record_fqdns = [for record in values(aws_route53_record.app_cert_validation) : record.fqdn]
@@ -59,7 +60,7 @@ resource "aws_acm_certificate_validation" "www_cert_validation" {
   validation_record_fqdns = [for record in values(aws_route53_record.www_cert_validation) : record.fqdn]
 }
 
-# Route 53 record for the app subdomain
+# Route 53 records for original domains
 resource "aws_route53_record" "app" {
   provider = aws.dns_role
   zone_id  = data.aws_route53_zone.dns_zone.zone_id
@@ -73,7 +74,6 @@ resource "aws_route53_record" "app" {
   }
 }
 
-# Route 53 record for the www subdomain
 resource "aws_route53_record" "www" {
   provider = aws.dns_role
   zone_id  = data.aws_route53_zone.dns_zone.zone_id
@@ -86,3 +86,4 @@ resource "aws_route53_record" "www" {
     evaluate_target_health = true
   }
 }
+

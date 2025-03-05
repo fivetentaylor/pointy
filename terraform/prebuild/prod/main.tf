@@ -25,7 +25,7 @@ module "prebuild" {
   docs_bucket_name   = "reviso-documents"
   images_bucket_name = "reviso-images"
   dynamo_table_name  = "reviso"
-  env_name                = "prod"
+  env_name           = "prod"
   email_domain       = "revi.so"
   email_region       = "us-east-1"
 

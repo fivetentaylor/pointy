@@ -1,7 +1,7 @@
-import { HeroSection } from "@/components/marketing/HeroSection";
-import { HowItWorksSection } from "@/components/marketing/HowItWorksSection";
-import { UseCasesSection } from "@/components/marketing/UseCasesSection";
-import { CTASection } from "@/components/marketing/CTASection";
+import { HeroSection } from "@/components/marketing-pointy/HeroSection";
+import { HowItWorksSection } from "@/components/marketing-pointy/HowItWorksSection";
+import { UseCasesSection } from "@/components/marketing-pointy/UseCasesSection";
+import { CTASection } from "@/components/marketing-pointy/CTASection";
 import {
   PencilRulerIcon,
   BookOpenIcon,
@@ -10,10 +10,10 @@ import {
   HandshakeIcon,
   MicVocalIcon,
 } from "lucide-react";
-import { MarketingNav } from "@/components/marketing/MarketingNav";
+import { MarketingNav } from "@/components/marketing-pointy/MarketingNav";
 import { Button } from "@/components/ui/button";
 import { APP_HOST } from "@/lib/urls";
-import { CenteredLayout } from "@/components/marketing/CenteredLayout";
+import { CenteredLayout } from "@/components/marketing-pointy/CenteredLayout";
 
 const workHowItWorks = [
   {
@@ -31,7 +31,7 @@ const workHowItWorks = [
   {
     title: "Write in conversation",
     description:
-      "Ask Reviso to make the changes you want using your own terms.",
+      "Ask Pointy to make the changes you want using your own terms.",
     image: "/images/how-it-works/write-in-conversation.png",
     height: 36.1875,
     imageStyle: {
@@ -129,7 +129,7 @@ const workUseCases = [
 export default function WorkPage() {
   return (
     <>
-      <MarketingNav pathname={"/work"} />
+      <MarketingNav pathname={"/pointy/creatives"} />
       <main>
         <CenteredLayout>
           <HeroSection
@@ -138,23 +138,6 @@ export default function WorkPage() {
             description="Write with confidence using AI that helps you get the right message across and make your ideas stand out."
           />
           <HowItWorksSection items={workHowItWorks} />
-          <div className="text-center mt-[1.72rem]">
-            <p className="text-center text-[clamp(1rem,calc(1rem+((1vw-0.2rem)*0.893)),1.375rem)] leading-[1.3] tracking-[-0.01em] font-normal max-w-[47.5rem] mx-auto">
-              Reviso has been huge in helping me generate more content each day.
-              I was really surprised at how different it is from other AI
-              writing tools. I was skeptical when I started using it, but now{" "}
-              <strong>I use Reviso every day.</strong>
-              <br />
-              <br /> Laura, Copywriter
-            </p>
-            <Button
-              asChild
-              size="lg"
-              className="bg-[#7C3AED] hover:bg-[#6D28D9] text-white px-8 mt-[2.5625rem] mb-[3.18765rem]"
-            >
-              <a href={`${APP_HOST}/login`}>Join our private beta</a>
-            </Button>
-          </div>
         </CenteredLayout>
         <UseCasesSection items={workUseCases} type="professional" />
         <CTASection />

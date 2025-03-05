@@ -34,7 +34,7 @@ module "prebuild" {
   redis_node_count    = 1
   redis_instance_type = "cache.t3.small"
 
-  create_db           = true
+  create_db = true
 }
 
 output "vpc_id" {

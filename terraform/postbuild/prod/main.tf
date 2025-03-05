@@ -59,6 +59,7 @@ module "postbuild" {
   desired_web_count    = 2
   desired_server_count = 3
 
+  name                       = "reviso"
   web_domain                 = "www.revi.so"
   app_domain                 = "app.revi.so"
   route53_zone               = "Z05640301EQTNY1VO8UTF"
@@ -69,6 +70,39 @@ module "postbuild" {
   env                        = "prod"
   cookie_domain              = "revi.so"
   email_domain               = "revi.so"
+  email_region               = "us-east-1"
+  preview_prefix             = ""
+  secret_arn                 = "arn:aws:secretsmanager:us-west-2:998899136269:secret:production-QR5PVQ"
+  vpc_id                     = data.terraform_remote_state.prebuild.outputs.vpc_id
+  app_security_group_id      = data.terraform_remote_state.prebuild.outputs.app_security_group_id
+  internal_security_group_id = data.terraform_remote_state.prebuild.outputs.internal_security_group_id
+}
+
+module "postbuild_pointy" {
+  source = "../modules"
+
+  providers = {
+    aws.dns_role = aws.dns_role
+  }
+
+  server_sha        = var.server_sha
+  web_sha           = var.web_sha
+  slack_webhook_url = var.slack_webhook_url
+
+  desired_web_count    = 2
+  desired_server_count = 3
+
+  name                       = "pointy"
+  web_domain                 = "www.pointy.ai"
+  app_domain                 = "app.pointy.ai"
+  route53_zone               = "Z036564521TUMO3XKOL1V"
+  freeplay_env               = "production"
+  docs_bucket_name           = "reviso-documents"
+  images_bucket_name         = "reviso-images"
+  dynamo_table_name          = "reviso"
+  env                        = "prod"
+  cookie_domain              = "pointy.ai"
+  email_domain               = "pointy.ai"
   email_region               = "us-east-1"
   preview_prefix             = ""
   secret_arn                 = "arn:aws:secretsmanager:us-west-2:998899136269:secret:production-QR5PVQ"

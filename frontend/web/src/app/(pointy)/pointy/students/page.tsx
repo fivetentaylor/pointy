@@ -1,7 +1,7 @@
-import { HeroSection } from "@/components/marketing/HeroSection";
-import { HowItWorksSection } from "@/components/marketing/HowItWorksSection";
-import { UseCasesSection } from "@/components/marketing/UseCasesSection";
-import { CTASection } from "@/components/marketing/CTASection";
+import { HeroSection } from "@/components/marketing-pointy/HeroSection";
+import { HowItWorksSection } from "@/components/marketing-pointy/HowItWorksSection";
+import { UseCasesSection } from "@/components/marketing-pointy/UseCasesSection";
+import { CTASection } from "@/components/marketing-pointy/CTASection";
 import {
   PencilIcon,
   BookOpenIcon,
@@ -10,10 +10,10 @@ import {
   GraduationCapIcon,
   StarIcon,
 } from "lucide-react";
-import { MarketingNav } from "@/components/marketing/MarketingNav";
+import { MarketingNav } from "@/components/marketing-pointy/MarketingNav";
 import { Button } from "@/components/ui/button";
 import { APP_HOST } from "@/lib/urls";
-import { CenteredLayout } from "@/components/marketing/CenteredLayout";
+import { CenteredLayout } from "@/components/marketing-pointy/CenteredLayout";
 
 const studentHowItWorks = [
   {
@@ -31,7 +31,7 @@ const studentHowItWorks = [
   {
     title: "Show your work",
     description:
-      "Share your Reviso document with your professors and give them full and accurate visibility into your work.",
+      "Share your Pointy document with your professors and give them full and accurate visibility into your work.",
     image: "/images/how-it-works/show-your-work.png",
     height: 36.1875,
     imageStyle: {
@@ -42,7 +42,7 @@ const studentHowItWorks = [
   {
     title: "Write in conversation",
     description:
-      "Start with rough ideas and let Reviso help shape them into clear, academic prose through natural dialog.",
+      "Start with rough ideas and let Pointy help shape them into clear, academic prose through natural dialog.",
     image: "/images/how-it-works/write-in-conversation-students.png",
     height: 38,
     imageStyle: {
@@ -129,14 +129,14 @@ const studentUseCases = [
 export default function StudentsPage() {
   return (
     <>
-      <MarketingNav pathname={"/students"} />
+      <MarketingNav pathname={"/pointy/students"} />
       <main>
         <CenteredLayout>
           <HeroSection
             video="/videos/landing/students.webm"
             title="Show your process, own your work"
             description={`Write papers with nothing to hide from professors.
-Reviso turns AI from ghostwriter to academic thought partner.`}
+Pointy turns AI from ghostwriter to academic thought partner.`}
           />
           <HowItWorksSection items={studentHowItWorks} />
           <div className="text-center my-[1.72rem]">

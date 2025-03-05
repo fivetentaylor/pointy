@@ -6,14 +6,14 @@ import {
   CoinsIcon,
   LightbulbIcon,
 } from "lucide-react";
-import { MarketingNav } from "@/components/marketing/MarketingNav";
-import { CTASection } from "@/components/marketing/CTASection";
-import { UseCasesSection } from "@/components/marketing/UseCasesSection";
-import { HowItWorksSection } from "@/components/marketing/HowItWorksSection";
-import { HeroSection } from "@/components/marketing/HeroSection";
+import { MarketingNav } from "@/components/marketing-pointy/MarketingNav";
+import { CTASection } from "@/components/marketing-pointy/CTASection";
+import { UseCasesSection } from "@/components/marketing-pointy/UseCasesSection";
+import { HowItWorksSection } from "@/components/marketing-pointy/HowItWorksSection";
+import { HeroSection } from "@/components/marketing-pointy/HeroSection";
 import { APP_HOST } from "@/lib/urls";
 import { Button } from "@/components/ui/button";
-import { CenteredLayout } from "@/components/marketing/CenteredLayout";
+import { CenteredLayout } from "@/components/marketing-pointy/CenteredLayout";
 
 const schoolHowItWorks = [
   {
@@ -102,13 +102,13 @@ const schoolUseCases = [
 ];
 
 export const metadata = {
-  pathname: "/schools",
+  pathname: "/pointy/schools",
 };
 
 export default function SchoolsPage() {
   return (
     <>
-      <MarketingNav pathname={"/schools"} />
+      <MarketingNav pathname={"/pointy/schools"} />
       <main>
         <CenteredLayout>
           <HeroSection

@@ -2,12 +2,13 @@ package server
 
 import (
 	"context"
-	"flag"
+	"crypto/tls"
 	"fmt"
 	"log/slog"
 	"net"
 	"net/http"
 	"os"
+	"strings"
 
 	"github.com/99designs/gqlgen/graphql/playground"
 	"github.com/charmbracelet/log"
@@ -291,7 +292,7 @@ func (s *Server) ListenAndServe() error {
 	}
 
 	if os.Getenv("ENV") == "development" {
-		sslCertDirArg := flag.String("d", "./dev/certs", "the directory of SSL cert")
+		/*sslCertDirArg := flag.String("d", "./dev/certs", "the directory of SSL cert")
 		sslCrtNameArg := flag.String("c", "_wildcard.reviso.dev.pem", "the filename of SSL cert")
 		sslKeyNameArg := flag.String("k", "_wildcard.reviso.dev-key.pem", "the filename of SSL key")
 		flag.Parse()
@@ -302,11 +303,41 @@ func (s *Server) ListenAndServe() error {
 		if string((*sslKeyNameArg)[0]) != "/" {
 			*sslKeyNameArg = "/" + *sslKeyNameArg
 		}
-		sslCertCrtPath := *sslCertDirArg + *sslCrtNameArg
+		revisoCrtPath := *sslCertDirArg + *sslCrtNameArg
 		sslCertKeyPath := *sslCertDirArg + *sslKeyNameArg
+		*/
+		revisoCrtPath := "./dev/certs/_wildcard.reviso.dev.pem"
+		revisoKeyPath := "./dev/certs/_wildcard.reviso.dev-key.pem"
+		revisoCert, err := tls.LoadX509KeyPair(revisoCrtPath, revisoKeyPath)
+		if err != nil {
+			return err
+		}
+
+		pointyCrtPath := "./dev/certs/_wildcard.dev.pointy.ai.pem"
+		pointyKeyPath := "./dev/certs/_wildcard.dev.pointy.ai-key.pem"
+		pointyCert, err := tls.LoadX509KeyPair(pointyCrtPath, pointyKeyPath)
+		if err != nil {
+			return err
+		}
+
+		tlsConfig := &tls.Config{
+			GetCertificate: func(info *tls.ClientHelloInfo) (*tls.Certificate, error) {
+				fmt.Printf("TAYZEE ServerName: %q\n", info.ServerName)
+				// Logic to select the right certificate based on the requested hostname
+				if strings.HasSuffix(info.ServerName, ".reviso.dev") {
+					return &revisoCert, nil
+				} else if strings.HasSuffix(info.ServerName, ".dev.pointy.ai") {
+					return &pointyCert, nil
+				}
+				// Default certificate
+				return &revisoCert, nil
+			},
+		}
+
+		s.HttpServer.TLSConfig = tlsConfig
 
 		s.Logger.Warn("Server running in development https mode")
-		return s.HttpServer.ServeTLS(s.Listener, sslCertCrtPath, sslCertKeyPath)
+		return s.HttpServer.ServeTLS(s.Listener, "", "")
 	}
 
 	return s.HttpServer.Serve(s.Listener)
