@@ -14,11 +14,11 @@ import (
 	"github.com/sashabaranov/go-openai"
 	"gorm.io/gorm"
 
-	"github.com/teamreviso/code/pkg/client"
-	"github.com/teamreviso/code/pkg/models"
-	"github.com/teamreviso/code/pkg/query"
-	"github.com/teamreviso/code/pkg/storage/dynamo"
-	"github.com/teamreviso/code/pkg/storage/s3"
+	"github.com/fivetentaylor/pointy/pkg/client"
+	"github.com/fivetentaylor/pointy/pkg/models"
+	"github.com/fivetentaylor/pointy/pkg/query"
+	"github.com/fivetentaylor/pointy/pkg/storage/dynamo"
+	"github.com/fivetentaylor/pointy/pkg/storage/s3"
 )
 
 type ContextKey[T any] struct{}

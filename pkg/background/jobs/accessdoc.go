@@ -4,10 +4,10 @@ import (
 	"context"
 	"time"
 
-	"github.com/teamreviso/code/pkg/background/wire"
-	"github.com/teamreviso/code/pkg/env"
-	"github.com/teamreviso/code/pkg/service/notifications"
-	"github.com/teamreviso/code/pkg/service/sharing"
+	"github.com/fivetentaylor/pointy/pkg/background/wire"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/service/notifications"
+	"github.com/fivetentaylor/pointy/pkg/service/sharing"
 )
 
 func AccessDocJob(ctx context.Context, args *wire.AccessDoc) error {

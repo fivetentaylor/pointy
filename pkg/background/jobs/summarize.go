@@ -4,10 +4,10 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/teamreviso/code/pkg/ai"
-	"github.com/teamreviso/code/pkg/background/wire"
-	"github.com/teamreviso/code/pkg/constants"
-	"github.com/teamreviso/code/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/ai"
+	"github.com/fivetentaylor/pointy/pkg/background/wire"
+	"github.com/fivetentaylor/pointy/pkg/constants"
+	"github.com/fivetentaylor/pointy/pkg/env"
 )
 
 func SummarizeSessionJob(ctx context.Context, args *wire.SummarizeSession) error {

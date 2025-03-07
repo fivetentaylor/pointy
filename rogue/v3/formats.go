@@ -6,8 +6,8 @@ import (
 	"strconv"
 
 	"github.com/charmbracelet/log"
-	"github.com/teamreviso/code/pkg/stackerr"
-	"github.com/teamreviso/code/rogue/v3/set"
+	"github.com/fivetentaylor/pointy/pkg/stackerr"
+	"github.com/fivetentaylor/pointy/rogue/v3/set"
 )
 
 type Formats struct {

@@ -13,10 +13,10 @@ import (
 	"github.com/gorilla/websocket"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/teamreviso/code/pkg/env"
-	"github.com/teamreviso/code/pkg/rogue"
-	"github.com/teamreviso/code/pkg/testutils"
-	v3 "github.com/teamreviso/code/rogue/v3"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/rogue"
+	"github.com/fivetentaylor/pointy/pkg/testutils"
+	v3 "github.com/fivetentaylor/pointy/rogue/v3"
 )
 
 func TestSession_Subscribe(t *testing.T) {

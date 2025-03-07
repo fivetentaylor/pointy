@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/teamreviso/code/pkg/env"
-	"github.com/teamreviso/code/pkg/service/messaging"
-	"github.com/teamreviso/code/pkg/storage/dynamo"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/service/messaging"
+	"github.com/fivetentaylor/pointy/pkg/storage/dynamo"
 )
 
 const intentionPrompt = `You are an AI assistant designed to analyze user queries in a writing chat bot context. Your task is to determine the user's intent based on their input. Carefully examine the user's message and categorize it according to the following criteria:

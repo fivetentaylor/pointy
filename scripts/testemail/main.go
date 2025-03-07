@@ -4,9 +4,9 @@ import (
 	"log"
 
 	"github.com/joho/godotenv"
-	"github.com/teamreviso/code/pkg/env"
-	"github.com/teamreviso/code/pkg/service/email"
-	"github.com/teamreviso/code/pkg/testutils"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/service/email"
+	"github.com/fivetentaylor/pointy/pkg/testutils"
 )
 
 func main() {

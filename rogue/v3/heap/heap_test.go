@@ -3,7 +3,7 @@ package heap_test
 import (
 	"testing"
 
-	heap "github.com/teamreviso/code/rogue/v3/heap"
+	heap "github.com/fivetentaylor/pointy/rogue/v3/heap"
 )
 
 func TestMinHeap(t *testing.T) {

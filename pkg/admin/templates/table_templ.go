@@ -10,7 +10,7 @@ import templruntime "github.com/a-h/templ/runtime"
 
 import (
 	"fmt"
-	v3 "github.com/teamreviso/code/rogue/v3"
+	v3 "github.com/fivetentaylor/pointy/rogue/v3"
 )
 
 func Table(id string, doc *v3.Rogue) templ.Component {

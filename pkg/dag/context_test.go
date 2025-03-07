@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/require"
-	"github.com/teamreviso/code/pkg/dag"
+	"github.com/fivetentaylor/pointy/pkg/dag"
 )
 
 func Test_WithRunId(t *testing.T) {

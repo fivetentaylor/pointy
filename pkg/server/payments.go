@@ -7,9 +7,9 @@ import (
 	"net/http"
 
 	"github.com/charmbracelet/log"
-	"github.com/teamreviso/code/pkg/env"
-	"github.com/teamreviso/code/pkg/service/payments"
-	views "github.com/teamreviso/code/pkg/views/payments"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/service/payments"
+	views "github.com/fivetentaylor/pointy/pkg/views/payments"
 )
 
 // /payments/checkout

@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/teamreviso/code/pkg/env"
-	"github.com/teamreviso/code/pkg/models"
-	"github.com/teamreviso/code/pkg/query"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/models"
+	"github.com/fivetentaylor/pointy/pkg/query"
 )
 
 func JoinDoc(ctx context.Context, docId string, userID string, accessLevel string) (*models.Document, error) {

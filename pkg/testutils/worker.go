@@ -6,9 +6,9 @@ import (
 	"os"
 	"testing"
 
-	"github.com/teamreviso/code/pkg/background/worker"
-	"github.com/teamreviso/code/pkg/config"
-	"github.com/teamreviso/code/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/background/worker"
+	"github.com/fivetentaylor/pointy/pkg/config"
+	"github.com/fivetentaylor/pointy/pkg/env"
 )
 
 func RunWorker(t *testing.T) context.CancelFunc {

@@ -9,8 +9,8 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/teamreviso/code/pkg/env"
-	"github.com/teamreviso/code/pkg/stackerr"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/stackerr"
 )
 
 type Node interface {

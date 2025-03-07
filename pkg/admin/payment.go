@@ -3,9 +3,9 @@ package admin
 import (
 	"net/http"
 
-	"github.com/teamreviso/code/pkg/admin/templates"
-	"github.com/teamreviso/code/pkg/env"
-	"github.com/teamreviso/code/pkg/service/payments"
+	"github.com/fivetentaylor/pointy/pkg/admin/templates"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/service/payments"
 )
 
 func SubscriptionPlans(w http.ResponseWriter, r *http.Request) {

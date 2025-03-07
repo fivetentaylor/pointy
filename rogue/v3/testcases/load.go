@@ -9,7 +9,7 @@ import (
 	"strings"
 
 	"github.com/charmbracelet/log"
-	v3 "github.com/teamreviso/code/rogue/v3"
+	v3 "github.com/fivetentaylor/pointy/rogue/v3"
 )
 
 type Failable interface {

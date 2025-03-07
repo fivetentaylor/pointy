@@ -8,8 +8,8 @@ import (
 
 	"github.com/golang-jwt/jwt"
 	"github.com/stretchr/testify/assert"
-	"github.com/teamreviso/code/pkg/models"
-	"github.com/teamreviso/code/pkg/server/auth"
+	"github.com/fivetentaylor/pointy/pkg/models"
+	"github.com/fivetentaylor/pointy/pkg/server/auth"
 )
 
 func TestGenerateUserToken(t *testing.T) {

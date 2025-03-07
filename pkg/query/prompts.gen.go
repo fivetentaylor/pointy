@@ -16,7 +16,7 @@ import (
 
 	"gorm.io/plugin/dbresolver"
 
-	"github.com/teamreviso/code/pkg/models"
+	"github.com/fivetentaylor/pointy/pkg/models"
 )
 
 func newPrompt(db *gorm.DB, opts ...gen.DOOption) prompt {

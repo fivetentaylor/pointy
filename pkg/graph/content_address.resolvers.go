@@ -9,10 +9,10 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/teamreviso/code/pkg/env"
-	"github.com/teamreviso/code/pkg/graph/model"
-	"github.com/teamreviso/code/pkg/rogue"
-	"github.com/teamreviso/code/rogue/v3"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/graph/model"
+	"github.com/fivetentaylor/pointy/pkg/rogue"
+	"github.com/fivetentaylor/pointy/rogue/v3"
 )
 
 // CreateContentAddress is the resolver for the createContentAddress field.

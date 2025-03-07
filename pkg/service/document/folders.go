@@ -5,11 +5,11 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/teamreviso/code/pkg/constants"
-	"github.com/teamreviso/code/pkg/env"
-	"github.com/teamreviso/code/pkg/models"
-	"github.com/teamreviso/code/pkg/query"
-	"github.com/teamreviso/code/pkg/service/pubsub"
+	"github.com/fivetentaylor/pointy/pkg/constants"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/models"
+	"github.com/fivetentaylor/pointy/pkg/query"
+	"github.com/fivetentaylor/pointy/pkg/service/pubsub"
 )
 
 func CreateFolder(ctx context.Context, user *models.User) (*models.Document, error) {

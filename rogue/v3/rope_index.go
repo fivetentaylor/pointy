@@ -1,7 +1,7 @@
 package v3
 
 import (
-	avl "github.com/teamreviso/code/rogue/v3/tree"
+	avl "github.com/fivetentaylor/pointy/rogue/v3/tree"
 )
 
 type RopeIndex map[string]*avl.Tree[int, *RopeNode]

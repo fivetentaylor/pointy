@@ -8,7 +8,7 @@ import (
 
 	"github.com/charmbracelet/log"
 	"github.com/sergi/go-diff/diffmatchpatch"
-	"github.com/teamreviso/code/pkg/stackerr"
+	"github.com/fivetentaylor/pointy/pkg/stackerr"
 )
 
 type DeltaType int

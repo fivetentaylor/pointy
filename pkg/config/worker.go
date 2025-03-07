@@ -3,7 +3,7 @@ package config
 import (
 	"log/slog"
 
-	"github.com/teamreviso/code/pkg/constants"
+	"github.com/fivetentaylor/pointy/pkg/constants"
 )
 
 type Worker struct {

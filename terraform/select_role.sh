@@ -33,13 +33,13 @@ TIMESTAMP=$(date '+%Y_%m%d_%H%M')
 SESSION_NAME="awscli_${USERNAME}_${TIMESTAMP}"
 
 # Check for .env file
-if [ ! -f "${BASE_DIR}/.env" ]; then
+if [ ! -f "${BASE_DIR}/../.env.aws" ]; then
     echo "Error: .env file not found in current directory"
     exit 1
 fi
 
 # Source the .env file
-export $(grep -v '#' "${BASE_DIR}/.env" | xargs)
+export $(grep -v '#' "${BASE_DIR}/../.env.aws" | xargs)
 
 # Validate required environment variables
 if [ -z "$AWS_ACCESS_KEY_ID" ] || [ -z "$AWS_SECRET_ACCESS_KEY" ]; then

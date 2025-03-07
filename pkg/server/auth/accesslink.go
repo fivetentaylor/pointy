@@ -10,13 +10,13 @@ import (
 
 	"github.com/charmbracelet/log"
 	"github.com/go-chi/chi/v5"
-	"github.com/teamreviso/code/pkg/env"
-	"github.com/teamreviso/code/pkg/models"
-	"github.com/teamreviso/code/pkg/server/auth/types"
-	"github.com/teamreviso/code/pkg/service/email"
-	"github.com/teamreviso/code/pkg/views/auth"
-	authView "github.com/teamreviso/code/pkg/views/auth"
-	viewUtils "github.com/teamreviso/code/pkg/views/utils"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/models"
+	"github.com/fivetentaylor/pointy/pkg/server/auth/types"
+	"github.com/fivetentaylor/pointy/pkg/service/email"
+	"github.com/fivetentaylor/pointy/pkg/views/auth"
+	authView "github.com/fivetentaylor/pointy/pkg/views/auth"
+	viewUtils "github.com/fivetentaylor/pointy/pkg/views/utils"
 )
 
 var OneTimeAccessLinkExpireIn = time.Minute * 15

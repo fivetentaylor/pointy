@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/teamreviso/code/pkg/models"
+	"github.com/fivetentaylor/pointy/pkg/models"
 )
 
 func ApplySuggestion(

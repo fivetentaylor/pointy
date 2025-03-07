@@ -1,6 +1,6 @@
 package v3
 
-import avl "github.com/teamreviso/code/rogue/v3/tree"
+import avl "github.com/fivetentaylor/pointy/rogue/v3/tree"
 
 type FailedOps struct {
 	*avl.Tree[ID, Op]

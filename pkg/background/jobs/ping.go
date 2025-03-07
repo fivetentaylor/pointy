@@ -4,8 +4,8 @@ import (
 	"context"
 	"log/slog"
 
-	"github.com/teamreviso/code/pkg/background/wire"
-	"github.com/teamreviso/code/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/background/wire"
+	"github.com/fivetentaylor/pointy/pkg/env"
 )
 
 // Ping simpliy pings the database

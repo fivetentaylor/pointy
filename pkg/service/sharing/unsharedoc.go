@@ -4,12 +4,12 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/teamreviso/code/pkg/env"
-	"github.com/teamreviso/code/pkg/models"
-	"github.com/teamreviso/code/pkg/query"
-	"github.com/teamreviso/code/pkg/service/pubsub"
-	"github.com/teamreviso/code/pkg/service/timeline"
-	"github.com/teamreviso/code/pkg/storage/dynamo"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/models"
+	"github.com/fivetentaylor/pointy/pkg/query"
+	"github.com/fivetentaylor/pointy/pkg/service/pubsub"
+	"github.com/fivetentaylor/pointy/pkg/service/timeline"
+	"github.com/fivetentaylor/pointy/pkg/storage/dynamo"
 )
 
 func UnshareDoc(

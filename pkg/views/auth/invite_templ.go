@@ -9,9 +9,9 @@ import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
 import (
-	"github.com/teamreviso/code/pkg/models"
-	"github.com/teamreviso/code/pkg/server/auth/types"
-	"github.com/teamreviso/code/pkg/views/ui"
+	"github.com/fivetentaylor/pointy/pkg/models"
+	"github.com/fivetentaylor/pointy/pkg/server/auth/types"
+	"github.com/fivetentaylor/pointy/pkg/views/ui"
 )
 
 func Invite(segmentKey, stateString string, state types.State, sdl *models.SharedDocumentLink, invitedBy *models.User) templ.Component {

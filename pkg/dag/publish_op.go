@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	v3 "github.com/teamreviso/code/rogue/v3"
+	v3 "github.com/fivetentaylor/pointy/rogue/v3"
 )
 
 func PublishOp(ctx context.Context, docId string, op v3.Op) error {

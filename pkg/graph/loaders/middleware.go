@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/teamreviso/code/pkg/models"
+	"github.com/fivetentaylor/pointy/pkg/models"
 	"github.com/vikstrous/dataloadgen"
 )
 

@@ -6,8 +6,8 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/require"
-	"github.com/teamreviso/code/pkg/dag"
-	"github.com/teamreviso/code/pkg/testutils"
+	"github.com/fivetentaylor/pointy/pkg/dag"
+	"github.com/fivetentaylor/pointy/pkg/testutils"
 )
 
 type testNode struct {

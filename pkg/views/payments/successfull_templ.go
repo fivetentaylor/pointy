@@ -9,8 +9,8 @@ import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
 import (
-	"github.com/teamreviso/code/pkg/views/layouts"
-	"github.com/teamreviso/code/pkg/views/ui"
+	"github.com/fivetentaylor/pointy/pkg/views/layouts"
+	"github.com/fivetentaylor/pointy/pkg/views/ui"
 )
 
 func Successfull() templ.Component {

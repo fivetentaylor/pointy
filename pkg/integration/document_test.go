@@ -5,8 +5,8 @@ import (
 
 	"github.com/stretchr/testify/suite"
 
-	"github.com/teamreviso/code/pkg/server"
-	"github.com/teamreviso/code/pkg/server/auth"
+	"github.com/fivetentaylor/pointy/pkg/server"
+	"github.com/fivetentaylor/pointy/pkg/server/auth"
 )
 
 type DocumentSuite struct {

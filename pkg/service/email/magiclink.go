@@ -6,8 +6,8 @@ import (
 	"strings"
 
 	"github.com/charmbracelet/log"
-	"github.com/teamreviso/code/pkg/env"
-	"github.com/teamreviso/code/pkg/service/email/templates"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/service/email/templates"
 )
 
 func SendMagicLinkEmail(

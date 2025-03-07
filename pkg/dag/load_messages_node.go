@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	"github.com/charmbracelet/log"
-	"github.com/teamreviso/code/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/env"
 )
 
 type LoadMessagesNode struct {

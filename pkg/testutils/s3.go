@@ -7,7 +7,7 @@ import (
 	"github.com/charmbracelet/log"
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
-	"github.com/teamreviso/code/pkg/storage/s3"
+	"github.com/fivetentaylor/pointy/pkg/storage/s3"
 )
 
 var s3Runner = &OnceRunner{

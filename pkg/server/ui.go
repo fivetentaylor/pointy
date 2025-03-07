@@ -8,17 +8,17 @@ import (
 	"time"
 
 	"github.com/go-chi/chi/v5"
-	"github.com/teamreviso/code/pkg/background/wire"
-	"github.com/teamreviso/code/pkg/constants"
-	"github.com/teamreviso/code/pkg/env"
-	"github.com/teamreviso/code/pkg/models"
-	"github.com/teamreviso/code/pkg/query"
-	"github.com/teamreviso/code/pkg/rogue"
-	"github.com/teamreviso/code/pkg/service/document"
-	"github.com/teamreviso/code/pkg/views"
-	"github.com/teamreviso/code/pkg/views/drafts"
-	"github.com/teamreviso/code/pkg/views/read"
-	"github.com/teamreviso/code/pkg/views/utils"
+	"github.com/fivetentaylor/pointy/pkg/background/wire"
+	"github.com/fivetentaylor/pointy/pkg/constants"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/models"
+	"github.com/fivetentaylor/pointy/pkg/query"
+	"github.com/fivetentaylor/pointy/pkg/rogue"
+	"github.com/fivetentaylor/pointy/pkg/service/document"
+	"github.com/fivetentaylor/pointy/pkg/views"
+	"github.com/fivetentaylor/pointy/pkg/views/drafts"
+	"github.com/fivetentaylor/pointy/pkg/views/read"
+	"github.com/fivetentaylor/pointy/pkg/views/utils"
 )
 
 func (s *Server) UI(r chi.Router) {

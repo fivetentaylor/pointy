@@ -13,8 +13,8 @@ import (
 	"github.com/charmbracelet/log"
 	"github.com/go-chi/render"
 	"github.com/posthog/posthog-go"
-	"github.com/teamreviso/code/pkg/constants"
-	"github.com/teamreviso/code/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/constants"
+	"github.com/fivetentaylor/pointy/pkg/env"
 )
 
 var UserNotAllowedError = fmt.Errorf("user not allowed")

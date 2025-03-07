@@ -13,7 +13,7 @@ import "encoding/base64"
 import "time"
 import "strings"
 import "strconv"
-import "github.com/teamreviso/code/pkg/constants"
+import "github.com/fivetentaylor/pointy/pkg/constants"
 
 type PendingOp struct {
 	Op    string

@@ -5,7 +5,7 @@ import (
 	"errors"
 
 	"github.com/stripe/stripe-go/v81"
-	"github.com/teamreviso/code/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/env"
 	"gorm.io/gorm"
 )
 

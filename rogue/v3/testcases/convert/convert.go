@@ -1,6 +1,6 @@
 package main
 
-import "github.com/teamreviso/code/rogue/v3/testcases"
+import "github.com/fivetentaylor/pointy/rogue/v3/testcases"
 
 func main() {
 	testcases.ConvertAll()

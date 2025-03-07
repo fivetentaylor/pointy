@@ -16,9 +16,9 @@ import (
 
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/99designs/gqlgen/graphql/introspection"
-	"github.com/teamreviso/code/pkg/graph/model"
-	"github.com/teamreviso/code/pkg/models"
-	"github.com/teamreviso/code/pkg/storage/dynamo"
+	"github.com/fivetentaylor/pointy/pkg/graph/model"
+	"github.com/fivetentaylor/pointy/pkg/models"
+	"github.com/fivetentaylor/pointy/pkg/storage/dynamo"
 	gqlparser "github.com/vektah/gqlparser/v2"
 	"github.com/vektah/gqlparser/v2/ast"
 )
@@ -2946,7 +2946,7 @@ func (ec *executionContext) field_Mutation_createAskAiThreadMessage_args(ctx con
 	var arg2 model.MessageInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg2, err = ec.unmarshalNMessageInput2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐMessageInput(ctx, tmp)
+		arg2, err = ec.unmarshalNMessageInput2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐMessageInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -2985,7 +2985,7 @@ func (ec *executionContext) field_Mutation_createFlaggedVersion_args(ctx context
 	var arg1 model.FlaggedVersionInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg1, err = ec.unmarshalNFlaggedVersionInput2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐFlaggedVersionInput(ctx, tmp)
+		arg1, err = ec.unmarshalNFlaggedVersionInput2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐFlaggedVersionInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -3042,7 +3042,7 @@ func (ec *executionContext) field_Mutation_createTimelineMessage_args(ctx contex
 	var arg1 model.TimelineMessageInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg1, err = ec.unmarshalNTimelineMessageInput2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐTimelineMessageInput(ctx, tmp)
+		arg1, err = ec.unmarshalNTimelineMessageInput2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐTimelineMessageInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -3138,7 +3138,7 @@ func (ec *executionContext) field_Mutation_editFlaggedVersion_args(ctx context.C
 	var arg1 model.FlaggedVersionInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg1, err = ec.unmarshalNFlaggedVersionInput2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐFlaggedVersionInput(ctx, tmp)
+		arg1, err = ec.unmarshalNFlaggedVersionInput2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐFlaggedVersionInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -3204,7 +3204,7 @@ func (ec *executionContext) field_Mutation_editTimelineMessage_args(ctx context.
 	var arg2 model.EditTimelineMessageInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg2, err = ec.unmarshalNEditTimelineMessageInput2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐEditTimelineMessageInput(ctx, tmp)
+		arg2, err = ec.unmarshalNEditTimelineMessageInput2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐEditTimelineMessageInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -3435,7 +3435,7 @@ func (ec *executionContext) field_Mutation_updateDocumentPreference_args(ctx con
 	var arg1 model.DocumentPreferenceInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg1, err = ec.unmarshalNDocumentPreferenceInput2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐDocumentPreferenceInput(ctx, tmp)
+		arg1, err = ec.unmarshalNDocumentPreferenceInput2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐDocumentPreferenceInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -3459,7 +3459,7 @@ func (ec *executionContext) field_Mutation_updateDocument_args(ctx context.Conte
 	var arg1 model.DocumentInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg1, err = ec.unmarshalNDocumentInput2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐDocumentInput(ctx, tmp)
+		arg1, err = ec.unmarshalNDocumentInput2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐDocumentInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -3474,7 +3474,7 @@ func (ec *executionContext) field_Mutation_updateMe_args(ctx context.Context, ra
 	var arg0 model.UpdateUserInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNUpdateUserInput2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐUpdateUserInput(ctx, tmp)
+		arg0, err = ec.unmarshalNUpdateUserInput2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐUpdateUserInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -3507,7 +3507,7 @@ func (ec *executionContext) field_Mutation_updateMessageResolution_args(ctx cont
 	var arg2 model.UpdateMessageResolutionInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg2, err = ec.unmarshalNUpdateMessageResolutionInput2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐUpdateMessageResolutionInput(ctx, tmp)
+		arg2, err = ec.unmarshalNUpdateMessageResolutionInput2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐUpdateMessageResolutionInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -3540,7 +3540,7 @@ func (ec *executionContext) field_Mutation_updateMessageRevisionStatus_args(ctx 
 	var arg2 model.MessageRevisionStatus
 	if tmp, ok := rawArgs["status"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("status"))
-		arg2, err = ec.unmarshalNMessageRevisionStatus2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐMessageRevisionStatus(ctx, tmp)
+		arg2, err = ec.unmarshalNMessageRevisionStatus2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐMessageRevisionStatus(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -3564,7 +3564,7 @@ func (ec *executionContext) field_Mutation_updateMyPreference_args(ctx context.C
 	var arg0 model.UpdateUserPreferenceInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNUpdateUserPreferenceInput2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐUpdateUserPreferenceInput(ctx, tmp)
+		arg0, err = ec.unmarshalNUpdateUserPreferenceInput2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐUpdateUserPreferenceInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -3864,7 +3864,7 @@ func (ec *executionContext) field_Query_getDocumentTimeline_args(ctx context.Con
 	var arg1 *model.TimelineEventFilter
 	if tmp, ok := rawArgs["filter"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("filter"))
-		arg1, err = ec.unmarshalOTimelineEventFilter2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐTimelineEventFilter(ctx, tmp)
+		arg1, err = ec.unmarshalOTimelineEventFilter2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐTimelineEventFilter(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -4929,7 +4929,7 @@ func (ec *executionContext) _Chain_messages(ctx context.Context, field graphql.C
 	}
 	res := resTmp.([]*dynamo.Message)
 	fc.Result = res
-	return ec.marshalNMessage2ᚕᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋstorageᚋdynamoᚐMessageᚄ(ctx, field.Selections, res)
+	return ec.marshalNMessage2ᚕᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋstorageᚋdynamoᚐMessageᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Chain_messages(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -5063,7 +5063,7 @@ func (ec *executionContext) _CommentNotificationPayloadValue_commentType(ctx con
 	}
 	res := resTmp.(model.CommentNotificationType)
 	fc.Result = res
-	return ec.marshalNCommentNotificationType2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐCommentNotificationType(ctx, field.Selections, res)
+	return ec.marshalNCommentNotificationType2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐCommentNotificationType(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_CommentNotificationPayloadValue_commentType(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -5327,7 +5327,7 @@ func (ec *executionContext) _CommentNotificationPayloadValue_author(ctx context.
 	}
 	res := resTmp.(*models.User)
 	fc.Result = res
-	return ec.marshalNUser2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐUser(ctx, field.Selections, res)
+	return ec.marshalNUser2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_CommentNotificationPayloadValue_author(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -5387,7 +5387,7 @@ func (ec *executionContext) _CommentNotificationPayloadValue_message(ctx context
 	}
 	res := resTmp.(*dynamo.Message)
 	fc.Result = res
-	return ec.marshalNMessage2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋstorageᚋdynamoᚐMessage(ctx, field.Selections, res)
+	return ec.marshalNMessage2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋstorageᚋdynamoᚐMessage(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_CommentNotificationPayloadValue_message(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -5738,7 +5738,7 @@ func (ec *executionContext) _Document_ownedBy(ctx context.Context, field graphql
 	}
 	res := resTmp.(*models.User)
 	fc.Result = res
-	return ec.marshalNUser2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐUser(ctx, field.Selections, res)
+	return ec.marshalNUser2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Document_ownedBy(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -5798,7 +5798,7 @@ func (ec *executionContext) _Document_editors(ctx context.Context, field graphql
 	}
 	res := resTmp.([]*models.User)
 	fc.Result = res
-	return ec.marshalNUser2ᚕᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐUserᚄ(ctx, field.Selections, res)
+	return ec.marshalNUser2ᚕᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐUserᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Document_editors(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -6204,7 +6204,7 @@ func (ec *executionContext) _Document_preferences(ctx context.Context, field gra
 	}
 	res := resTmp.(*models.DocumentPreference)
 	fc.Result = res
-	return ec.marshalNDocumentPreference2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐDocumentPreference(ctx, field.Selections, res)
+	return ec.marshalNDocumentPreference2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐDocumentPreference(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Document_preferences(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -6255,7 +6255,7 @@ func (ec *executionContext) _Document_screenshots(ctx context.Context, field gra
 	}
 	res := resTmp.(*model.DocumentScreenshots)
 	fc.Result = res
-	return ec.marshalODocumentScreenshots2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐDocumentScreenshots(ctx, field.Selections, res)
+	return ec.marshalODocumentScreenshots2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐDocumentScreenshots(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Document_screenshots(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -6305,7 +6305,7 @@ func (ec *executionContext) _Document_branchCopies(ctx context.Context, field gr
 	}
 	res := resTmp.([]*models.Document)
 	fc.Result = res
-	return ec.marshalNDocument2ᚕᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐDocumentᚄ(ctx, field.Selections, res)
+	return ec.marshalNDocument2ᚕᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐDocumentᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Document_branchCopies(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -6649,7 +6649,7 @@ func (ec *executionContext) _DocumentConnection_edges(ctx context.Context, field
 	}
 	res := resTmp.([]*model.DocumentEdge)
 	fc.Result = res
-	return ec.marshalNDocumentEdge2ᚕᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐDocumentEdgeᚄ(ctx, field.Selections, res)
+	return ec.marshalNDocumentEdge2ᚕᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐDocumentEdgeᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_DocumentConnection_edges(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -6699,7 +6699,7 @@ func (ec *executionContext) _DocumentConnection_pageInfo(ctx context.Context, fi
 	}
 	res := resTmp.(*model.PageInfo)
 	fc.Result = res
-	return ec.marshalNPageInfo2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐPageInfo(ctx, field.Selections, res)
+	return ec.marshalNPageInfo2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐPageInfo(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_DocumentConnection_pageInfo(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -6747,7 +6747,7 @@ func (ec *executionContext) _DocumentEdge_node(ctx context.Context, field graphq
 	}
 	res := resTmp.(*models.Document)
 	fc.Result = res
-	return ec.marshalNDocument2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐDocument(ctx, field.Selections, res)
+	return ec.marshalNDocument2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐDocument(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_DocumentEdge_node(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -7355,7 +7355,7 @@ func (ec *executionContext) _Image_status(ctx context.Context, field graphql.Col
 	}
 	res := resTmp.(model.Status)
 	fc.Result = res
-	return ec.marshalNStatus2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐStatus(ctx, field.Selections, res)
+	return ec.marshalNStatus2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐStatus(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Image_status(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -7789,7 +7789,7 @@ func (ec *executionContext) _Message_aiContent(ctx context.Context, field graphq
 	}
 	res := resTmp.(*model.AiContent)
 	fc.Result = res
-	return ec.marshalOAiContent2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐAiContent(ctx, field.Selections, res)
+	return ec.marshalOAiContent2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐAiContent(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Message_aiContent(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -7841,7 +7841,7 @@ func (ec *executionContext) _Message_lifecycleStage(ctx context.Context, field g
 	}
 	res := resTmp.(model.LifecycleStage)
 	fc.Result = res
-	return ec.marshalNLifecycleStage2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐLifecycleStage(ctx, field.Selections, res)
+	return ec.marshalNLifecycleStage2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐLifecycleStage(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Message_lifecycleStage(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -7929,7 +7929,7 @@ func (ec *executionContext) _Message_attachments(ctx context.Context, field grap
 	}
 	res := resTmp.([]model.AttachmentValue)
 	fc.Result = res
-	return ec.marshalNAttachmentValue2ᚕgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐAttachmentValueᚄ(ctx, field.Selections, res)
+	return ec.marshalNAttachmentValue2ᚕgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐAttachmentValueᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Message_attachments(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -8146,7 +8146,7 @@ func (ec *executionContext) _Message_metadata(ctx context.Context, field graphql
 	}
 	res := resTmp.(*model.MsgMetadata)
 	fc.Result = res
-	return ec.marshalNMsgMetadata2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐMsgMetadata(ctx, field.Selections, res)
+	return ec.marshalNMsgMetadata2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐMsgMetadata(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Message_metadata(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -8291,7 +8291,7 @@ func (ec *executionContext) _Message_user(ctx context.Context, field graphql.Col
 	}
 	res := resTmp.(*models.User)
 	fc.Result = res
-	return ec.marshalNUser2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐUser(ctx, field.Selections, res)
+	return ec.marshalNUser2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Message_user(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -8351,7 +8351,7 @@ func (ec *executionContext) _Message_replies(ctx context.Context, field graphql.
 	}
 	res := resTmp.([]*dynamo.Message)
 	fc.Result = res
-	return ec.marshalNMessage2ᚕᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋstorageᚋdynamoᚐMessageᚄ(ctx, field.Selections, res)
+	return ec.marshalNMessage2ᚕᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋstorageᚋdynamoᚐMessageᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Message_replies(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -8441,7 +8441,7 @@ func (ec *executionContext) _Message_replyingUsers(ctx context.Context, field gr
 	}
 	res := resTmp.([]*models.User)
 	fc.Result = res
-	return ec.marshalNUser2ᚕᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐUserᚄ(ctx, field.Selections, res)
+	return ec.marshalNUser2ᚕᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐUserᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Message_replyingUsers(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -8589,7 +8589,7 @@ func (ec *executionContext) _MsgMetadata_llm(ctx context.Context, field graphql.
 	}
 	res := resTmp.(model.MsgLlm)
 	fc.Result = res
-	return ec.marshalNMsgLLM2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐMsgLlm(ctx, field.Selections, res)
+	return ec.marshalNMsgLLM2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐMsgLlm(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_MsgMetadata_llm(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -8633,7 +8633,7 @@ func (ec *executionContext) _MsgMetadata_revisionStatus(ctx context.Context, fie
 	}
 	res := resTmp.(model.MessageRevisionStatus)
 	fc.Result = res
-	return ec.marshalNMessageRevisionStatus2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐMessageRevisionStatus(ctx, field.Selections, res)
+	return ec.marshalNMessageRevisionStatus2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐMessageRevisionStatus(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_MsgMetadata_revisionStatus(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -8806,7 +8806,7 @@ func (ec *executionContext) _Mutation_uploadImage(ctx context.Context, field gra
 	}
 	res := resTmp.(*model.Image)
 	fc.Result = res
-	return ec.marshalNImage2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐImage(ctx, field.Selections, res)
+	return ec.marshalNImage2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐImage(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_uploadImage(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -8877,7 +8877,7 @@ func (ec *executionContext) _Mutation_uploadAttachment(ctx context.Context, fiel
 	}
 	res := resTmp.(*models.DocumentAttachment)
 	fc.Result = res
-	return ec.marshalNDocumentAttachment2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐDocumentAttachment(ctx, field.Selections, res)
+	return ec.marshalNDocumentAttachment2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐDocumentAttachment(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_uploadAttachment(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -8939,7 +8939,7 @@ func (ec *executionContext) _Mutation_saveContentAddress(ctx context.Context, fi
 	}
 	res := resTmp.(*model.MutationResponse)
 	fc.Result = res
-	return ec.marshalOMutationResponse2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐMutationResponse(ctx, field.Selections, res)
+	return ec.marshalOMutationResponse2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐMutationResponse(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_saveContentAddress(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -8998,7 +8998,7 @@ func (ec *executionContext) _Mutation_createDocument(ctx context.Context, field 
 	}
 	res := resTmp.(*models.Document)
 	fc.Result = res
-	return ec.marshalNDocument2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐDocument(ctx, field.Selections, res)
+	return ec.marshalNDocument2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐDocument(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_createDocument(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -9078,7 +9078,7 @@ func (ec *executionContext) _Mutation_createFolder(ctx context.Context, field gr
 	}
 	res := resTmp.(*models.Document)
 	fc.Result = res
-	return ec.marshalNDocument2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐDocument(ctx, field.Selections, res)
+	return ec.marshalNDocument2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐDocument(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_createFolder(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -9320,7 +9320,7 @@ func (ec *executionContext) _Mutation_updateDocument(ctx context.Context, field 
 	}
 	res := resTmp.(*models.Document)
 	fc.Result = res
-	return ec.marshalODocument2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐDocument(ctx, field.Selections, res)
+	return ec.marshalODocument2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐDocument(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_updateDocument(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -9512,7 +9512,7 @@ func (ec *executionContext) _Mutation_copyDocument(ctx context.Context, field gr
 	}
 	res := resTmp.(*models.Document)
 	fc.Result = res
-	return ec.marshalODocument2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐDocument(ctx, field.Selections, res)
+	return ec.marshalODocument2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐDocument(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_copyDocument(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -9600,7 +9600,7 @@ func (ec *executionContext) _Mutation_moveDocument(ctx context.Context, field gr
 	}
 	res := resTmp.(*models.Document)
 	fc.Result = res
-	return ec.marshalODocument2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐDocument(ctx, field.Selections, res)
+	return ec.marshalODocument2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐDocument(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_moveDocument(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -9688,7 +9688,7 @@ func (ec *executionContext) _Mutation_updateDocumentPreference(ctx context.Conte
 	}
 	res := resTmp.(*models.DocumentPreference)
 	fc.Result = res
-	return ec.marshalODocumentPreference2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐDocumentPreference(ctx, field.Selections, res)
+	return ec.marshalODocumentPreference2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐDocumentPreference(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_updateDocumentPreference(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -9753,7 +9753,7 @@ func (ec *executionContext) _Mutation_createAskAiThread(ctx context.Context, fie
 	}
 	res := resTmp.(*dynamo.Thread)
 	fc.Result = res
-	return ec.marshalNThread2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋstorageᚋdynamoᚐThread(ctx, field.Selections, res)
+	return ec.marshalNThread2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋstorageᚋdynamoᚐThread(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_createAskAiThread(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -9824,7 +9824,7 @@ func (ec *executionContext) _Mutation_createAskAiThreadMessage(ctx context.Conte
 	}
 	res := resTmp.(*dynamo.Message)
 	fc.Result = res
-	return ec.marshalNMessage2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋstorageᚋdynamoᚐMessage(ctx, field.Selections, res)
+	return ec.marshalNMessage2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋstorageᚋdynamoᚐMessage(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_createAskAiThreadMessage(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -9925,7 +9925,7 @@ func (ec *executionContext) _Mutation_updateMessageRevisionStatus(ctx context.Co
 	}
 	res := resTmp.(*dynamo.Message)
 	fc.Result = res
-	return ec.marshalNMessage2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋstorageᚋdynamoᚐMessage(ctx, field.Selections, res)
+	return ec.marshalNMessage2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋstorageᚋdynamoᚐMessage(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_updateMessageRevisionStatus(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -10026,7 +10026,7 @@ func (ec *executionContext) _Mutation_checkoutSubscriptionPlan(ctx context.Conte
 	}
 	res := resTmp.(*model.Checkout)
 	fc.Result = res
-	return ec.marshalNCheckout2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐCheckout(ctx, field.Selections, res)
+	return ec.marshalNCheckout2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐCheckout(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_checkoutSubscriptionPlan(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -10085,7 +10085,7 @@ func (ec *executionContext) _Mutation_billingPortalSession(ctx context.Context, 
 	}
 	res := resTmp.(*model.BillingPortalSession)
 	fc.Result = res
-	return ec.marshalNBillingPortalSession2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐBillingPortalSession(ctx, field.Selections, res)
+	return ec.marshalNBillingPortalSession2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐBillingPortalSession(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_billingPortalSession(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -10133,7 +10133,7 @@ func (ec *executionContext) _Mutation_shareDocument(ctx context.Context, field g
 	}
 	res := resTmp.([]*models.SharedDocumentLink)
 	fc.Result = res
-	return ec.marshalNSharedDocumentLink2ᚕᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐSharedDocumentLinkᚄ(ctx, field.Selections, res)
+	return ec.marshalNSharedDocumentLink2ᚕᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐSharedDocumentLinkᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_shareDocument(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -10206,7 +10206,7 @@ func (ec *executionContext) _Mutation_unshareDocument(ctx context.Context, field
 	}
 	res := resTmp.(*models.Document)
 	fc.Result = res
-	return ec.marshalNDocument2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐDocument(ctx, field.Selections, res)
+	return ec.marshalNDocument2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐDocument(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_unshareDocument(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -10297,7 +10297,7 @@ func (ec *executionContext) _Mutation_createShareLinks(ctx context.Context, fiel
 	}
 	res := resTmp.([]*models.SharedDocumentLink)
 	fc.Result = res
-	return ec.marshalNSharedDocumentLink2ᚕᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐSharedDocumentLinkᚄ(ctx, field.Selections, res)
+	return ec.marshalNSharedDocumentLink2ᚕᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐSharedDocumentLinkᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_createShareLinks(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -10370,7 +10370,7 @@ func (ec *executionContext) _Mutation_updateShareLink(ctx context.Context, field
 	}
 	res := resTmp.(*models.SharedDocumentLink)
 	fc.Result = res
-	return ec.marshalNSharedDocumentLink2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐSharedDocumentLink(ctx, field.Selections, res)
+	return ec.marshalNSharedDocumentLink2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐSharedDocumentLink(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_updateShareLink(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -10443,7 +10443,7 @@ func (ec *executionContext) _Mutation_joinShareLink(ctx context.Context, field g
 	}
 	res := resTmp.(*models.Document)
 	fc.Result = res
-	return ec.marshalNDocument2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐDocument(ctx, field.Selections, res)
+	return ec.marshalNDocument2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐDocument(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_joinShareLink(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -10586,7 +10586,7 @@ func (ec *executionContext) _Mutation_createTimelineMessage(ctx context.Context,
 	}
 	res := resTmp.(*dynamo.TimelineEvent)
 	fc.Result = res
-	return ec.marshalNTimelineEvent2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋstorageᚋdynamoᚐTimelineEvent(ctx, field.Selections, res)
+	return ec.marshalNTimelineEvent2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋstorageᚋdynamoᚐTimelineEvent(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_createTimelineMessage(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -10712,7 +10712,7 @@ func (ec *executionContext) _Mutation_editTimelineMessage(ctx context.Context, f
 	}
 	res := resTmp.(*dynamo.TimelineEvent)
 	fc.Result = res
-	return ec.marshalNTimelineEvent2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋstorageᚋdynamoᚐTimelineEvent(ctx, field.Selections, res)
+	return ec.marshalNTimelineEvent2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋstorageᚋdynamoᚐTimelineEvent(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_editTimelineMessage(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -10783,7 +10783,7 @@ func (ec *executionContext) _Mutation_updateMessageResolution(ctx context.Contex
 	}
 	res := resTmp.(*dynamo.TimelineEvent)
 	fc.Result = res
-	return ec.marshalNTimelineEvent2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋstorageᚋdynamoᚐTimelineEvent(ctx, field.Selections, res)
+	return ec.marshalNTimelineEvent2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋstorageᚋdynamoᚐTimelineEvent(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_updateMessageResolution(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -10854,7 +10854,7 @@ func (ec *executionContext) _Mutation_editMessageResolutionSummary(ctx context.C
 	}
 	res := resTmp.(*dynamo.TimelineEvent)
 	fc.Result = res
-	return ec.marshalNTimelineEvent2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋstorageᚋdynamoᚐTimelineEvent(ctx, field.Selections, res)
+	return ec.marshalNTimelineEvent2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋstorageᚋdynamoᚐTimelineEvent(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_editMessageResolutionSummary(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -10925,7 +10925,7 @@ func (ec *executionContext) _Mutation_editTimelineUpdateSummary(ctx context.Cont
 	}
 	res := resTmp.(*dynamo.TimelineEvent)
 	fc.Result = res
-	return ec.marshalNTimelineEvent2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋstorageᚋdynamoᚐTimelineEvent(ctx, field.Selections, res)
+	return ec.marshalNTimelineEvent2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋstorageᚋdynamoᚐTimelineEvent(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_editTimelineUpdateSummary(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -11048,7 +11048,7 @@ func (ec *executionContext) _Mutation_updateMe(ctx context.Context, field graphq
 	}
 	res := resTmp.(*models.User)
 	fc.Result = res
-	return ec.marshalOUser2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐUser(ctx, field.Selections, res)
+	return ec.marshalOUser2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_updateMe(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -11119,7 +11119,7 @@ func (ec *executionContext) _Mutation_updateMyPreference(ctx context.Context, fi
 	}
 	res := resTmp.(*models.UserPreference)
 	fc.Result = res
-	return ec.marshalNUserPreference2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐUserPreference(ctx, field.Selections, res)
+	return ec.marshalNUserPreference2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐUserPreference(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_updateMyPreference(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -11398,7 +11398,7 @@ func (ec *executionContext) _Notification_payload(ctx context.Context, field gra
 	}
 	res := resTmp.(model.NotificationPayloadValue)
 	fc.Result = res
-	return ec.marshalNNotificationPayloadValue2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐNotificationPayloadValue(ctx, field.Selections, res)
+	return ec.marshalNNotificationPayloadValue2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐNotificationPayloadValue(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Notification_payload(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -11442,7 +11442,7 @@ func (ec *executionContext) _NotificationConnection_edges(ctx context.Context, f
 	}
 	res := resTmp.([]*dynamo.Notification)
 	fc.Result = res
-	return ec.marshalNNotification2ᚕᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋstorageᚋdynamoᚐNotificationᚄ(ctx, field.Selections, res)
+	return ec.marshalNNotification2ᚕᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋstorageᚋdynamoᚐNotificationᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_NotificationConnection_edges(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -11542,7 +11542,7 @@ func (ec *executionContext) _Query_getImageSignedUrl(ctx context.Context, field 
 	}
 	res := resTmp.(*model.SignedImageURL)
 	fc.Result = res
-	return ec.marshalNSignedImageUrl2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐSignedImageURL(ctx, field.Selections, res)
+	return ec.marshalNSignedImageUrl2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐSignedImageURL(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_getImageSignedUrl(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -11603,7 +11603,7 @@ func (ec *executionContext) _Query_listDocumentImages(ctx context.Context, field
 	}
 	res := resTmp.([]*model.Image)
 	fc.Result = res
-	return ec.marshalNImage2ᚕᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐImageᚄ(ctx, field.Selections, res)
+	return ec.marshalNImage2ᚕᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐImageᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_listDocumentImages(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -11674,7 +11674,7 @@ func (ec *executionContext) _Query_getImage(ctx context.Context, field graphql.C
 	}
 	res := resTmp.(*model.Image)
 	fc.Result = res
-	return ec.marshalNImage2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐImage(ctx, field.Selections, res)
+	return ec.marshalNImage2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐImage(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_getImage(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -11745,7 +11745,7 @@ func (ec *executionContext) _Query_getAttachmentSignedUrl(ctx context.Context, f
 	}
 	res := resTmp.(*model.SignedImageURL)
 	fc.Result = res
-	return ec.marshalNSignedImageUrl2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐSignedImageURL(ctx, field.Selections, res)
+	return ec.marshalNSignedImageUrl2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐSignedImageURL(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_getAttachmentSignedUrl(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -11806,7 +11806,7 @@ func (ec *executionContext) _Query_listDocumentAttachments(ctx context.Context, 
 	}
 	res := resTmp.([]*models.DocumentAttachment)
 	fc.Result = res
-	return ec.marshalNDocumentAttachment2ᚕᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐDocumentAttachmentᚄ(ctx, field.Selections, res)
+	return ec.marshalNDocumentAttachment2ᚕᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐDocumentAttachmentᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_listDocumentAttachments(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -11871,7 +11871,7 @@ func (ec *executionContext) _Query_listUsersAttachments(ctx context.Context, fie
 	}
 	res := resTmp.([]*models.DocumentAttachment)
 	fc.Result = res
-	return ec.marshalNDocumentAttachment2ᚕᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐDocumentAttachmentᚄ(ctx, field.Selections, res)
+	return ec.marshalNDocumentAttachment2ᚕᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐDocumentAttachmentᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_listUsersAttachments(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -11922,7 +11922,7 @@ func (ec *executionContext) _Query_getContentAddress(ctx context.Context, field 
 	}
 	res := resTmp.(*model.ContentAddress)
 	fc.Result = res
-	return ec.marshalOContentAddress2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐContentAddress(ctx, field.Selections, res)
+	return ec.marshalOContentAddress2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐContentAddress(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_getContentAddress(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -11985,7 +11985,7 @@ func (ec *executionContext) _Query_documents(ctx context.Context, field graphql.
 	}
 	res := resTmp.(*model.DocumentConnection)
 	fc.Result = res
-	return ec.marshalNDocumentConnection2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐDocumentConnection(ctx, field.Selections, res)
+	return ec.marshalNDocumentConnection2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐDocumentConnection(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_documents(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -12048,7 +12048,7 @@ func (ec *executionContext) _Query_baseDocuments(ctx context.Context, field grap
 	}
 	res := resTmp.(*model.DocumentConnection)
 	fc.Result = res
-	return ec.marshalNDocumentConnection2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐDocumentConnection(ctx, field.Selections, res)
+	return ec.marshalNDocumentConnection2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐDocumentConnection(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_baseDocuments(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -12111,7 +12111,7 @@ func (ec *executionContext) _Query_sharedDocuments(ctx context.Context, field gr
 	}
 	res := resTmp.(*model.DocumentConnection)
 	fc.Result = res
-	return ec.marshalNDocumentConnection2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐDocumentConnection(ctx, field.Selections, res)
+	return ec.marshalNDocumentConnection2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐDocumentConnection(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_sharedDocuments(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -12174,7 +12174,7 @@ func (ec *executionContext) _Query_folderDocuments(ctx context.Context, field gr
 	}
 	res := resTmp.(*model.DocumentConnection)
 	fc.Result = res
-	return ec.marshalNDocumentConnection2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐDocumentConnection(ctx, field.Selections, res)
+	return ec.marshalNDocumentConnection2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐDocumentConnection(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_folderDocuments(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -12237,7 +12237,7 @@ func (ec *executionContext) _Query_searchDocuments(ctx context.Context, field gr
 	}
 	res := resTmp.(*model.DocumentConnection)
 	fc.Result = res
-	return ec.marshalNDocumentConnection2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐDocumentConnection(ctx, field.Selections, res)
+	return ec.marshalNDocumentConnection2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐDocumentConnection(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_searchDocuments(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -12297,7 +12297,7 @@ func (ec *executionContext) _Query_document(ctx context.Context, field graphql.C
 	}
 	res := resTmp.(*models.Document)
 	fc.Result = res
-	return ec.marshalODocument2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐDocument(ctx, field.Selections, res)
+	return ec.marshalODocument2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐDocument(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_document(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -12388,7 +12388,7 @@ func (ec *executionContext) _Query_branches(ctx context.Context, field graphql.C
 	}
 	res := resTmp.([]*models.Document)
 	fc.Result = res
-	return ec.marshalNDocument2ᚕᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐDocumentᚄ(ctx, field.Selections, res)
+	return ec.marshalNDocument2ᚕᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐDocumentᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_branches(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -12479,7 +12479,7 @@ func (ec *executionContext) _Query_getAskAiThreads(ctx context.Context, field gr
 	}
 	res := resTmp.([]*dynamo.Thread)
 	fc.Result = res
-	return ec.marshalNThread2ᚕᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋstorageᚋdynamoᚐThreadᚄ(ctx, field.Selections, res)
+	return ec.marshalNThread2ᚕᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋstorageᚋdynamoᚐThreadᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_getAskAiThreads(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -12550,7 +12550,7 @@ func (ec *executionContext) _Query_getAskAiThreadMessages(ctx context.Context, f
 	}
 	res := resTmp.([]*dynamo.Message)
 	fc.Result = res
-	return ec.marshalNMessage2ᚕᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋstorageᚋdynamoᚐMessageᚄ(ctx, field.Selections, res)
+	return ec.marshalNMessage2ᚕᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋstorageᚋdynamoᚐMessageᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_getAskAiThreadMessages(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -12651,7 +12651,7 @@ func (ec *executionContext) _Query_subscriptionPlans(ctx context.Context, field 
 	}
 	res := resTmp.([]*models.SubscriptionPlan)
 	fc.Result = res
-	return ec.marshalNSubscriptionPlan2ᚕᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐSubscriptionPlanᚄ(ctx, field.Selections, res)
+	return ec.marshalNSubscriptionPlan2ᚕᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐSubscriptionPlanᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_subscriptionPlans(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -12704,7 +12704,7 @@ func (ec *executionContext) _Query_sharedLink(ctx context.Context, field graphql
 	}
 	res := resTmp.(*models.SharedDocumentLink)
 	fc.Result = res
-	return ec.marshalOSharedDocumentLink2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐSharedDocumentLink(ctx, field.Selections, res)
+	return ec.marshalOSharedDocumentLink2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐSharedDocumentLink(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_sharedLink(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -12777,7 +12777,7 @@ func (ec *executionContext) _Query_sharedLinks(ctx context.Context, field graphq
 	}
 	res := resTmp.([]*models.SharedDocumentLink)
 	fc.Result = res
-	return ec.marshalNSharedDocumentLink2ᚕᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐSharedDocumentLinkᚄ(ctx, field.Selections, res)
+	return ec.marshalNSharedDocumentLink2ᚕᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐSharedDocumentLinkᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_sharedLinks(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -12847,7 +12847,7 @@ func (ec *executionContext) _Query_unauthenticatedSharedLink(ctx context.Context
 	}
 	res := resTmp.(*model.UnauthenticatedSharedLink)
 	fc.Result = res
-	return ec.marshalOUnauthenticatedSharedLink2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐUnauthenticatedSharedLink(ctx, field.Selections, res)
+	return ec.marshalOUnauthenticatedSharedLink2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐUnauthenticatedSharedLink(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_unauthenticatedSharedLink(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -12912,7 +12912,7 @@ func (ec *executionContext) _Query_getDocumentTimeline(ctx context.Context, fiel
 	}
 	res := resTmp.([]*dynamo.TimelineEvent)
 	fc.Result = res
-	return ec.marshalNTimelineEvent2ᚕᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋstorageᚋdynamoᚐTimelineEventᚄ(ctx, field.Selections, res)
+	return ec.marshalNTimelineEvent2ᚕᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋstorageᚋdynamoᚐTimelineEventᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_getDocumentTimeline(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -12980,7 +12980,7 @@ func (ec *executionContext) _Query_me(ctx context.Context, field graphql.Collect
 	}
 	res := resTmp.(*models.User)
 	fc.Result = res
-	return ec.marshalOUser2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐUser(ctx, field.Selections, res)
+	return ec.marshalOUser2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_me(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -13037,7 +13037,7 @@ func (ec *executionContext) _Query_user(ctx context.Context, field graphql.Colle
 	}
 	res := resTmp.(*models.User)
 	fc.Result = res
-	return ec.marshalOUser2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐUser(ctx, field.Selections, res)
+	return ec.marshalOUser2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_user(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -13105,7 +13105,7 @@ func (ec *executionContext) _Query_users(ctx context.Context, field graphql.Coll
 	}
 	res := resTmp.([]*models.User)
 	fc.Result = res
-	return ec.marshalOUser2ᚕᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐUser(ctx, field.Selections, res)
+	return ec.marshalOUser2ᚕᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_users(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -13176,7 +13176,7 @@ func (ec *executionContext) _Query_usersInMyDomain(ctx context.Context, field gr
 	}
 	res := resTmp.([]*models.User)
 	fc.Result = res
-	return ec.marshalNUser2ᚕᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐUserᚄ(ctx, field.Selections, res)
+	return ec.marshalNUser2ᚕᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐUserᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_usersInMyDomain(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -13247,7 +13247,7 @@ func (ec *executionContext) _Query_myPreference(ctx context.Context, field graph
 	}
 	res := resTmp.(*models.UserPreference)
 	fc.Result = res
-	return ec.marshalNUserPreference2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐUserPreference(ctx, field.Selections, res)
+	return ec.marshalNUserPreference2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐUserPreference(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_myPreference(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -14154,7 +14154,7 @@ func (ec *executionContext) _SharedDocumentLink_inviteeUser(ctx context.Context,
 	}
 	res := resTmp.(*models.User)
 	fc.Result = res
-	return ec.marshalOUser2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐUser(ctx, field.Selections, res)
+	return ec.marshalOUser2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_SharedDocumentLink_inviteeUser(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -14258,7 +14258,7 @@ func (ec *executionContext) _SharedDocumentLink_document(ctx context.Context, fi
 	}
 	res := resTmp.(*models.Document)
 	fc.Result = res
-	return ec.marshalNDocument2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐDocument(ctx, field.Selections, res)
+	return ec.marshalNDocument2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐDocument(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_SharedDocumentLink_document(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -14338,7 +14338,7 @@ func (ec *executionContext) _SharedDocumentLink_invitedBy(ctx context.Context, f
 	}
 	res := resTmp.(*models.User)
 	fc.Result = res
-	return ec.marshalNUser2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐUser(ctx, field.Selections, res)
+	return ec.marshalNUser2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_SharedDocumentLink_invitedBy(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -14494,7 +14494,7 @@ func (ec *executionContext) _Subscription_documentInserted(ctx context.Context, 
 				w.Write([]byte{'{'})
 				graphql.MarshalString(field.Alias).MarshalGQL(w)
 				w.Write([]byte{':'})
-				ec.marshalNDocument2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐDocument(ctx, field.Selections, res).MarshalGQL(w)
+				ec.marshalNDocument2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐDocument(ctx, field.Selections, res).MarshalGQL(w)
 				w.Write([]byte{'}'})
 			})
 		case <-ctx.Done():
@@ -14599,7 +14599,7 @@ func (ec *executionContext) _Subscription_documentUpdated(ctx context.Context, f
 				w.Write([]byte{'{'})
 				graphql.MarshalString(field.Alias).MarshalGQL(w)
 				w.Write([]byte{':'})
-				ec.marshalNDocument2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐDocument(ctx, field.Selections, res).MarshalGQL(w)
+				ec.marshalNDocument2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐDocument(ctx, field.Selections, res).MarshalGQL(w)
 				w.Write([]byte{'}'})
 			})
 		case <-ctx.Done():
@@ -14704,7 +14704,7 @@ func (ec *executionContext) _Subscription_messageUpserted(ctx context.Context, f
 				w.Write([]byte{'{'})
 				graphql.MarshalString(field.Alias).MarshalGQL(w)
 				w.Write([]byte{':'})
-				ec.marshalNMessage2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋstorageᚋdynamoᚐMessage(ctx, field.Selections, res).MarshalGQL(w)
+				ec.marshalNMessage2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋstorageᚋdynamoᚐMessage(ctx, field.Selections, res).MarshalGQL(w)
 				w.Write([]byte{'}'})
 			})
 		case <-ctx.Done():
@@ -14819,7 +14819,7 @@ func (ec *executionContext) _Subscription_threadUpserted(ctx context.Context, fi
 				w.Write([]byte{'{'})
 				graphql.MarshalString(field.Alias).MarshalGQL(w)
 				w.Write([]byte{':'})
-				ec.marshalNThread2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋstorageᚋdynamoᚐThread(ctx, field.Selections, res).MarshalGQL(w)
+				ec.marshalNThread2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋstorageᚋdynamoᚐThread(ctx, field.Selections, res).MarshalGQL(w)
 				w.Write([]byte{'}'})
 			})
 		case <-ctx.Done():
@@ -14904,7 +14904,7 @@ func (ec *executionContext) _Subscription_timelineEventInserted(ctx context.Cont
 				w.Write([]byte{'{'})
 				graphql.MarshalString(field.Alias).MarshalGQL(w)
 				w.Write([]byte{':'})
-				ec.marshalNTimelineEvent2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋstorageᚋdynamoᚐTimelineEvent(ctx, field.Selections, res).MarshalGQL(w)
+				ec.marshalNTimelineEvent2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋstorageᚋdynamoᚐTimelineEvent(ctx, field.Selections, res).MarshalGQL(w)
 				w.Write([]byte{'}'})
 			})
 		case <-ctx.Done():
@@ -14989,7 +14989,7 @@ func (ec *executionContext) _Subscription_timelineEventUpdated(ctx context.Conte
 				w.Write([]byte{'{'})
 				graphql.MarshalString(field.Alias).MarshalGQL(w)
 				w.Write([]byte{':'})
-				ec.marshalNTimelineEvent2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋstorageᚋdynamoᚐTimelineEvent(ctx, field.Selections, res).MarshalGQL(w)
+				ec.marshalNTimelineEvent2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋstorageᚋdynamoᚐTimelineEvent(ctx, field.Selections, res).MarshalGQL(w)
 				w.Write([]byte{'}'})
 			})
 		case <-ctx.Done():
@@ -15074,7 +15074,7 @@ func (ec *executionContext) _Subscription_timelineEventDeleted(ctx context.Conte
 				w.Write([]byte{'{'})
 				graphql.MarshalString(field.Alias).MarshalGQL(w)
 				w.Write([]byte{':'})
-				ec.marshalNTimelineEvent2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋstorageᚋdynamoᚐTimelineEvent(ctx, field.Selections, res).MarshalGQL(w)
+				ec.marshalNTimelineEvent2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋstorageᚋdynamoᚐTimelineEvent(ctx, field.Selections, res).MarshalGQL(w)
 				w.Write([]byte{'}'})
 			})
 		case <-ctx.Done():
@@ -16207,7 +16207,7 @@ func (ec *executionContext) _TLMessageV1_replies(ctx context.Context, field grap
 	}
 	res := resTmp.([]*dynamo.TimelineEvent)
 	fc.Result = res
-	return ec.marshalNTimelineEvent2ᚕᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋstorageᚋdynamoᚐTimelineEventᚄ(ctx, field.Selections, res)
+	return ec.marshalNTimelineEvent2ᚕᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋstorageᚋdynamoᚐTimelineEventᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_TLMessageV1_replies(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -16695,7 +16695,7 @@ func (ec *executionContext) _TLUpdateV1_flaggedByUser(ctx context.Context, field
 	}
 	res := resTmp.(*models.User)
 	fc.Result = res
-	return ec.marshalOUser2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐUser(ctx, field.Selections, res)
+	return ec.marshalOUser2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_TLUpdateV1_flaggedByUser(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -16755,7 +16755,7 @@ func (ec *executionContext) _TLUpdateV1_state(ctx context.Context, field graphql
 	}
 	res := resTmp.(model.TLUpdateState)
 	fc.Result = res
-	return ec.marshalNTLUpdateState2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐTLUpdateState(ctx, field.Selections, res)
+	return ec.marshalNTLUpdateState2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐTLUpdateState(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_TLUpdateV1_state(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -17019,7 +17019,7 @@ func (ec *executionContext) _Thread_messages(ctx context.Context, field graphql.
 	}
 	res := resTmp.([]*dynamo.Message)
 	fc.Result = res
-	return ec.marshalNMessage2ᚕᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋstorageᚋdynamoᚐMessageᚄ(ctx, field.Selections, res)
+	return ec.marshalNMessage2ᚕᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋstorageᚋdynamoᚐMessageᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Thread_messages(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -17109,7 +17109,7 @@ func (ec *executionContext) _Thread_user(ctx context.Context, field graphql.Coll
 	}
 	res := resTmp.(*models.User)
 	fc.Result = res
-	return ec.marshalNUser2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐUser(ctx, field.Selections, res)
+	return ec.marshalNUser2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Thread_user(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -17345,7 +17345,7 @@ func (ec *executionContext) _TimelineEvent_user(ctx context.Context, field graph
 	}
 	res := resTmp.(*models.User)
 	fc.Result = res
-	return ec.marshalNUser2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐUser(ctx, field.Selections, res)
+	return ec.marshalNUser2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_TimelineEvent_user(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -17449,7 +17449,7 @@ func (ec *executionContext) _TimelineEvent_event(ctx context.Context, field grap
 	}
 	res := resTmp.(model.TLEventPayload)
 	fc.Result = res
-	return ec.marshalNTLEventPayload2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐTLEventPayload(ctx, field.Selections, res)
+	return ec.marshalNTLEventPayload2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐTLEventPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_TimelineEvent_event(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -19790,7 +19790,7 @@ func (ec *executionContext) unmarshalInputAttachmentInput(ctx context.Context, o
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("type"))
-			data, err := ec.unmarshalNAttachmentInputType2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐAttachmentInputType(ctx, v)
+			data, err := ec.unmarshalNAttachmentInputType2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐAttachmentInputType(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -20070,7 +20070,7 @@ func (ec *executionContext) unmarshalInputMessageInput(ctx context.Context, obj 
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("llm"))
-			data, err := ec.unmarshalOMsgLLM2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐMsgLlm(ctx, v)
+			data, err := ec.unmarshalOMsgLLM2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐMsgLlm(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -20088,7 +20088,7 @@ func (ec *executionContext) unmarshalInputMessageInput(ctx context.Context, obj 
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("selection"))
-			data, err := ec.unmarshalOSelectionInput2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐSelectionInput(ctx, v)
+			data, err := ec.unmarshalOSelectionInput2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐSelectionInput(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -20097,7 +20097,7 @@ func (ec *executionContext) unmarshalInputMessageInput(ctx context.Context, obj 
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("attachments"))
-			data, err := ec.unmarshalOAttachmentInput2ᚕᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐAttachmentInputᚄ(ctx, v)
+			data, err := ec.unmarshalOAttachmentInput2ᚕᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐAttachmentInputᚄ(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -25361,22 +25361,22 @@ func (ec *executionContext) ___Type(ctx context.Context, sel ast.SelectionSet, o
 
 // region    ***************************** type.gotpl *****************************
 
-func (ec *executionContext) unmarshalNAttachmentInput2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐAttachmentInput(ctx context.Context, v interface{}) (*model.AttachmentInput, error) {
+func (ec *executionContext) unmarshalNAttachmentInput2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐAttachmentInput(ctx context.Context, v interface{}) (*model.AttachmentInput, error) {
 	res, err := ec.unmarshalInputAttachmentInput(ctx, v)
 	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNAttachmentInputType2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐAttachmentInputType(ctx context.Context, v interface{}) (model.AttachmentInputType, error) {
+func (ec *executionContext) unmarshalNAttachmentInputType2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐAttachmentInputType(ctx context.Context, v interface{}) (model.AttachmentInputType, error) {
 	var res model.AttachmentInputType
 	err := res.UnmarshalGQL(v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNAttachmentInputType2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐAttachmentInputType(ctx context.Context, sel ast.SelectionSet, v model.AttachmentInputType) graphql.Marshaler {
+func (ec *executionContext) marshalNAttachmentInputType2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐAttachmentInputType(ctx context.Context, sel ast.SelectionSet, v model.AttachmentInputType) graphql.Marshaler {
 	return v
 }
 
-func (ec *executionContext) marshalNAttachmentValue2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐAttachmentValue(ctx context.Context, sel ast.SelectionSet, v model.AttachmentValue) graphql.Marshaler {
+func (ec *executionContext) marshalNAttachmentValue2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐAttachmentValue(ctx context.Context, sel ast.SelectionSet, v model.AttachmentValue) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
@@ -25386,7 +25386,7 @@ func (ec *executionContext) marshalNAttachmentValue2githubᚗcomᚋteamrevisoᚋ
 	return ec._AttachmentValue(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNAttachmentValue2ᚕgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐAttachmentValueᚄ(ctx context.Context, sel ast.SelectionSet, v []model.AttachmentValue) graphql.Marshaler {
+func (ec *executionContext) marshalNAttachmentValue2ᚕgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐAttachmentValueᚄ(ctx context.Context, sel ast.SelectionSet, v []model.AttachmentValue) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -25410,7 +25410,7 @@ func (ec *executionContext) marshalNAttachmentValue2ᚕgithubᚗcomᚋteamreviso
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNAttachmentValue2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐAttachmentValue(ctx, sel, v[i])
+			ret[i] = ec.marshalNAttachmentValue2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐAttachmentValue(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -25430,11 +25430,11 @@ func (ec *executionContext) marshalNAttachmentValue2ᚕgithubᚗcomᚋteamreviso
 	return ret
 }
 
-func (ec *executionContext) marshalNBillingPortalSession2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐBillingPortalSession(ctx context.Context, sel ast.SelectionSet, v model.BillingPortalSession) graphql.Marshaler {
+func (ec *executionContext) marshalNBillingPortalSession2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐBillingPortalSession(ctx context.Context, sel ast.SelectionSet, v model.BillingPortalSession) graphql.Marshaler {
 	return ec._BillingPortalSession(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNBillingPortalSession2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐBillingPortalSession(ctx context.Context, sel ast.SelectionSet, v *model.BillingPortalSession) graphql.Marshaler {
+func (ec *executionContext) marshalNBillingPortalSession2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐBillingPortalSession(ctx context.Context, sel ast.SelectionSet, v *model.BillingPortalSession) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
@@ -25459,11 +25459,11 @@ func (ec *executionContext) marshalNBoolean2bool(ctx context.Context, sel ast.Se
 	return res
 }
 
-func (ec *executionContext) marshalNCheckout2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐCheckout(ctx context.Context, sel ast.SelectionSet, v model.Checkout) graphql.Marshaler {
+func (ec *executionContext) marshalNCheckout2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐCheckout(ctx context.Context, sel ast.SelectionSet, v model.Checkout) graphql.Marshaler {
 	return ec._Checkout(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNCheckout2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐCheckout(ctx context.Context, sel ast.SelectionSet, v *model.Checkout) graphql.Marshaler {
+func (ec *executionContext) marshalNCheckout2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐCheckout(ctx context.Context, sel ast.SelectionSet, v *model.Checkout) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
@@ -25473,21 +25473,21 @@ func (ec *executionContext) marshalNCheckout2ᚖgithubᚗcomᚋteamrevisoᚋcode
 	return ec._Checkout(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalNCommentNotificationType2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐCommentNotificationType(ctx context.Context, v interface{}) (model.CommentNotificationType, error) {
+func (ec *executionContext) unmarshalNCommentNotificationType2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐCommentNotificationType(ctx context.Context, v interface{}) (model.CommentNotificationType, error) {
 	var res model.CommentNotificationType
 	err := res.UnmarshalGQL(v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNCommentNotificationType2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐCommentNotificationType(ctx context.Context, sel ast.SelectionSet, v model.CommentNotificationType) graphql.Marshaler {
+func (ec *executionContext) marshalNCommentNotificationType2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐCommentNotificationType(ctx context.Context, sel ast.SelectionSet, v model.CommentNotificationType) graphql.Marshaler {
 	return v
 }
 
-func (ec *executionContext) marshalNDocument2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐDocument(ctx context.Context, sel ast.SelectionSet, v models.Document) graphql.Marshaler {
+func (ec *executionContext) marshalNDocument2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐDocument(ctx context.Context, sel ast.SelectionSet, v models.Document) graphql.Marshaler {
 	return ec._Document(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNDocument2ᚕᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐDocumentᚄ(ctx context.Context, sel ast.SelectionSet, v []*models.Document) graphql.Marshaler {
+func (ec *executionContext) marshalNDocument2ᚕᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐDocumentᚄ(ctx context.Context, sel ast.SelectionSet, v []*models.Document) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -25511,7 +25511,7 @@ func (ec *executionContext) marshalNDocument2ᚕᚖgithubᚗcomᚋteamrevisoᚋc
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNDocument2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐDocument(ctx, sel, v[i])
+			ret[i] = ec.marshalNDocument2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐDocument(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -25531,7 +25531,7 @@ func (ec *executionContext) marshalNDocument2ᚕᚖgithubᚗcomᚋteamrevisoᚋc
 	return ret
 }
 
-func (ec *executionContext) marshalNDocument2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐDocument(ctx context.Context, sel ast.SelectionSet, v *models.Document) graphql.Marshaler {
+func (ec *executionContext) marshalNDocument2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐDocument(ctx context.Context, sel ast.SelectionSet, v *models.Document) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
@@ -25541,11 +25541,11 @@ func (ec *executionContext) marshalNDocument2ᚖgithubᚗcomᚋteamrevisoᚋcode
 	return ec._Document(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNDocumentAttachment2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐDocumentAttachment(ctx context.Context, sel ast.SelectionSet, v models.DocumentAttachment) graphql.Marshaler {
+func (ec *executionContext) marshalNDocumentAttachment2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐDocumentAttachment(ctx context.Context, sel ast.SelectionSet, v models.DocumentAttachment) graphql.Marshaler {
 	return ec._DocumentAttachment(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNDocumentAttachment2ᚕᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐDocumentAttachmentᚄ(ctx context.Context, sel ast.SelectionSet, v []*models.DocumentAttachment) graphql.Marshaler {
+func (ec *executionContext) marshalNDocumentAttachment2ᚕᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐDocumentAttachmentᚄ(ctx context.Context, sel ast.SelectionSet, v []*models.DocumentAttachment) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -25569,7 +25569,7 @@ func (ec *executionContext) marshalNDocumentAttachment2ᚕᚖgithubᚗcomᚋteam
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNDocumentAttachment2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐDocumentAttachment(ctx, sel, v[i])
+			ret[i] = ec.marshalNDocumentAttachment2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐDocumentAttachment(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -25589,7 +25589,7 @@ func (ec *executionContext) marshalNDocumentAttachment2ᚕᚖgithubᚗcomᚋteam
 	return ret
 }
 
-func (ec *executionContext) marshalNDocumentAttachment2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐDocumentAttachment(ctx context.Context, sel ast.SelectionSet, v *models.DocumentAttachment) graphql.Marshaler {
+func (ec *executionContext) marshalNDocumentAttachment2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐDocumentAttachment(ctx context.Context, sel ast.SelectionSet, v *models.DocumentAttachment) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
@@ -25599,11 +25599,11 @@ func (ec *executionContext) marshalNDocumentAttachment2ᚖgithubᚗcomᚋteamrev
 	return ec._DocumentAttachment(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNDocumentConnection2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐDocumentConnection(ctx context.Context, sel ast.SelectionSet, v model.DocumentConnection) graphql.Marshaler {
+func (ec *executionContext) marshalNDocumentConnection2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐDocumentConnection(ctx context.Context, sel ast.SelectionSet, v model.DocumentConnection) graphql.Marshaler {
 	return ec._DocumentConnection(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNDocumentConnection2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐDocumentConnection(ctx context.Context, sel ast.SelectionSet, v *model.DocumentConnection) graphql.Marshaler {
+func (ec *executionContext) marshalNDocumentConnection2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐDocumentConnection(ctx context.Context, sel ast.SelectionSet, v *model.DocumentConnection) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
@@ -25613,7 +25613,7 @@ func (ec *executionContext) marshalNDocumentConnection2ᚖgithubᚗcomᚋteamrev
 	return ec._DocumentConnection(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNDocumentEdge2ᚕᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐDocumentEdgeᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.DocumentEdge) graphql.Marshaler {
+func (ec *executionContext) marshalNDocumentEdge2ᚕᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐDocumentEdgeᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.DocumentEdge) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -25637,7 +25637,7 @@ func (ec *executionContext) marshalNDocumentEdge2ᚕᚖgithubᚗcomᚋteamreviso
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNDocumentEdge2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐDocumentEdge(ctx, sel, v[i])
+			ret[i] = ec.marshalNDocumentEdge2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐDocumentEdge(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -25657,7 +25657,7 @@ func (ec *executionContext) marshalNDocumentEdge2ᚕᚖgithubᚗcomᚋteamreviso
 	return ret
 }
 
-func (ec *executionContext) marshalNDocumentEdge2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐDocumentEdge(ctx context.Context, sel ast.SelectionSet, v *model.DocumentEdge) graphql.Marshaler {
+func (ec *executionContext) marshalNDocumentEdge2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐDocumentEdge(ctx context.Context, sel ast.SelectionSet, v *model.DocumentEdge) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
@@ -25667,16 +25667,16 @@ func (ec *executionContext) marshalNDocumentEdge2ᚖgithubᚗcomᚋteamrevisoᚋ
 	return ec._DocumentEdge(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalNDocumentInput2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐDocumentInput(ctx context.Context, v interface{}) (model.DocumentInput, error) {
+func (ec *executionContext) unmarshalNDocumentInput2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐDocumentInput(ctx context.Context, v interface{}) (model.DocumentInput, error) {
 	res, err := ec.unmarshalInputDocumentInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNDocumentPreference2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐDocumentPreference(ctx context.Context, sel ast.SelectionSet, v models.DocumentPreference) graphql.Marshaler {
+func (ec *executionContext) marshalNDocumentPreference2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐDocumentPreference(ctx context.Context, sel ast.SelectionSet, v models.DocumentPreference) graphql.Marshaler {
 	return ec._DocumentPreference(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNDocumentPreference2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐDocumentPreference(ctx context.Context, sel ast.SelectionSet, v *models.DocumentPreference) graphql.Marshaler {
+func (ec *executionContext) marshalNDocumentPreference2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐDocumentPreference(ctx context.Context, sel ast.SelectionSet, v *models.DocumentPreference) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
@@ -25686,17 +25686,17 @@ func (ec *executionContext) marshalNDocumentPreference2ᚖgithubᚗcomᚋteamrev
 	return ec._DocumentPreference(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalNDocumentPreferenceInput2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐDocumentPreferenceInput(ctx context.Context, v interface{}) (model.DocumentPreferenceInput, error) {
+func (ec *executionContext) unmarshalNDocumentPreferenceInput2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐDocumentPreferenceInput(ctx context.Context, v interface{}) (model.DocumentPreferenceInput, error) {
 	res, err := ec.unmarshalInputDocumentPreferenceInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNEditTimelineMessageInput2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐEditTimelineMessageInput(ctx context.Context, v interface{}) (model.EditTimelineMessageInput, error) {
+func (ec *executionContext) unmarshalNEditTimelineMessageInput2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐEditTimelineMessageInput(ctx context.Context, v interface{}) (model.EditTimelineMessageInput, error) {
 	res, err := ec.unmarshalInputEditTimelineMessageInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNFlaggedVersionInput2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐFlaggedVersionInput(ctx context.Context, v interface{}) (model.FlaggedVersionInput, error) {
+func (ec *executionContext) unmarshalNFlaggedVersionInput2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐFlaggedVersionInput(ctx context.Context, v interface{}) (model.FlaggedVersionInput, error) {
 	res, err := ec.unmarshalInputFlaggedVersionInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
@@ -25748,11 +25748,11 @@ func (ec *executionContext) marshalNID2ᚕstringᚄ(ctx context.Context, sel ast
 	return ret
 }
 
-func (ec *executionContext) marshalNImage2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐImage(ctx context.Context, sel ast.SelectionSet, v model.Image) graphql.Marshaler {
+func (ec *executionContext) marshalNImage2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐImage(ctx context.Context, sel ast.SelectionSet, v model.Image) graphql.Marshaler {
 	return ec._Image(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNImage2ᚕᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐImageᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.Image) graphql.Marshaler {
+func (ec *executionContext) marshalNImage2ᚕᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐImageᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.Image) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -25776,7 +25776,7 @@ func (ec *executionContext) marshalNImage2ᚕᚖgithubᚗcomᚋteamrevisoᚋcode
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNImage2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐImage(ctx, sel, v[i])
+			ret[i] = ec.marshalNImage2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐImage(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -25796,7 +25796,7 @@ func (ec *executionContext) marshalNImage2ᚕᚖgithubᚗcomᚋteamrevisoᚋcode
 	return ret
 }
 
-func (ec *executionContext) marshalNImage2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐImage(ctx context.Context, sel ast.SelectionSet, v *model.Image) graphql.Marshaler {
+func (ec *executionContext) marshalNImage2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐImage(ctx context.Context, sel ast.SelectionSet, v *model.Image) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
@@ -25851,21 +25851,21 @@ func (ec *executionContext) marshalNJSON2string(ctx context.Context, sel ast.Sel
 	return res
 }
 
-func (ec *executionContext) unmarshalNLifecycleStage2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐLifecycleStage(ctx context.Context, v interface{}) (model.LifecycleStage, error) {
+func (ec *executionContext) unmarshalNLifecycleStage2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐLifecycleStage(ctx context.Context, v interface{}) (model.LifecycleStage, error) {
 	var res model.LifecycleStage
 	err := res.UnmarshalGQL(v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNLifecycleStage2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐLifecycleStage(ctx context.Context, sel ast.SelectionSet, v model.LifecycleStage) graphql.Marshaler {
+func (ec *executionContext) marshalNLifecycleStage2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐLifecycleStage(ctx context.Context, sel ast.SelectionSet, v model.LifecycleStage) graphql.Marshaler {
 	return v
 }
 
-func (ec *executionContext) marshalNMessage2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋstorageᚋdynamoᚐMessage(ctx context.Context, sel ast.SelectionSet, v dynamo.Message) graphql.Marshaler {
+func (ec *executionContext) marshalNMessage2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋstorageᚋdynamoᚐMessage(ctx context.Context, sel ast.SelectionSet, v dynamo.Message) graphql.Marshaler {
 	return ec._Message(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNMessage2ᚕᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋstorageᚋdynamoᚐMessageᚄ(ctx context.Context, sel ast.SelectionSet, v []*dynamo.Message) graphql.Marshaler {
+func (ec *executionContext) marshalNMessage2ᚕᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋstorageᚋdynamoᚐMessageᚄ(ctx context.Context, sel ast.SelectionSet, v []*dynamo.Message) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -25889,7 +25889,7 @@ func (ec *executionContext) marshalNMessage2ᚕᚖgithubᚗcomᚋteamrevisoᚋco
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNMessage2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋstorageᚋdynamoᚐMessage(ctx, sel, v[i])
+			ret[i] = ec.marshalNMessage2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋstorageᚋdynamoᚐMessage(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -25909,7 +25909,7 @@ func (ec *executionContext) marshalNMessage2ᚕᚖgithubᚗcomᚋteamrevisoᚋco
 	return ret
 }
 
-func (ec *executionContext) marshalNMessage2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋstorageᚋdynamoᚐMessage(ctx context.Context, sel ast.SelectionSet, v *dynamo.Message) graphql.Marshaler {
+func (ec *executionContext) marshalNMessage2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋstorageᚋdynamoᚐMessage(ctx context.Context, sel ast.SelectionSet, v *dynamo.Message) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
@@ -25919,36 +25919,36 @@ func (ec *executionContext) marshalNMessage2ᚖgithubᚗcomᚋteamrevisoᚋcode�
 	return ec._Message(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalNMessageInput2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐMessageInput(ctx context.Context, v interface{}) (model.MessageInput, error) {
+func (ec *executionContext) unmarshalNMessageInput2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐMessageInput(ctx context.Context, v interface{}) (model.MessageInput, error) {
 	res, err := ec.unmarshalInputMessageInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNMessageRevisionStatus2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐMessageRevisionStatus(ctx context.Context, v interface{}) (model.MessageRevisionStatus, error) {
+func (ec *executionContext) unmarshalNMessageRevisionStatus2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐMessageRevisionStatus(ctx context.Context, v interface{}) (model.MessageRevisionStatus, error) {
 	var res model.MessageRevisionStatus
 	err := res.UnmarshalGQL(v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNMessageRevisionStatus2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐMessageRevisionStatus(ctx context.Context, sel ast.SelectionSet, v model.MessageRevisionStatus) graphql.Marshaler {
+func (ec *executionContext) marshalNMessageRevisionStatus2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐMessageRevisionStatus(ctx context.Context, sel ast.SelectionSet, v model.MessageRevisionStatus) graphql.Marshaler {
 	return v
 }
 
-func (ec *executionContext) unmarshalNMsgLLM2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐMsgLlm(ctx context.Context, v interface{}) (model.MsgLlm, error) {
+func (ec *executionContext) unmarshalNMsgLLM2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐMsgLlm(ctx context.Context, v interface{}) (model.MsgLlm, error) {
 	var res model.MsgLlm
 	err := res.UnmarshalGQL(v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNMsgLLM2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐMsgLlm(ctx context.Context, sel ast.SelectionSet, v model.MsgLlm) graphql.Marshaler {
+func (ec *executionContext) marshalNMsgLLM2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐMsgLlm(ctx context.Context, sel ast.SelectionSet, v model.MsgLlm) graphql.Marshaler {
 	return v
 }
 
-func (ec *executionContext) marshalNMsgMetadata2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐMsgMetadata(ctx context.Context, sel ast.SelectionSet, v model.MsgMetadata) graphql.Marshaler {
+func (ec *executionContext) marshalNMsgMetadata2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐMsgMetadata(ctx context.Context, sel ast.SelectionSet, v model.MsgMetadata) graphql.Marshaler {
 	return ec._MsgMetadata(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNMsgMetadata2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐMsgMetadata(ctx context.Context, sel ast.SelectionSet, v *model.MsgMetadata) graphql.Marshaler {
+func (ec *executionContext) marshalNMsgMetadata2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐMsgMetadata(ctx context.Context, sel ast.SelectionSet, v *model.MsgMetadata) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
@@ -25958,7 +25958,7 @@ func (ec *executionContext) marshalNMsgMetadata2ᚖgithubᚗcomᚋteamrevisoᚋc
 	return ec._MsgMetadata(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNNotification2ᚕᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋstorageᚋdynamoᚐNotificationᚄ(ctx context.Context, sel ast.SelectionSet, v []*dynamo.Notification) graphql.Marshaler {
+func (ec *executionContext) marshalNNotification2ᚕᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋstorageᚋdynamoᚐNotificationᚄ(ctx context.Context, sel ast.SelectionSet, v []*dynamo.Notification) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -25982,7 +25982,7 @@ func (ec *executionContext) marshalNNotification2ᚕᚖgithubᚗcomᚋteamreviso
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNNotification2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋstorageᚋdynamoᚐNotification(ctx, sel, v[i])
+			ret[i] = ec.marshalNNotification2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋstorageᚋdynamoᚐNotification(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -26002,7 +26002,7 @@ func (ec *executionContext) marshalNNotification2ᚕᚖgithubᚗcomᚋteamreviso
 	return ret
 }
 
-func (ec *executionContext) marshalNNotification2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋstorageᚋdynamoᚐNotification(ctx context.Context, sel ast.SelectionSet, v *dynamo.Notification) graphql.Marshaler {
+func (ec *executionContext) marshalNNotification2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋstorageᚋdynamoᚐNotification(ctx context.Context, sel ast.SelectionSet, v *dynamo.Notification) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
@@ -26012,7 +26012,7 @@ func (ec *executionContext) marshalNNotification2ᚖgithubᚗcomᚋteamrevisoᚋ
 	return ec._Notification(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNNotificationPayloadValue2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐNotificationPayloadValue(ctx context.Context, sel ast.SelectionSet, v model.NotificationPayloadValue) graphql.Marshaler {
+func (ec *executionContext) marshalNNotificationPayloadValue2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐNotificationPayloadValue(ctx context.Context, sel ast.SelectionSet, v model.NotificationPayloadValue) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
@@ -26022,7 +26022,7 @@ func (ec *executionContext) marshalNNotificationPayloadValue2githubᚗcomᚋteam
 	return ec._NotificationPayloadValue(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNPageInfo2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐPageInfo(ctx context.Context, sel ast.SelectionSet, v *model.PageInfo) graphql.Marshaler {
+func (ec *executionContext) marshalNPageInfo2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐPageInfo(ctx context.Context, sel ast.SelectionSet, v *model.PageInfo) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
@@ -26032,11 +26032,11 @@ func (ec *executionContext) marshalNPageInfo2ᚖgithubᚗcomᚋteamrevisoᚋcode
 	return ec._PageInfo(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNSharedDocumentLink2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐSharedDocumentLink(ctx context.Context, sel ast.SelectionSet, v models.SharedDocumentLink) graphql.Marshaler {
+func (ec *executionContext) marshalNSharedDocumentLink2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐSharedDocumentLink(ctx context.Context, sel ast.SelectionSet, v models.SharedDocumentLink) graphql.Marshaler {
 	return ec._SharedDocumentLink(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNSharedDocumentLink2ᚕᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐSharedDocumentLinkᚄ(ctx context.Context, sel ast.SelectionSet, v []*models.SharedDocumentLink) graphql.Marshaler {
+func (ec *executionContext) marshalNSharedDocumentLink2ᚕᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐSharedDocumentLinkᚄ(ctx context.Context, sel ast.SelectionSet, v []*models.SharedDocumentLink) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -26060,7 +26060,7 @@ func (ec *executionContext) marshalNSharedDocumentLink2ᚕᚖgithubᚗcomᚋteam
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNSharedDocumentLink2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐSharedDocumentLink(ctx, sel, v[i])
+			ret[i] = ec.marshalNSharedDocumentLink2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐSharedDocumentLink(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -26080,7 +26080,7 @@ func (ec *executionContext) marshalNSharedDocumentLink2ᚕᚖgithubᚗcomᚋteam
 	return ret
 }
 
-func (ec *executionContext) marshalNSharedDocumentLink2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐSharedDocumentLink(ctx context.Context, sel ast.SelectionSet, v *models.SharedDocumentLink) graphql.Marshaler {
+func (ec *executionContext) marshalNSharedDocumentLink2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐSharedDocumentLink(ctx context.Context, sel ast.SelectionSet, v *models.SharedDocumentLink) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
@@ -26090,11 +26090,11 @@ func (ec *executionContext) marshalNSharedDocumentLink2ᚖgithubᚗcomᚋteamrev
 	return ec._SharedDocumentLink(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNSignedImageUrl2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐSignedImageURL(ctx context.Context, sel ast.SelectionSet, v model.SignedImageURL) graphql.Marshaler {
+func (ec *executionContext) marshalNSignedImageUrl2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐSignedImageURL(ctx context.Context, sel ast.SelectionSet, v model.SignedImageURL) graphql.Marshaler {
 	return ec._SignedImageUrl(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNSignedImageUrl2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐSignedImageURL(ctx context.Context, sel ast.SelectionSet, v *model.SignedImageURL) graphql.Marshaler {
+func (ec *executionContext) marshalNSignedImageUrl2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐSignedImageURL(ctx context.Context, sel ast.SelectionSet, v *model.SignedImageURL) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
@@ -26104,13 +26104,13 @@ func (ec *executionContext) marshalNSignedImageUrl2ᚖgithubᚗcomᚋteamreviso�
 	return ec._SignedImageUrl(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalNStatus2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐStatus(ctx context.Context, v interface{}) (model.Status, error) {
+func (ec *executionContext) unmarshalNStatus2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐStatus(ctx context.Context, v interface{}) (model.Status, error) {
 	var res model.Status
 	err := res.UnmarshalGQL(v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNStatus2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐStatus(ctx context.Context, sel ast.SelectionSet, v model.Status) graphql.Marshaler {
+func (ec *executionContext) marshalNStatus2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐStatus(ctx context.Context, sel ast.SelectionSet, v model.Status) graphql.Marshaler {
 	return v
 }
 
@@ -26161,7 +26161,7 @@ func (ec *executionContext) marshalNString2ᚕstringᚄ(ctx context.Context, sel
 	return ret
 }
 
-func (ec *executionContext) marshalNSubscriptionPlan2ᚕᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐSubscriptionPlanᚄ(ctx context.Context, sel ast.SelectionSet, v []*models.SubscriptionPlan) graphql.Marshaler {
+func (ec *executionContext) marshalNSubscriptionPlan2ᚕᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐSubscriptionPlanᚄ(ctx context.Context, sel ast.SelectionSet, v []*models.SubscriptionPlan) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -26185,7 +26185,7 @@ func (ec *executionContext) marshalNSubscriptionPlan2ᚕᚖgithubᚗcomᚋteamre
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNSubscriptionPlan2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐSubscriptionPlan(ctx, sel, v[i])
+			ret[i] = ec.marshalNSubscriptionPlan2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐSubscriptionPlan(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -26205,7 +26205,7 @@ func (ec *executionContext) marshalNSubscriptionPlan2ᚕᚖgithubᚗcomᚋteamre
 	return ret
 }
 
-func (ec *executionContext) marshalNSubscriptionPlan2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐSubscriptionPlan(ctx context.Context, sel ast.SelectionSet, v *models.SubscriptionPlan) graphql.Marshaler {
+func (ec *executionContext) marshalNSubscriptionPlan2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐSubscriptionPlan(ctx context.Context, sel ast.SelectionSet, v *models.SubscriptionPlan) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
@@ -26215,7 +26215,7 @@ func (ec *executionContext) marshalNSubscriptionPlan2ᚖgithubᚗcomᚋteamrevis
 	return ec._SubscriptionPlan(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNTLEventPayload2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐTLEventPayload(ctx context.Context, sel ast.SelectionSet, v model.TLEventPayload) graphql.Marshaler {
+func (ec *executionContext) marshalNTLEventPayload2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐTLEventPayload(ctx context.Context, sel ast.SelectionSet, v model.TLEventPayload) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
@@ -26225,21 +26225,21 @@ func (ec *executionContext) marshalNTLEventPayload2githubᚗcomᚋteamrevisoᚋc
 	return ec._TLEventPayload(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalNTLUpdateState2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐTLUpdateState(ctx context.Context, v interface{}) (model.TLUpdateState, error) {
+func (ec *executionContext) unmarshalNTLUpdateState2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐTLUpdateState(ctx context.Context, v interface{}) (model.TLUpdateState, error) {
 	var res model.TLUpdateState
 	err := res.UnmarshalGQL(v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNTLUpdateState2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐTLUpdateState(ctx context.Context, sel ast.SelectionSet, v model.TLUpdateState) graphql.Marshaler {
+func (ec *executionContext) marshalNTLUpdateState2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐTLUpdateState(ctx context.Context, sel ast.SelectionSet, v model.TLUpdateState) graphql.Marshaler {
 	return v
 }
 
-func (ec *executionContext) marshalNThread2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋstorageᚋdynamoᚐThread(ctx context.Context, sel ast.SelectionSet, v dynamo.Thread) graphql.Marshaler {
+func (ec *executionContext) marshalNThread2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋstorageᚋdynamoᚐThread(ctx context.Context, sel ast.SelectionSet, v dynamo.Thread) graphql.Marshaler {
 	return ec._Thread(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNThread2ᚕᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋstorageᚋdynamoᚐThreadᚄ(ctx context.Context, sel ast.SelectionSet, v []*dynamo.Thread) graphql.Marshaler {
+func (ec *executionContext) marshalNThread2ᚕᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋstorageᚋdynamoᚐThreadᚄ(ctx context.Context, sel ast.SelectionSet, v []*dynamo.Thread) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -26263,7 +26263,7 @@ func (ec *executionContext) marshalNThread2ᚕᚖgithubᚗcomᚋteamrevisoᚋcod
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNThread2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋstorageᚋdynamoᚐThread(ctx, sel, v[i])
+			ret[i] = ec.marshalNThread2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋstorageᚋdynamoᚐThread(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -26283,7 +26283,7 @@ func (ec *executionContext) marshalNThread2ᚕᚖgithubᚗcomᚋteamrevisoᚋcod
 	return ret
 }
 
-func (ec *executionContext) marshalNThread2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋstorageᚋdynamoᚐThread(ctx context.Context, sel ast.SelectionSet, v *dynamo.Thread) graphql.Marshaler {
+func (ec *executionContext) marshalNThread2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋstorageᚋdynamoᚐThread(ctx context.Context, sel ast.SelectionSet, v *dynamo.Thread) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
@@ -26329,11 +26329,11 @@ func (ec *executionContext) marshalNTime2ᚖtimeᚐTime(ctx context.Context, sel
 	return res
 }
 
-func (ec *executionContext) marshalNTimelineEvent2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋstorageᚋdynamoᚐTimelineEvent(ctx context.Context, sel ast.SelectionSet, v dynamo.TimelineEvent) graphql.Marshaler {
+func (ec *executionContext) marshalNTimelineEvent2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋstorageᚋdynamoᚐTimelineEvent(ctx context.Context, sel ast.SelectionSet, v dynamo.TimelineEvent) graphql.Marshaler {
 	return ec._TimelineEvent(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNTimelineEvent2ᚕᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋstorageᚋdynamoᚐTimelineEventᚄ(ctx context.Context, sel ast.SelectionSet, v []*dynamo.TimelineEvent) graphql.Marshaler {
+func (ec *executionContext) marshalNTimelineEvent2ᚕᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋstorageᚋdynamoᚐTimelineEventᚄ(ctx context.Context, sel ast.SelectionSet, v []*dynamo.TimelineEvent) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -26357,7 +26357,7 @@ func (ec *executionContext) marshalNTimelineEvent2ᚕᚖgithubᚗcomᚋteamrevis
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNTimelineEvent2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋstorageᚋdynamoᚐTimelineEvent(ctx, sel, v[i])
+			ret[i] = ec.marshalNTimelineEvent2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋstorageᚋdynamoᚐTimelineEvent(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -26377,7 +26377,7 @@ func (ec *executionContext) marshalNTimelineEvent2ᚕᚖgithubᚗcomᚋteamrevis
 	return ret
 }
 
-func (ec *executionContext) marshalNTimelineEvent2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋstorageᚋdynamoᚐTimelineEvent(ctx context.Context, sel ast.SelectionSet, v *dynamo.TimelineEvent) graphql.Marshaler {
+func (ec *executionContext) marshalNTimelineEvent2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋstorageᚋdynamoᚐTimelineEvent(ctx context.Context, sel ast.SelectionSet, v *dynamo.TimelineEvent) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
@@ -26387,22 +26387,22 @@ func (ec *executionContext) marshalNTimelineEvent2ᚖgithubᚗcomᚋteamreviso�
 	return ec._TimelineEvent(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalNTimelineMessageInput2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐTimelineMessageInput(ctx context.Context, v interface{}) (model.TimelineMessageInput, error) {
+func (ec *executionContext) unmarshalNTimelineMessageInput2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐTimelineMessageInput(ctx context.Context, v interface{}) (model.TimelineMessageInput, error) {
 	res, err := ec.unmarshalInputTimelineMessageInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNUpdateMessageResolutionInput2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐUpdateMessageResolutionInput(ctx context.Context, v interface{}) (model.UpdateMessageResolutionInput, error) {
+func (ec *executionContext) unmarshalNUpdateMessageResolutionInput2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐUpdateMessageResolutionInput(ctx context.Context, v interface{}) (model.UpdateMessageResolutionInput, error) {
 	res, err := ec.unmarshalInputUpdateMessageResolutionInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNUpdateUserInput2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐUpdateUserInput(ctx context.Context, v interface{}) (model.UpdateUserInput, error) {
+func (ec *executionContext) unmarshalNUpdateUserInput2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐUpdateUserInput(ctx context.Context, v interface{}) (model.UpdateUserInput, error) {
 	res, err := ec.unmarshalInputUpdateUserInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNUpdateUserPreferenceInput2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐUpdateUserPreferenceInput(ctx context.Context, v interface{}) (model.UpdateUserPreferenceInput, error) {
+func (ec *executionContext) unmarshalNUpdateUserPreferenceInput2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐUpdateUserPreferenceInput(ctx context.Context, v interface{}) (model.UpdateUserPreferenceInput, error) {
 	res, err := ec.unmarshalInputUpdateUserPreferenceInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
@@ -26422,11 +26422,11 @@ func (ec *executionContext) marshalNUpload2githubᚗcomᚋ99designsᚋgqlgenᚋg
 	return res
 }
 
-func (ec *executionContext) marshalNUser2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐUser(ctx context.Context, sel ast.SelectionSet, v models.User) graphql.Marshaler {
+func (ec *executionContext) marshalNUser2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐUser(ctx context.Context, sel ast.SelectionSet, v models.User) graphql.Marshaler {
 	return ec._User(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNUser2ᚕᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐUserᚄ(ctx context.Context, sel ast.SelectionSet, v []*models.User) graphql.Marshaler {
+func (ec *executionContext) marshalNUser2ᚕᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐUserᚄ(ctx context.Context, sel ast.SelectionSet, v []*models.User) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -26450,7 +26450,7 @@ func (ec *executionContext) marshalNUser2ᚕᚖgithubᚗcomᚋteamrevisoᚋcode�
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNUser2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐUser(ctx, sel, v[i])
+			ret[i] = ec.marshalNUser2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐUser(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -26470,7 +26470,7 @@ func (ec *executionContext) marshalNUser2ᚕᚖgithubᚗcomᚋteamrevisoᚋcode�
 	return ret
 }
 
-func (ec *executionContext) marshalNUser2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐUser(ctx context.Context, sel ast.SelectionSet, v *models.User) graphql.Marshaler {
+func (ec *executionContext) marshalNUser2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐUser(ctx context.Context, sel ast.SelectionSet, v *models.User) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
@@ -26480,11 +26480,11 @@ func (ec *executionContext) marshalNUser2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋp
 	return ec._User(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNUserPreference2githubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐUserPreference(ctx context.Context, sel ast.SelectionSet, v models.UserPreference) graphql.Marshaler {
+func (ec *executionContext) marshalNUserPreference2githubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐUserPreference(ctx context.Context, sel ast.SelectionSet, v models.UserPreference) graphql.Marshaler {
 	return ec._UserPreference(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNUserPreference2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐUserPreference(ctx context.Context, sel ast.SelectionSet, v *models.UserPreference) graphql.Marshaler {
+func (ec *executionContext) marshalNUserPreference2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐUserPreference(ctx context.Context, sel ast.SelectionSet, v *models.UserPreference) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
@@ -26747,14 +26747,14 @@ func (ec *executionContext) marshalN__TypeKind2string(ctx context.Context, sel a
 	return res
 }
 
-func (ec *executionContext) marshalOAiContent2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐAiContent(ctx context.Context, sel ast.SelectionSet, v *model.AiContent) graphql.Marshaler {
+func (ec *executionContext) marshalOAiContent2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐAiContent(ctx context.Context, sel ast.SelectionSet, v *model.AiContent) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._AiContent(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalOAttachmentInput2ᚕᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐAttachmentInputᚄ(ctx context.Context, v interface{}) ([]*model.AttachmentInput, error) {
+func (ec *executionContext) unmarshalOAttachmentInput2ᚕᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐAttachmentInputᚄ(ctx context.Context, v interface{}) ([]*model.AttachmentInput, error) {
 	if v == nil {
 		return nil, nil
 	}
@@ -26766,7 +26766,7 @@ func (ec *executionContext) unmarshalOAttachmentInput2ᚕᚖgithubᚗcomᚋteamr
 	res := make([]*model.AttachmentInput, len(vSlice))
 	for i := range vSlice {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithIndex(i))
-		res[i], err = ec.unmarshalNAttachmentInput2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐAttachmentInput(ctx, vSlice[i])
+		res[i], err = ec.unmarshalNAttachmentInput2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐAttachmentInput(ctx, vSlice[i])
 		if err != nil {
 			return nil, err
 		}
@@ -26800,28 +26800,28 @@ func (ec *executionContext) marshalOBoolean2ᚖbool(ctx context.Context, sel ast
 	return res
 }
 
-func (ec *executionContext) marshalOContentAddress2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐContentAddress(ctx context.Context, sel ast.SelectionSet, v *model.ContentAddress) graphql.Marshaler {
+func (ec *executionContext) marshalOContentAddress2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐContentAddress(ctx context.Context, sel ast.SelectionSet, v *model.ContentAddress) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._ContentAddress(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalODocument2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐDocument(ctx context.Context, sel ast.SelectionSet, v *models.Document) graphql.Marshaler {
+func (ec *executionContext) marshalODocument2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐDocument(ctx context.Context, sel ast.SelectionSet, v *models.Document) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._Document(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalODocumentPreference2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐDocumentPreference(ctx context.Context, sel ast.SelectionSet, v *models.DocumentPreference) graphql.Marshaler {
+func (ec *executionContext) marshalODocumentPreference2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐDocumentPreference(ctx context.Context, sel ast.SelectionSet, v *models.DocumentPreference) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._DocumentPreference(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalODocumentScreenshots2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐDocumentScreenshots(ctx context.Context, sel ast.SelectionSet, v *model.DocumentScreenshots) graphql.Marshaler {
+func (ec *executionContext) marshalODocumentScreenshots2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐDocumentScreenshots(ctx context.Context, sel ast.SelectionSet, v *model.DocumentScreenshots) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -26860,7 +26860,7 @@ func (ec *executionContext) marshalOInt2ᚖint(ctx context.Context, sel ast.Sele
 	return res
 }
 
-func (ec *executionContext) unmarshalOMsgLLM2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐMsgLlm(ctx context.Context, v interface{}) (*model.MsgLlm, error) {
+func (ec *executionContext) unmarshalOMsgLLM2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐMsgLlm(ctx context.Context, v interface{}) (*model.MsgLlm, error) {
 	if v == nil {
 		return nil, nil
 	}
@@ -26869,21 +26869,21 @@ func (ec *executionContext) unmarshalOMsgLLM2ᚖgithubᚗcomᚋteamrevisoᚋcode
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalOMsgLLM2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐMsgLlm(ctx context.Context, sel ast.SelectionSet, v *model.MsgLlm) graphql.Marshaler {
+func (ec *executionContext) marshalOMsgLLM2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐMsgLlm(ctx context.Context, sel ast.SelectionSet, v *model.MsgLlm) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return v
 }
 
-func (ec *executionContext) marshalOMutationResponse2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐMutationResponse(ctx context.Context, sel ast.SelectionSet, v *model.MutationResponse) graphql.Marshaler {
+func (ec *executionContext) marshalOMutationResponse2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐMutationResponse(ctx context.Context, sel ast.SelectionSet, v *model.MutationResponse) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._MutationResponse(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalOSelectionInput2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐSelectionInput(ctx context.Context, v interface{}) (*model.SelectionInput, error) {
+func (ec *executionContext) unmarshalOSelectionInput2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐSelectionInput(ctx context.Context, v interface{}) (*model.SelectionInput, error) {
 	if v == nil {
 		return nil, nil
 	}
@@ -26891,7 +26891,7 @@ func (ec *executionContext) unmarshalOSelectionInput2ᚖgithubᚗcomᚋteamrevis
 	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalOSharedDocumentLink2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐSharedDocumentLink(ctx context.Context, sel ast.SelectionSet, v *models.SharedDocumentLink) graphql.Marshaler {
+func (ec *executionContext) marshalOSharedDocumentLink2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐSharedDocumentLink(ctx context.Context, sel ast.SelectionSet, v *models.SharedDocumentLink) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -26930,7 +26930,7 @@ func (ec *executionContext) marshalOTime2ᚖtimeᚐTime(ctx context.Context, sel
 	return res
 }
 
-func (ec *executionContext) unmarshalOTimelineEventFilter2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐTimelineEventFilter(ctx context.Context, v interface{}) (*model.TimelineEventFilter, error) {
+func (ec *executionContext) unmarshalOTimelineEventFilter2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐTimelineEventFilter(ctx context.Context, v interface{}) (*model.TimelineEventFilter, error) {
 	if v == nil {
 		return nil, nil
 	}
@@ -26939,21 +26939,21 @@ func (ec *executionContext) unmarshalOTimelineEventFilter2ᚖgithubᚗcomᚋteam
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalOTimelineEventFilter2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐTimelineEventFilter(ctx context.Context, sel ast.SelectionSet, v *model.TimelineEventFilter) graphql.Marshaler {
+func (ec *executionContext) marshalOTimelineEventFilter2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐTimelineEventFilter(ctx context.Context, sel ast.SelectionSet, v *model.TimelineEventFilter) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return v
 }
 
-func (ec *executionContext) marshalOUnauthenticatedSharedLink2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋgraphᚋmodelᚐUnauthenticatedSharedLink(ctx context.Context, sel ast.SelectionSet, v *model.UnauthenticatedSharedLink) graphql.Marshaler {
+func (ec *executionContext) marshalOUnauthenticatedSharedLink2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋgraphᚋmodelᚐUnauthenticatedSharedLink(ctx context.Context, sel ast.SelectionSet, v *model.UnauthenticatedSharedLink) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._UnauthenticatedSharedLink(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOUser2ᚕᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐUser(ctx context.Context, sel ast.SelectionSet, v []*models.User) graphql.Marshaler {
+func (ec *executionContext) marshalOUser2ᚕᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐUser(ctx context.Context, sel ast.SelectionSet, v []*models.User) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -26980,7 +26980,7 @@ func (ec *executionContext) marshalOUser2ᚕᚖgithubᚗcomᚋteamrevisoᚋcode�
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalOUser2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐUser(ctx, sel, v[i])
+			ret[i] = ec.marshalOUser2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐUser(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -26994,7 +26994,7 @@ func (ec *executionContext) marshalOUser2ᚕᚖgithubᚗcomᚋteamrevisoᚋcode�
 	return ret
 }
 
-func (ec *executionContext) marshalOUser2ᚖgithubᚗcomᚋteamrevisoᚋcodeᚋpkgᚋmodelsᚐUser(ctx context.Context, sel ast.SelectionSet, v *models.User) graphql.Marshaler {
+func (ec *executionContext) marshalOUser2ᚖgithubᚗcomᚋfivetentaylorᚋpointyᚋpkgᚋmodelsᚐUser(ctx context.Context, sel ast.SelectionSet, v *models.User) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}

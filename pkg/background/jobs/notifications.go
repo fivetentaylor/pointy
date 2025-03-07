@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/teamreviso/code/pkg/background/wire"
-	"github.com/teamreviso/code/pkg/env"
-	"github.com/teamreviso/code/pkg/service/notifications"
+	"github.com/fivetentaylor/pointy/pkg/background/wire"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/service/notifications"
 )
 
 func NotifyFirstOpenJob(ctx context.Context, args *wire.NotifyFirstOpen) error {

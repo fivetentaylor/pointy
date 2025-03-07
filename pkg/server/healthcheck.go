@@ -3,7 +3,7 @@ package server
 import (
 	"net/http"
 
-	"github.com/teamreviso/code/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/env"
 )
 
 func (s *Server) Healthcheck() http.HandlerFunc {

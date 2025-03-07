@@ -15,10 +15,10 @@ import (
 	"github.com/jpoz/conveyor/config"
 	"github.com/jpoz/conveyor/hub"
 
-	"github.com/teamreviso/code/pkg/admin/src"
-	"github.com/teamreviso/code/pkg/admin/templates"
-	"github.com/teamreviso/code/pkg/constants"
-	"github.com/teamreviso/code/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/admin/src"
+	"github.com/fivetentaylor/pointy/pkg/admin/templates"
+	"github.com/fivetentaylor/pointy/pkg/constants"
+	"github.com/fivetentaylor/pointy/pkg/env"
 )
 
 //go:embed static/*

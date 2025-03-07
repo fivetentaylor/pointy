@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/teamreviso/code/pkg/env"
-	"github.com/teamreviso/code/pkg/models"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/models"
 )
 
 func GetForUser(ctx context.Context, userID string, ids []string) ([]*models.DocumentAttachment, error) {
