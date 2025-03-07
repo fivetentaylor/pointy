@@ -65,7 +65,7 @@ jobs:
             ${{ runner.os }}-go-
 
       - name: Run tests
-        run: go run scripts/loadenv/loadenv.go .env.example gotestsum -f testname --jsonfile json.log -- -p 1 ./...
+        run: go run scripts/loadenv/loadenv.go .env.test gotestsum -f testname --jsonfile json.log -- -p 1 ./...
 
       - name: Print slowest tests
         run: gotestsum tool slowest --jsonfile json.log --threshold 500ms
@@ -96,7 +96,9 @@ jobs:
         run: (cd pkg/admin/src && npm install)
 
       - name: Building assets
-        run: go run scripts/loadenv/loadenv.go .env.example go run cmd/reviso/main.go --build
+        run: |
+          pwd
+          go run scripts/loadenv/loadenv.go .env.test go run cmd/reviso/main.go --build
 
       - name: Run build script
         run: ./build.sh
