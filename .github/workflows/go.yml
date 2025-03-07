@@ -14,8 +14,8 @@ jobs:
   test:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/teamreviso/go-dependency-image:latest
-      options: --privileged 
+      image: ghcr.io/fivetentaylor/go-dependency-image:latest
+      options: --privileged
 
     services:
       postgres:
@@ -73,8 +73,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/teamreviso/go-dependency-image:latest
-      options: --privileged 
+      image: ghcr.io/fivetentaylor/go-dependency-image:latest
+      options: --privileged
     steps:
       - uses: actions/checkout@v4
 
