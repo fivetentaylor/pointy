@@ -98,6 +98,7 @@ jobs:
       - name: Building assets
         run: |
           pwd
+          ls -lh
           go run scripts/loadenv/loadenv.go .env.test go run cmd/reviso/main.go --build
 
       - name: Run build script
