@@ -288,7 +288,7 @@ jobs:
       - id: slack
         uses: slackapi/slack-github-action@v1.25.0
         with:
-          channel-id: "C0609EV8YS3"
+          channel-id: "C08HE8JHYL8"
           payload: |
             {
               "text": "Staging Deployment started (In Progress)",
@@ -342,7 +342,7 @@ jobs:
 
       - uses: slackapi/slack-github-action@v1.25.0
         with:
-          channel-id: "C0609EV8YS3"
+          channel-id: "C08HE8JHYL8"
           update-ts: ${{ steps.slack.outputs.ts }}
           payload: |
             {
