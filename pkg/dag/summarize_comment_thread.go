@@ -5,11 +5,11 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/teamreviso/code/pkg/constants"
-	"github.com/teamreviso/code/pkg/env"
-	"github.com/teamreviso/code/pkg/graph/loaders"
-	"github.com/teamreviso/code/pkg/service/timeline"
-	"github.com/teamreviso/code/pkg/storage/dynamo"
+	"github.com/fivetentaylor/pointy/pkg/constants"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/graph/loaders"
+	"github.com/fivetentaylor/pointy/pkg/service/timeline"
+	"github.com/fivetentaylor/pointy/pkg/storage/dynamo"
 	"github.com/tmc/langchaingo/llms"
 )
 

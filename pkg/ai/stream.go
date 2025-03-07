@@ -7,7 +7,7 @@ import (
 	"io"
 
 	"github.com/sashabaranov/go-openai"
-	"github.com/teamreviso/code/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/env"
 )
 
 func Stream(ctx context.Context, req openai.ChatCompletionRequest, onMessage func(m openai.ChatCompletionStreamResponse) error) (*openai.ChatCompletionStreamResponse, error) {

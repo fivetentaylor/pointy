@@ -14,11 +14,11 @@ import (
 	"github.com/charmbracelet/log"
 	"github.com/redis/go-redis/v9"
 
-	"github.com/teamreviso/code/pkg/constants"
-	"github.com/teamreviso/code/pkg/query"
-	"github.com/teamreviso/code/pkg/stackerr"
-	"github.com/teamreviso/code/pkg/storage/s3"
-	rogueV3 "github.com/teamreviso/code/rogue/v3"
+	"github.com/fivetentaylor/pointy/pkg/constants"
+	"github.com/fivetentaylor/pointy/pkg/query"
+	"github.com/fivetentaylor/pointy/pkg/stackerr"
+	"github.com/fivetentaylor/pointy/pkg/storage/s3"
+	rogueV3 "github.com/fivetentaylor/pointy/rogue/v3"
 )
 
 const checkpointInterval = 1000

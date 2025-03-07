@@ -5,9 +5,9 @@ import (
 	"fmt"
 
 	"github.com/charmbracelet/log"
-	"github.com/teamreviso/code/pkg/env"
-	"github.com/teamreviso/code/pkg/service/attachments"
-	"github.com/teamreviso/code/pkg/service/document"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/service/attachments"
+	"github.com/fivetentaylor/pointy/pkg/service/document"
 )
 
 type AttachedDocument struct {

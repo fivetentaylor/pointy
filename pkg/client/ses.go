@@ -10,8 +10,8 @@ import (
 	"github.com/aws/aws-sdk-go/service/ses"
 	"github.com/charmbracelet/log"
 	"github.com/jpoz/conveyor"
-	"github.com/teamreviso/code/pkg/background/wire"
-	"github.com/teamreviso/code/pkg/constants"
+	"github.com/fivetentaylor/pointy/pkg/background/wire"
+	"github.com/fivetentaylor/pointy/pkg/constants"
 )
 
 type SESInterface interface {

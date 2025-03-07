@@ -10,7 +10,7 @@ import (
 	"github.com/99designs/gqlgen/graphql/handler/transport"
 	"github.com/gorilla/websocket"
 
-	"github.com/teamreviso/code/pkg/graph/loaders"
+	"github.com/fivetentaylor/pointy/pkg/graph/loaders"
 )
 
 func NewHandler() http.Handler {

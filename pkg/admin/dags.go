@@ -9,14 +9,14 @@ import (
 	"strings"
 
 	"github.com/go-chi/chi/v5"
-	"github.com/teamreviso/code/pkg/admin/templates"
-	"github.com/teamreviso/code/pkg/ai"
-	"github.com/teamreviso/code/pkg/constants"
-	"github.com/teamreviso/code/pkg/dag"
-	"github.com/teamreviso/code/pkg/env"
-	"github.com/teamreviso/code/pkg/service/rogue"
-	"github.com/teamreviso/code/pkg/storage/dynamo"
-	v3 "github.com/teamreviso/code/rogue/v3"
+	"github.com/fivetentaylor/pointy/pkg/admin/templates"
+	"github.com/fivetentaylor/pointy/pkg/ai"
+	"github.com/fivetentaylor/pointy/pkg/constants"
+	"github.com/fivetentaylor/pointy/pkg/dag"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/service/rogue"
+	"github.com/fivetentaylor/pointy/pkg/storage/dynamo"
+	v3 "github.com/fivetentaylor/pointy/rogue/v3"
 )
 
 var DagMap = map[string]func() *dag.Dag{

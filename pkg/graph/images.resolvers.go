@@ -10,8 +10,8 @@ import (
 
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/charmbracelet/log"
-	"github.com/teamreviso/code/pkg/graph/model"
-	"github.com/teamreviso/code/pkg/service/images"
+	"github.com/fivetentaylor/pointy/pkg/graph/model"
+	"github.com/fivetentaylor/pointy/pkg/service/images"
 )
 
 // UploadImage is the resolver for the uploadImage field.

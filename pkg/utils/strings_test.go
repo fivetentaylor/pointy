@@ -6,8 +6,8 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/require"
-	"github.com/teamreviso/code/pkg/utils"
-	v3 "github.com/teamreviso/code/rogue/v3"
+	"github.com/fivetentaylor/pointy/pkg/utils"
+	v3 "github.com/fivetentaylor/pointy/rogue/v3"
 )
 
 func TestFindSimilarSubstringsUint16(t *testing.T) {

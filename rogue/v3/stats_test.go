@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/require"
-	v3 "github.com/teamreviso/code/rogue/v3"
+	v3 "github.com/fivetentaylor/pointy/rogue/v3"
 )
 
 func Test_OpStats(t *testing.T) {

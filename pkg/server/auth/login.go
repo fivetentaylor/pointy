@@ -5,10 +5,10 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/teamreviso/code/pkg/env"
-	"github.com/teamreviso/code/pkg/server/auth/types"
-	"github.com/teamreviso/code/pkg/views/auth"
-	"github.com/teamreviso/code/pkg/views/utils"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/server/auth/types"
+	"github.com/fivetentaylor/pointy/pkg/views/auth"
+	"github.com/fivetentaylor/pointy/pkg/views/utils"
 )
 
 func (m *Manager) GetLogin(w http.ResponseWriter, r *http.Request) {

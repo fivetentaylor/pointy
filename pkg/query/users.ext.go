@@ -3,7 +3,7 @@ package query
 import (
 	"math/rand"
 
-	"github.com/teamreviso/code/pkg/models"
+	"github.com/fivetentaylor/pointy/pkg/models"
 )
 
 func GetRandomUser(db *Query) (*models.User, error) {

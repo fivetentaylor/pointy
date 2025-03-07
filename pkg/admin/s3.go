@@ -12,10 +12,10 @@ import (
 	"github.com/aws/aws-sdk-go/service/s3"
 	"github.com/charmbracelet/log"
 	"github.com/go-chi/chi/v5"
-	"github.com/teamreviso/code/pkg/admin/templates"
-	"github.com/teamreviso/code/pkg/env"
-	s3client "github.com/teamreviso/code/pkg/storage/s3"
-	"github.com/teamreviso/code/pkg/utils"
+	"github.com/fivetentaylor/pointy/pkg/admin/templates"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	s3client "github.com/fivetentaylor/pointy/pkg/storage/s3"
+	"github.com/fivetentaylor/pointy/pkg/utils"
 )
 
 var (

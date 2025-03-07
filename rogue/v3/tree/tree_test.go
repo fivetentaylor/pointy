@@ -5,8 +5,8 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/require"
-	v3 "github.com/teamreviso/code/rogue/v3"
-	"github.com/teamreviso/code/rogue/v3/tree"
+	v3 "github.com/fivetentaylor/pointy/rogue/v3"
+	"github.com/fivetentaylor/pointy/rogue/v3/tree"
 	"golang.org/x/exp/constraints"
 	"golang.org/x/exp/slices"
 )

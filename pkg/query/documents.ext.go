@@ -6,10 +6,10 @@ import (
 
 	"github.com/charmbracelet/log"
 
-	"github.com/teamreviso/code/pkg/constants"
-	"github.com/teamreviso/code/pkg/models"
-	"github.com/teamreviso/code/pkg/stackerr"
-	"github.com/teamreviso/code/pkg/utils"
+	"github.com/fivetentaylor/pointy/pkg/constants"
+	"github.com/fivetentaylor/pointy/pkg/models"
+	"github.com/fivetentaylor/pointy/pkg/stackerr"
+	"github.com/fivetentaylor/pointy/pkg/utils"
 )
 
 type AccessDeniedError struct {

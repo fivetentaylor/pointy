@@ -6,8 +6,8 @@ import (
 
 	"github.com/tmc/langchaingo/llms"
 
-	"github.com/teamreviso/code/pkg/dag"
-	"github.com/teamreviso/code/pkg/stackerr"
+	"github.com/fivetentaylor/pointy/pkg/dag"
+	"github.com/fivetentaylor/pointy/pkg/stackerr"
 )
 
 type TestLLMAdapter struct {

@@ -5,10 +5,10 @@ import (
 	"fmt"
 
 	"github.com/charmbracelet/log"
-	"github.com/teamreviso/code/pkg/env"
-	"github.com/teamreviso/code/pkg/models"
-	"github.com/teamreviso/code/pkg/service/timeline"
-	"github.com/teamreviso/code/pkg/storage/dynamo"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/models"
+	"github.com/fivetentaylor/pointy/pkg/service/timeline"
+	"github.com/fivetentaylor/pointy/pkg/storage/dynamo"
 )
 
 func UpdateLink(ctx context.Context, userId string, link *models.SharedDocumentLink, isActive bool) (*models.SharedDocumentLink, error) {

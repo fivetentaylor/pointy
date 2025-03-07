@@ -5,7 +5,7 @@ import (
 	"log/slog"
 	"os"
 
-	"github.com/teamreviso/code/pkg/prettylog"
+	"github.com/fivetentaylor/pointy/pkg/prettylog"
 )
 
 func NewSlogFromEnv() *slog.Logger {

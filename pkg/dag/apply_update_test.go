@@ -6,9 +6,9 @@ import (
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/require"
 
-	"github.com/teamreviso/code/pkg/dag"
-	"github.com/teamreviso/code/pkg/testutils"
-	v3 "github.com/teamreviso/code/rogue/v3"
+	"github.com/fivetentaylor/pointy/pkg/dag"
+	"github.com/fivetentaylor/pointy/pkg/testutils"
+	v3 "github.com/fivetentaylor/pointy/rogue/v3"
 )
 
 func TestApplyUpdate_replace_entire_document(t *testing.T) {

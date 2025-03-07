@@ -4,7 +4,7 @@ import (
 	"context"
 	"sync"
 
-	"github.com/teamreviso/code/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/env"
 )
 
 type ParallelNode struct {

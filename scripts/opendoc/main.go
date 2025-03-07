@@ -6,9 +6,9 @@ import (
 
 	"github.com/charmbracelet/log"
 	"github.com/joho/godotenv"
-	"github.com/teamreviso/code/pkg/rogue"
-	"github.com/teamreviso/code/pkg/storage/redis"
-	"github.com/teamreviso/code/pkg/storage/s3"
+	"github.com/fivetentaylor/pointy/pkg/rogue"
+	"github.com/fivetentaylor/pointy/pkg/storage/redis"
+	"github.com/fivetentaylor/pointy/pkg/storage/s3"
 )
 
 func main() {

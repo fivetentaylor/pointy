@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/teamreviso/code/pkg/constants"
-	"github.com/teamreviso/code/pkg/env"
-	"github.com/teamreviso/code/pkg/models"
+	"github.com/fivetentaylor/pointy/pkg/constants"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/models"
 )
 
 func loadDocument(ctx context.Context, docID string) (*models.Document, error) {

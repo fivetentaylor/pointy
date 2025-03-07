@@ -1,6 +1,6 @@
 package main
 
-import "github.com/teamreviso/code/pkg/testutils"
+import "github.com/fivetentaylor/pointy/pkg/testutils"
 
 func main() {
 	testutils.EnsureStorage()

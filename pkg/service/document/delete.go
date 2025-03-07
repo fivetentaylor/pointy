@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/teamreviso/code/pkg/constants"
-	"github.com/teamreviso/code/pkg/env"
-	"github.com/teamreviso/code/pkg/storage/dynamo"
+	"github.com/fivetentaylor/pointy/pkg/constants"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/storage/dynamo"
 )
 
 func Delete(ctx context.Context, documentId string) error {

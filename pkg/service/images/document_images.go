@@ -19,9 +19,9 @@ import (
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/disintegration/imaging"
 	"github.com/google/uuid"
-	"github.com/teamreviso/code/pkg/env"
-	"github.com/teamreviso/code/pkg/graph/model"
-	"github.com/teamreviso/code/pkg/stackerr"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/graph/model"
+	"github.com/fivetentaylor/pointy/pkg/stackerr"
 )
 
 const MaxFileSize = 10 * 1024 * 1024

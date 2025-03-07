@@ -19,7 +19,7 @@ import (
 
 	"github.com/charmbracelet/log"
 	"github.com/evanw/esbuild/pkg/api"
-	"github.com/teamreviso/code/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/env"
 )
 
 //go:embed static/*

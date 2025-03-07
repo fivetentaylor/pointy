@@ -6,7 +6,7 @@ import (
 	"os"
 
 	"github.com/stripe/stripe-go/v81"
-	"github.com/teamreviso/code/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/env"
 )
 
 func BillingPortalSession(ctx context.Context, userID string) (string, error) {

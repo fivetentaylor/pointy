@@ -1,6 +1,6 @@
 syntax = "proto3";
 package models;
-option go_package = "github.com/teamreviso/code/pkg/models";
+option go_package = "github.com/fivetentaylor/pointy/pkg/models";
 
 message TimelineEventPayload {
   oneof payload {

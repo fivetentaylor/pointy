@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/teamreviso/code/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/env"
 
 	"github.com/charmbracelet/log"
-	"github.com/teamreviso/code/pkg/service/email/templates"
+	"github.com/fivetentaylor/pointy/pkg/service/email/templates"
 )
 
 // SendSharedToUserEmail sends an email to a user that already exists

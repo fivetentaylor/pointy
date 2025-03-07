@@ -1,6 +1,6 @@
 package voice
 
-import "github.com/teamreviso/code/pkg/dag"
+import "github.com/fivetentaylor/pointy/pkg/dag"
 
 func UpdateDocumentDag() *dag.Dag {
 	postNode := &dag.TitleThreadNode{}

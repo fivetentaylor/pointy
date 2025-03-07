@@ -7,10 +7,10 @@ import (
 
 	"github.com/charmbracelet/log"
 	"github.com/go-chi/chi/v5"
-	"github.com/teamreviso/code/pkg/env"
-	"github.com/teamreviso/code/pkg/server/auth/types"
-	"github.com/teamreviso/code/pkg/service/sharing"
-	"github.com/teamreviso/code/pkg/views/auth"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/server/auth/types"
+	"github.com/fivetentaylor/pointy/pkg/service/sharing"
+	"github.com/fivetentaylor/pointy/pkg/views/auth"
 )
 
 func (m *Manager) GetInvite(w http.ResponseWriter, r *http.Request) {

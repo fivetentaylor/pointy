@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"path"
 
-	"github.com/teamreviso/code/pkg/constants"
+	"github.com/fivetentaylor/pointy/pkg/constants"
 )
 
 func SeqToS3Path(docID string, seq int64) string {

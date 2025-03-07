@@ -8,10 +8,10 @@ import (
 	"strings"
 
 	"github.com/charmbracelet/log"
-	"github.com/teamreviso/code/pkg/env"
-	"github.com/teamreviso/code/pkg/graph/loaders"
-	"github.com/teamreviso/code/pkg/graph/model"
-	"github.com/teamreviso/code/pkg/models"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/graph/loaders"
+	"github.com/fivetentaylor/pointy/pkg/graph/model"
+	"github.com/fivetentaylor/pointy/pkg/models"
 )
 
 func HydrateMentions(ctx context.Context, msg *model.TLMessageV1, mentionedUserIds []string) (*model.TLMessageV1, error) {

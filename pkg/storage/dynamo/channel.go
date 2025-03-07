@@ -11,7 +11,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
 	"github.com/charmbracelet/log"
 	"github.com/google/uuid"
-	"github.com/teamreviso/code/pkg/utils"
+	"github.com/fivetentaylor/pointy/pkg/utils"
 )
 
 var ChannelPrefix = "chan#"

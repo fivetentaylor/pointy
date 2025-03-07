@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/teamreviso/code/pkg/constants"
-	"github.com/teamreviso/code/pkg/env"
-	"github.com/teamreviso/code/pkg/graph/model"
+	"github.com/fivetentaylor/pointy/pkg/constants"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/graph/model"
 )
 
 func GetSignedURL(ctx context.Context, userID, attachmentID, filename string) (*model.SignedImageURL, error) {

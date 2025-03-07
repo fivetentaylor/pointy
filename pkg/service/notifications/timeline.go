@@ -4,11 +4,11 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/teamreviso/code/pkg/background/wire"
-	"github.com/teamreviso/code/pkg/env"
-	"github.com/teamreviso/code/pkg/models"
-	"github.com/teamreviso/code/pkg/service/email"
-	"github.com/teamreviso/code/pkg/utils"
+	"github.com/fivetentaylor/pointy/pkg/background/wire"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/models"
+	"github.com/fivetentaylor/pointy/pkg/service/email"
+	"github.com/fivetentaylor/pointy/pkg/utils"
 )
 
 func EnqueueNewComment(ctx context.Context, docID, eventID string, excludeUserIds []string) error {

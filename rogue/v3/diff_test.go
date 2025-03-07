@@ -6,8 +6,8 @@ import (
 
 	"github.com/sergi/go-diff/diffmatchpatch"
 	"github.com/stretchr/testify/require"
-	v3 "github.com/teamreviso/code/rogue/v3"
-	"github.com/teamreviso/code/rogue/v3/testcases"
+	v3 "github.com/fivetentaylor/pointy/rogue/v3"
+	"github.com/fivetentaylor/pointy/rogue/v3/testcases"
 )
 
 func TestApplyMarkdownDiff(t *testing.T) {

@@ -5,9 +5,9 @@ import (
 	"net/http"
 
 	"github.com/charmbracelet/log"
-	"github.com/teamreviso/code/pkg/admin/templates"
-	"github.com/teamreviso/code/pkg/client"
-	"github.com/teamreviso/code/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/admin/templates"
+	"github.com/fivetentaylor/pointy/pkg/client"
+	"github.com/fivetentaylor/pointy/pkg/env"
 )
 
 func WaitlistHandler(w http.ResponseWriter, r *http.Request) {

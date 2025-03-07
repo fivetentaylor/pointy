@@ -3,9 +3,9 @@ package jobs
 import (
 	"context"
 
-	"github.com/teamreviso/code/pkg/ai"
-	"github.com/teamreviso/code/pkg/background/wire"
-	"github.com/teamreviso/code/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/ai"
+	"github.com/fivetentaylor/pointy/pkg/background/wire"
+	"github.com/fivetentaylor/pointy/pkg/env"
 )
 
 func ProactiveAiMessageJob(ctx context.Context, args *wire.ProactiveAiMessage) error {

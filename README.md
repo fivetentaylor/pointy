@@ -22,7 +22,7 @@
 1. Fork the repository, and clone it to your machine
 
 ```sh
-git clone https://github.com/teamreviso/code
+git clone https://github.com/fivetentaylor/pointy
 ```
 
 2. Move into the project directory.

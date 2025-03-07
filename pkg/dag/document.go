@@ -4,11 +4,11 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/teamreviso/code/pkg/constants"
-	"github.com/teamreviso/code/pkg/env"
-	"github.com/teamreviso/code/pkg/rogue"
-	"github.com/teamreviso/code/pkg/storage/dynamo"
-	v3 "github.com/teamreviso/code/rogue/v3"
+	"github.com/fivetentaylor/pointy/pkg/constants"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/rogue"
+	"github.com/fivetentaylor/pointy/pkg/storage/dynamo"
+	v3 "github.com/fivetentaylor/pointy/rogue/v3"
 )
 
 const documentStoreKey = "_docStore"                    // docId

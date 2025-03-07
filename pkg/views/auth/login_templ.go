@@ -9,8 +9,8 @@ import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
 import (
-	"github.com/teamreviso/code/pkg/server/auth/types"
-	"github.com/teamreviso/code/pkg/views/ui"
+	"github.com/fivetentaylor/pointy/pkg/server/auth/types"
+	"github.com/fivetentaylor/pointy/pkg/views/ui"
 )
 
 func Login(segmentKey, stateString string, state types.State) templ.Component {

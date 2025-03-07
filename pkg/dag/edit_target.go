@@ -5,8 +5,8 @@ import (
 	"math"
 
 	"github.com/google/uuid"
-	"github.com/teamreviso/code/pkg/utils"
-	v3 "github.com/teamreviso/code/rogue/v3"
+	"github.com/fivetentaylor/pointy/pkg/utils"
+	v3 "github.com/fivetentaylor/pointy/rogue/v3"
 )
 
 type EditTargetAction string

@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/redis/go-redis/v9"
-	"github.com/teamreviso/code/pkg/constants"
+	"github.com/fivetentaylor/pointy/pkg/constants"
 )
 
 func SubscribeToDoc(ctx context.Context, client redis.UniversalClient, docID string) *redis.PubSub {

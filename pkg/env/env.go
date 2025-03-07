@@ -9,10 +9,10 @@ import (
 	"github.com/posthog/posthog-go"
 	"github.com/redis/go-redis/v9"
 	"github.com/sashabaranov/go-openai"
-	"github.com/teamreviso/code/pkg/client"
-	"github.com/teamreviso/code/pkg/query"
-	"github.com/teamreviso/code/pkg/storage/dynamo"
-	"github.com/teamreviso/code/pkg/storage/s3"
+	"github.com/fivetentaylor/pointy/pkg/client"
+	"github.com/fivetentaylor/pointy/pkg/query"
+	"github.com/fivetentaylor/pointy/pkg/storage/dynamo"
+	"github.com/fivetentaylor/pointy/pkg/storage/s3"
 	"gorm.io/gorm"
 )
 

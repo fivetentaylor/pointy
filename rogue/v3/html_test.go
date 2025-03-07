@@ -6,8 +6,8 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/require"
-	v3 "github.com/teamreviso/code/rogue/v3"
-	"github.com/teamreviso/code/rogue/v3/testcases"
+	v3 "github.com/fivetentaylor/pointy/rogue/v3"
+	"github.com/fivetentaylor/pointy/rogue/v3/testcases"
 )
 
 func TestGetHtml(t *testing.T) {

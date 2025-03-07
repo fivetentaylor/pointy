@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/require"
-	rogue "github.com/teamreviso/code/rogue/v3"
+	rogue "github.com/fivetentaylor/pointy/rogue/v3"
 )
 
 func TestFormatEquals(t *testing.T) {

@@ -8,7 +8,7 @@ import (
 
 	"github.com/charmbracelet/log"
 	"github.com/sergi/go-diff/diffmatchpatch"
-	mdParse "github.com/teamreviso/code/rogue/v3/gmparse"
+	mdParse "github.com/fivetentaylor/pointy/rogue/v3/gmparse"
 )
 
 func _mdStyleToNull(ms *mdParse.FormatSpan) (FormatV3, error) {

@@ -8,8 +8,8 @@ import (
 
 	"github.com/charmbracelet/log"
 	"github.com/sergi/go-diff/diffmatchpatch"
-	mdParse "github.com/teamreviso/code/rogue/v3/gmparse"
-	"github.com/teamreviso/code/rogue/v3/set"
+	mdParse "github.com/fivetentaylor/pointy/rogue/v3/gmparse"
+	"github.com/fivetentaylor/pointy/rogue/v3/set"
 	"golang.org/x/exp/constraints"
 	"golang.org/x/net/html"
 )

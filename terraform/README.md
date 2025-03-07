@@ -22,8 +22,8 @@ First `cd` into the stage/env you want to run. Ex: `cd terraform/postbuild/stagi
 
 #### Local Postbuild Staging:
 
-For postbuild/staging you'll need a git_sha from the `staging` branch: https://github.com/teamreviso/code/commits/staging/
-And if you want the slack webhook url, it's a secrety here: https://github.com/teamreviso/code/settings/secrets/actions
+For postbuild/staging you'll need a git_sha from the `staging` branch: https://github.com/fivetentaylor/pointy/commits/staging/
+And if you want the slack webhook url, it's a secrety here: https://github.com/fivetentaylor/pointy/settings/secrets/actions
 
 #### Local build and push to ECR
 

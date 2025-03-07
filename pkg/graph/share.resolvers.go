@@ -11,13 +11,13 @@ import (
 
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/charmbracelet/log"
-	"github.com/teamreviso/code/pkg/env"
-	"github.com/teamreviso/code/pkg/graph/model"
-	"github.com/teamreviso/code/pkg/models"
-	"github.com/teamreviso/code/pkg/server/auth"
-	"github.com/teamreviso/code/pkg/service/sharing"
-	"github.com/teamreviso/code/pkg/stackerr"
-	"github.com/teamreviso/code/pkg/utils"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/graph/model"
+	"github.com/fivetentaylor/pointy/pkg/models"
+	"github.com/fivetentaylor/pointy/pkg/server/auth"
+	"github.com/fivetentaylor/pointy/pkg/service/sharing"
+	"github.com/fivetentaylor/pointy/pkg/stackerr"
+	"github.com/fivetentaylor/pointy/pkg/utils"
 	"github.com/vektah/gqlparser/v2/gqlerror"
 )
 

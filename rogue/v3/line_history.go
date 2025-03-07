@@ -3,7 +3,7 @@ package v3
 import (
 	"fmt"
 
-	avl "github.com/teamreviso/code/rogue/v3/tree"
+	avl "github.com/fivetentaylor/pointy/rogue/v3/tree"
 )
 
 type LineHistory struct {

@@ -11,9 +11,9 @@ import (
 	"github.com/aws/aws-sdk-go/service/s3"
 	"github.com/charmbracelet/log"
 	"github.com/redis/go-redis/v9"
-	"github.com/teamreviso/code/pkg/constants"
-	"github.com/teamreviso/code/pkg/env"
-	v3 "github.com/teamreviso/code/rogue/v3"
+	"github.com/fivetentaylor/pointy/pkg/constants"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	v3 "github.com/fivetentaylor/pointy/rogue/v3"
 )
 
 func CurrentDocument(ctx context.Context, docId string) (*v3.Rogue, error) {

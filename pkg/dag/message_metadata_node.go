@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/teamreviso/code/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/env"
 )
 
 type MessageMetadataNode struct {
