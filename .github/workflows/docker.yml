@@ -10,7 +10,6 @@ on:
   workflow_dispatch:
 
 permissions: write-all
-# just a comment to trigger this run
 
 jobs:
   build-and-push:
