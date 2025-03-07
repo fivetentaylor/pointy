@@ -42,8 +42,6 @@ json.log
 
 dev/certs/*
 
-reviso
-
 *storybook.log
 
 .vscode
