@@ -27,7 +27,7 @@ function AnnouncementBanner() {
 
 export function HeroSection({ video, title, description }: HeroSectionProps) {
   return (
-    <section className="pt-6 sm:pt-0 sm:py-12 md:pt-20 text-center mb-2.5">
+    <section className="pt-6 sm:pt-0 sm:py-8 md:pt-12 text-center mb-2.5">
       <AnnouncementBanner />
       <h1 className="text-[clamp(1.5rem,calc(1.5rem+((1vw-0.2rem)*3.869)),3.125rem)] leading-[1.1] tracking-[-0.09563rem] font-bold mb-4">
         {title}
