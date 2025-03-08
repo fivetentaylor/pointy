@@ -1,7 +1,6 @@
 import { HeroSection } from "@/components/marketing/HeroSection";
 import { HowItWorksSection } from "@/components/marketing/HowItWorksSection";
 import { UseCasesSection } from "@/components/marketing/UseCasesSection";
-import { CTASection } from "@/components/marketing/CTASection";
 import {
   PencilIcon,
   BookOpenIcon,
@@ -150,7 +149,6 @@ Reviso turns AI from ghostwriter to academic thought partner.`}
           </div>
         </CenteredLayout>
         <UseCasesSection items={studentUseCases} type="academic" />
-        <CTASection />
       </main>
     </>
   );

@@ -63,20 +63,6 @@ function MobileMenu({ pathname }: MobileMenuProps) {
                 Follow Reviso on LinkedIn
               </Link>
             </div>
-            <div className="mt-auto pt-8">
-              <Button
-                className="w-full mb-4 bg-primary hover:bg-primary/90"
-                asChild
-              >
-                <a href={`${APP_HOST}/login`}>Sign up</a>
-              </Button>
-              <div className="text-center">
-                Existing user?{" "}
-                <a href={`${APP_HOST}/login`} className="text-primary">
-                  Sign in
-                </a>
-              </div>
-            </div>
           </div>
         </div>
       )}
@@ -144,9 +130,6 @@ export function MarketingNav({ pathname }: MarketingNavProps) {
           <div className="flex-1 justify-end gap-4 hidden sm:flex">
             <Button variant="outline" asChild>
               <a href={`${APP_HOST}/login`}>Sign in</a>
-            </Button>
-            <Button asChild className="bg-primary hover:bg-primary/90">
-              <a href={`${APP_HOST}/login`}>Sign up</a>
             </Button>
           </div>
           <MobileMenu pathname={pathname} />
