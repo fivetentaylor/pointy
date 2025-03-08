@@ -13,7 +13,7 @@ permissions:
 
 jobs:
   deploy_check:
-    name: 'Preview Deploy Check'
+    name: "Preview Deploy Check"
     runs-on: ubuntu-latest
     outputs:
       proceed_with_deploy: ${{ steps.check_label.outputs.proceed_with_deploy }}
@@ -25,17 +25,17 @@ jobs:
           script: |
             const { action, label, pull_request } = context.payload;
             let proceed = false;
-            
+
             if ((action === 'opened' || action === 'reopened' || action === 'synchronize') && pull_request.labels.some(l => l.name === 'preview')) {
               proceed = true;
             } else if (action === 'labeled' && label.name === 'preview') {
               proceed = true;
             }
-            
+
             core.setOutput('proceed_with_deploy', proceed);
 
-  build_server: 
-    name: 'Preview Build Server'
+  build_server:
+    name: "Preview Build Server"
     needs: deploy_check
     if: needs.deploy_check.outputs.proceed_with_deploy == 'true'
     runs-on: ubuntu-latest
@@ -43,40 +43,40 @@ jobs:
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      AWS_REGION: 'us-west-2'
+      AWS_REGION: "us-west-2"
 
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Configure AWS credentials (staging)
-      uses: aws-actions/configure-aws-credentials@v4
-      with:
-        role-to-assume: arn:aws:iam::533267310428:role/TerraformRole
-        aws-region: us-west-2
+      - name: Configure AWS credentials (staging)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::533267310428:role/TerraformRole
+          aws-region: us-west-2
 
-    - name: Login to Amazon ECR
-      id: login-ecr
-      uses: aws-actions/amazon-ecr-login@v1
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
 
-    - name: Build, tag, and push Reviso image to Amazon ECR
-      env:
-        NODE_ENV: production
-        WEB_HOST: https://pr-${{ github.event.number }}-www.reviso.biz
-        APP_HOST: https://pr-${{ github.event.number }}-app.reviso.biz
-        WS_HOST: wss://pr-${{ github.event.number }}-app.reviso.biz
-        SEGMENT_KEY: uxdIGs32QrtmzfdF7CipbU4EuTchimHf
-        POSTHOG_SERVER_FEATURE_FLAG_KEY: ${{ secrets.POSTHOG_SERVER_FEATURE_FLAG_KEY }}
-        PUBLIC_POSTHOG_KEY: phc_FOk7Jw5lm9yJ3XNnr1HdPzCmkjYc8t3ECJzzQPxaew3
-        PUBLIC_POSTHOG_HOST: https://us.posthog.com
-        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        ECR_REPOSITORY: reviso-server
-        IMAGE_TAG: ${{ github.sha }}
-      run: |
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f cmd/reviso/Dockerfile --build-arg NODE_ENV=$NODE_ENV --build-arg APP_HOST=$APP_HOST --build-arg WS_HOST=$WS_HOST --build-arg WEB_HOST=$WEB_HOST --build-arg SEGMENT_KEY=$SEGMENT_KEY --build-arg PUBLIC_POSTHOG_HOST=$PUBLIC_POSTHOG_HOST --build-arg PUBLIC_POSTHOG_KEY=$PUBLIC_POSTHOG_KEY --build-arg POSTHOG_SERVER_FEATURE_FLAG_KEY=$POSTHOG_SERVER_FEATURE_FLAG_KEY .
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+      - name: Build, tag, and push Reviso image to Amazon ECR
+        env:
+          NODE_ENV: production
+          WEB_HOST: https://pr-${{ github.event.number }}-www.reviso.biz
+          APP_HOST: https://pr-${{ github.event.number }}-app.reviso.biz
+          WS_HOST: wss://pr-${{ github.event.number }}-app.reviso.biz
+          SEGMENT_KEY: uxdIGs32QrtmzfdF7CipbU4EuTchimHf
+          POSTHOG_SERVER_FEATURE_FLAG_KEY: ${{ secrets.POSTHOG_SERVER_FEATURE_FLAG_KEY }}
+          PUBLIC_POSTHOG_KEY: phc_FOk7Jw5lm9yJ3XNnr1HdPzCmkjYc8t3ECJzzQPxaew3
+          PUBLIC_POSTHOG_HOST: https://us.posthog.com
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: reviso-server
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f cmd/reviso/Dockerfile --build-arg NODE_ENV=$NODE_ENV --build-arg APP_HOST=$APP_HOST --build-arg WS_HOST=$WS_HOST --build-arg WEB_HOST=$WEB_HOST --build-arg SEGMENT_KEY=$SEGMENT_KEY --build-arg PUBLIC_POSTHOG_HOST=$PUBLIC_POSTHOG_HOST --build-arg PUBLIC_POSTHOG_KEY=$PUBLIC_POSTHOG_KEY --build-arg POSTHOG_SERVER_FEATURE_FLAG_KEY=$POSTHOG_SERVER_FEATURE_FLAG_KEY .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
   build_web:
-    name: 'Preview Build Web'
+    name: "Preview Build Web"
     needs: deploy_check
     if: needs.deploy_check.outputs.proceed_with_deploy == 'true'
     runs-on: ubuntu-latest
@@ -84,32 +84,32 @@ jobs:
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      AWS_REGION: 'us-west-2'
+      AWS_REGION: "us-west-2"
 
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Configure AWS credentials (staging)
-      uses: aws-actions/configure-aws-credentials@v4
-      with:
-        role-to-assume: arn:aws:iam::533267310428:role/TerraformRole
-        aws-region: us-west-2
+      - name: Configure AWS credentials (staging)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::533267310428:role/TerraformRole
+          aws-region: us-west-2
 
-    - name: Login to Amazon ECR
-      id: login-ecr
-      uses: aws-actions/amazon-ecr-login@v1
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
 
-    - name: Build, tag, and push Web image to Amazon ECR
-      env:
-        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        ECR_REPOSITORY: reviso-web
-        IMAGE_TAG: ${{ github.sha }}
-      run: |
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f frontend/web/Dockerfile frontend/web
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
- 
+      - name: Build, tag, and push Web image to Amazon ECR
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: reviso-web
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f frontend/web/Dockerfile frontend/web
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
   deploy:
-    name: 'Preview Deploy'
+    name: "Preview Deploy"
     if: contains(github.event.pull_request.labels.*.name, 'preview')
     runs-on: ubuntu-latest
 
@@ -124,98 +124,98 @@ jobs:
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      AWS_REGION: 'us-west-2'
+      AWS_REGION: "us-west-2"
       TF_VAR_server_sha: ${{ github.sha }}
       TF_VAR_web_sha: ${{ github.sha }}
       TF_VAR_pr_number: ${{ github.event.number }}
       TF_VAR_slack_webhook_url: ${{ secrets.SLACK_STATUS_WEBHOOK_URL }}
 
     steps:
-    - id: slack
-      uses: slackapi/slack-github-action@v1.25.0
-      with:
-        channel-id: "C0609EV8YS3"
-        payload: |
-          {
-            "text": "Preview #${{ github.event.number }} Deployment started (In Progress)",
-            "attachments": [
-              {
-                "pretext": "Preview Deployment started",
-                "color": "dbab09",
-                "fields": [
-                  {
-                    "title": "Status",
-                    "short": true,
-                    "value": "In Progress"
-                  }
-                ]
-              }
-            ]
-          }
-      env:
-        SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN}}
+      - id: slack
+        uses: slackapi/slack-github-action@v1.25.0
+        with:
+          channel-id: "C08HE8JHYL8"
+          payload: |
+            {
+              "text": "Preview #${{ github.event.number }} Deployment started (In Progress)",
+              "attachments": [
+                {
+                  "pretext": "Preview Deployment started",
+                  "color": "dbab09",
+                  "fields": [
+                    {
+                      "title": "Status",
+                      "short": true,
+                      "value": "In Progress"
+                    }
+                  ]
+                }
+              ]
+            }
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN}}
 
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v4
-      with:
-        role-to-assume: arn:aws:iam::533267310428:role/TerraformRole
-        aws-region: us-west-2
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::533267310428:role/TerraformRole
+          aws-region: us-west-2
 
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v1
-      with:
-        terraform_version: 1.0.0
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.0.0
 
-    - name: Terraform Preview init
-      run: |
-        terraform init
+      - name: Terraform Preview init
+        run: |
+          terraform init
 
-    - name: Terraform Preview workspace
-      run: |
-        terraform workspace new pr-${{ github.event.number }} || terraform workspace select pr-${{ github.event.number }}
+      - name: Terraform Preview workspace
+        run: |
+          terraform workspace new pr-${{ github.event.number }} || terraform workspace select pr-${{ github.event.number }}
 
-    - name: Terraform Apply
-      id: apply
-      run: terraform apply -auto-approve
-      continue-on-error: true
+      - name: Terraform Apply
+        id: apply
+        run: terraform apply -auto-approve
+        continue-on-error: true
 
-    - name: Check deployment outcome and set color
-      id: set_color
-      run: |
-        if [ "${{ steps.apply.outcome }}" == "success" ]; then
-          echo "COLOR=28a745" >> $GITHUB_ENV
-        else
-          echo "COLOR=d73a4a" >> $GITHUB_ENV
-        fi
+      - name: Check deployment outcome and set color
+        id: set_color
+        run: |
+          if [ "${{ steps.apply.outcome }}" == "success" ]; then
+            echo "COLOR=28a745" >> $GITHUB_ENV
+          else
+            echo "COLOR=d73a4a" >> $GITHUB_ENV
+          fi
 
-    - uses: slackapi/slack-github-action@v1.25.0
-      with:
-        channel-id: "C0609EV8YS3"
-        update-ts: ${{ steps.slack.outputs.ts }}
-        payload: |
-          {
-            "text": "Preview #${{ github.event.number }} Deployment finished (${{ steps.apply.outcome }})\n\n*Pushed by: @${{ github.actor }}",
-            "attachments": [
-              {
-                "pretext": "Deployment finished",
-                "color": "${{ env.COLOR }}",
-                "fields": [
-                  {
-                    "title": "Status",
-                    "short": true,
-                    "value": "${{ steps.apply.outcome }} https://pr-${{ github.event.number }}-www.reviso.biz"
-                  }
-                ]
-              }
-            ]
-          }
-      env:
-        SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+      - uses: slackapi/slack-github-action@v1.25.0
+        with:
+          channel-id: "C08HE8JHYL8"
+          update-ts: ${{ steps.slack.outputs.ts }}
+          payload: |
+            {
+              "text": "Preview #${{ github.event.number }} Deployment finished (${{ steps.apply.outcome }})\n\n*Pushed by: @${{ github.actor }}",
+              "attachments": [
+                {
+                  "pretext": "Deployment finished",
+                  "color": "${{ env.COLOR }}",
+                  "fields": [
+                    {
+                      "title": "Status",
+                      "short": true,
+                      "value": "${{ steps.apply.outcome }} https://pr-${{ github.event.number }}-www.reviso.biz"
+                    }
+                  ]
+                }
+              ]
+            }
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
 
   destroy_check:
-    name: 'Preview Destory Check'
+    name: "Preview Destory Check"
     runs-on: ubuntu-latest
     outputs:
       proceed_with_destroy: ${{ steps.check_label.outputs.proceed_with_destroy }}
@@ -227,17 +227,17 @@ jobs:
           script: |
             const { action, label, pull_request } = context.payload;
             let proceed = false;
-            
+
             if (action === 'closed' && pull_request.labels.some(l => l.name === 'preview')) {
               proceed = true;
             } else if (action === 'unlabeled' && label.name === 'preview') {
               proceed = true;
             }
-            
+
             core.setOutput('proceed_with_destroy', proceed);
 
   destroy:
-    name: 'Preview Destory'
+    name: "Preview Destory"
     needs: destroy_check
     if: needs.destroy_check.outputs.proceed_with_destroy == 'true'
     runs-on: ubuntu-latest
@@ -249,132 +249,132 @@ jobs:
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      AWS_REGION: 'us-west-2'
+      AWS_REGION: "us-west-2"
       TF_VAR_server_sha: ${{ github.sha }}
       TF_VAR_web_sha: ${{ github.sha }}
       TF_VAR_pr_number: ${{ github.event.number }}
       TF_VAR_slack_webhook_url: ${{ secrets.SLACK_STATUS_WEBHOOK_URL }}
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Check if merged
-      run: |
-        if [ "${{ github.event.pull_request.merged }}" = "true" ]; then
-          echo "Pull request was merged."
-          # Put steps or commands here that should run when the PR is merged
-        else
-          echo "Pull request was closed without merging."
-          # Put steps or commands here that should run when the PR is closed without merging
-        fi
+      - uses: actions/checkout@v2
+      - name: Check if merged
+        run: |
+          if [ "${{ github.event.pull_request.merged }}" = "true" ]; then
+            echo "Pull request was merged."
+            # Put steps or commands here that should run when the PR is merged
+          else
+            echo "Pull request was closed without merging."
+            # Put steps or commands here that should run when the PR is closed without merging
+          fi
 
-    - uses: actions/github-script@v7
-      name: Cancel any active preview workflow runs
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        script: |
-          const currentRunId = context.runId;
-          console.log(`currentRunId: ${currentRunId}`);
-          const workflowIds = [
-            '.github/workflows/preview.yml',
-          ];
+      - uses: actions/github-script@v7
+        name: Cancel any active preview workflow runs
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const currentRunId = context.runId;
+            console.log(`currentRunId: ${currentRunId}`);
+            const workflowIds = [
+              '.github/workflows/preview.yml',
+            ];
 
-          for (const workflowId of workflowIds) {
-            console.log(`Cancelling workflow ${workflowId}`);
-            const workflowRuns = await github.rest.actions.listWorkflowRuns({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              workflow_id: workflowId,
-              per_page: 100,
-              event: 'pull_request',
-              branch: context.payload.pull_request.head.ref,
-            });
-          
-            const activeRuns = workflowRuns.data.workflow_runs.filter((workflowRun) => {
-              return (workflowRun.status === 'queued' || workflowRun.status === 'in_progress') && workflowRun.id !== currentRunId;
-            });
-          
-            for (const activeRun of activeRuns) {
-              console.log(`Cancelling workflow run ${activeRun.id}`);
-              await github.rest.actions.cancelWorkflowRun({
+            for (const workflowId of workflowIds) {
+              console.log(`Cancelling workflow ${workflowId}`);
+              const workflowRuns = await github.rest.actions.listWorkflowRuns({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                run_id: activeRun.id,
+                workflow_id: workflowId,
+                per_page: 100,
+                event: 'pull_request',
+                branch: context.payload.pull_request.head.ref,
               });
-            }
-          }
 
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v4
-      with:
-        role-to-assume: arn:aws:iam::533267310428:role/TerraformRole
-        aws-region: us-west-2
+              const activeRuns = workflowRuns.data.workflow_runs.filter((workflowRun) => {
+                return (workflowRun.status === 'queued' || workflowRun.status === 'in_progress') && workflowRun.id !== currentRunId;
+              });
 
-    - name: Terraform Preview init
-      id: init
-      run: |
-        terraform init
-
-    - name: Terraform Preview workspace
-      id: workspace
-      run: |
-        terraform workspace new pr-${{ github.event.number }} || terraform workspace select pr-${{ github.event.number }}
-
-    - name: Terraform Destroy
-      id: destroy
-      run: terraform destroy -auto-approve
-      continue-on-error: true
-
-    - name: Terraform Comment 
-      uses: actions/github-script@v6
-      env:
-        DESTROY: "terraform\n${{ steps.destroy.outputs.stdout }}\n${{ steps.destroy.outputs.stderr }}"
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        script: |
-          const output = `## Preview Destroyed
-          #### SHA: \`${{ env.TF_VAR_web_sha }}\`
-          #### PR: \`${{ env.TF_VAR_pr_number }}\`
-
-          #### ⚙️  Initialize \`${{ steps.init.outcome }}\`
-          #### 🗄️ Workspace \`${{ steps.workspace.outcome }}\`   
-          #### 🔥 Destroy \`${{ steps.destroy.outcome }}\`
-
-          <details><summary>Show Destruction</summary>
-
-          \`\`\`\n
-          ${process.env.DESTROY}
-          \`\`\`
-
-          </details>
-
-          *Pushed by: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
-
-          github.rest.issues.createComment({
-            issue_number: context.issue.number,
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            body: output
-          })
-    - id: slack
-      uses: slackapi/slack-github-action@v1.25.0
-      with:
-        channel-id: "C0609EV8YS3"
-        payload: |
-          {
-            "text": "Preview #${{ github.event.number }} Delete",
-            "attachments": [
-              {
-                "pretext": "Terraform destroy status",
-                "color": "6bab09",
-                "fields": [
-                  {
-                    "title": "Status",
-                    "short": true,
-                    "value": "${{ steps.destroy.outcome }}"
-                  }
-                ]
+              for (const activeRun of activeRuns) {
+                console.log(`Cancelling workflow run ${activeRun.id}`);
+                await github.rest.actions.cancelWorkflowRun({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  run_id: activeRun.id,
+                });
               }
-            ]
-          }
-      env:
-        SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN}}
+            }
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::533267310428:role/TerraformRole
+          aws-region: us-west-2
+
+      - name: Terraform Preview init
+        id: init
+        run: |
+          terraform init
+
+      - name: Terraform Preview workspace
+        id: workspace
+        run: |
+          terraform workspace new pr-${{ github.event.number }} || terraform workspace select pr-${{ github.event.number }}
+
+      - name: Terraform Destroy
+        id: destroy
+        run: terraform destroy -auto-approve
+        continue-on-error: true
+
+      - name: Terraform Comment
+        uses: actions/github-script@v6
+        env:
+          DESTROY: "terraform\n${{ steps.destroy.outputs.stdout }}\n${{ steps.destroy.outputs.stderr }}"
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const output = `## Preview Destroyed
+            #### SHA: \`${{ env.TF_VAR_web_sha }}\`
+            #### PR: \`${{ env.TF_VAR_pr_number }}\`
+
+            #### ⚙️  Initialize \`${{ steps.init.outcome }}\`
+            #### 🗄️ Workspace \`${{ steps.workspace.outcome }}\`   
+            #### 🔥 Destroy \`${{ steps.destroy.outcome }}\`
+
+            <details><summary>Show Destruction</summary>
+
+            \`\`\`\n
+            ${process.env.DESTROY}
+            \`\`\`
+
+            </details>
+
+            *Pushed by: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: output
+            })
+      - id: slack
+        uses: slackapi/slack-github-action@v1.25.0
+        with:
+          channel-id: "C08HE8JHYL8"
+          payload: |
+            {
+              "text": "Preview #${{ github.event.number }} Delete",
+              "attachments": [
+                {
+                  "pretext": "Terraform destroy status",
+                  "color": "6bab09",
+                  "fields": [
+                    {
+                      "title": "Status",
+                      "short": true,
+                      "value": "${{ steps.destroy.outcome }}"
+                    }
+                  ]
+                }
+              ]
+            }
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN}}
