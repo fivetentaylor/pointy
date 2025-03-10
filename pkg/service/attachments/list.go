@@ -3,8 +3,8 @@ package attachments
 import (
 	"context"
 
-	"github.com/teamreviso/code/pkg/env"
-	"github.com/teamreviso/code/pkg/models"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/models"
 )
 
 func ListForDocumentAndUser(ctx context.Context, docID, userID string) ([]*models.DocumentAttachment, error) {

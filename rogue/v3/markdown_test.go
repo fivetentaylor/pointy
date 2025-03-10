@@ -5,8 +5,8 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	rogue "github.com/teamreviso/code/rogue/v3"
-	"github.com/teamreviso/code/rogue/v3/testcases"
+	rogue "github.com/fivetentaylor/pointy/rogue/v3"
+	"github.com/fivetentaylor/pointy/rogue/v3/testcases"
 )
 
 func TestGetMarkdown(t *testing.T) {

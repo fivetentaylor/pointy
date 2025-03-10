@@ -10,10 +10,10 @@ import templruntime "github.com/a-h/templ/runtime"
 
 import (
 	"fmt"
-	"github.com/teamreviso/code/pkg/constants"
-	"github.com/teamreviso/code/pkg/models"
-	"github.com/teamreviso/code/pkg/storage/dynamo"
-	"github.com/teamreviso/code/pkg/utils"
+	"github.com/fivetentaylor/pointy/pkg/constants"
+	"github.com/fivetentaylor/pointy/pkg/models"
+	"github.com/fivetentaylor/pointy/pkg/storage/dynamo"
+	"github.com/fivetentaylor/pointy/pkg/utils"
 )
 
 func Threads(id string, threadsByUser map[*models.User][]*dynamo.Thread) templ.Component {

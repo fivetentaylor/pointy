@@ -14,8 +14,8 @@ jobs:
   test:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/teamreviso/go-dependency-image:latest
-      options: --privileged 
+      image: ghcr.io/fivetentaylor/go-dependency-image:latest
+      options: --privileged
 
     services:
       postgres:
@@ -73,8 +73,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/teamreviso/go-dependency-image:latest
-      options: --privileged 
+      image: ghcr.io/fivetentaylor/go-dependency-image:latest
+      options: --privileged
     steps:
       - uses: actions/checkout@v4
 
@@ -96,7 +96,10 @@ jobs:
         run: (cd pkg/admin/src && npm install)
 
       - name: Building assets
-        run: go run scripts/loadenv/loadenv.go .env.test go run cmd/reviso/main.go --build
+        run: |
+          pwd
+          ls -lh
+          go run scripts/loadenv/loadenv.go .env.test go run cmd/reviso/main.go --build
 
       - name: Run build script
         run: ./build.sh

@@ -8,9 +8,9 @@ import (
 	awsS3 "github.com/aws/aws-sdk-go/service/s3"
 	"github.com/charmbracelet/log"
 	"github.com/go-chi/chi/v5"
-	"github.com/teamreviso/code/pkg/admin/templates"
-	"github.com/teamreviso/code/pkg/env"
-	"github.com/teamreviso/code/pkg/rogue"
+	"github.com/fivetentaylor/pointy/pkg/admin/templates"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/rogue"
 )
 
 func GetStorage(w http.ResponseWriter, r *http.Request) {

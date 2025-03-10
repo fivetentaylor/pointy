@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/teamreviso/code/pkg/constants"
+	"github.com/fivetentaylor/pointy/pkg/constants"
 
 	"github.com/charmbracelet/log"
 	"github.com/google/uuid"

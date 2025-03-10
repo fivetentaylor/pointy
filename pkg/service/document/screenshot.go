@@ -6,9 +6,9 @@ import (
 	"path"
 	"time"
 
-	"github.com/teamreviso/code/pkg/constants"
-	"github.com/teamreviso/code/pkg/env"
-	"github.com/teamreviso/code/pkg/utils"
+	"github.com/fivetentaylor/pointy/pkg/constants"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/utils"
 )
 
 const screenshotWidth = int64(640)

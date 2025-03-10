@@ -2,7 +2,6 @@
 
 ## Introduction
 
-
 ## Key Packages
 
 - `github.com/99designs/gqlgen` : For generating GraphQL servers in Go.
@@ -23,7 +22,7 @@
 1. Fork the repository, and clone it to your machine
 
 ```sh
-git clone https://github.com/teamreviso/code
+git clone https://github.com/fivetentaylor/pointy
 ```
 
 2. Move into the project directory.
@@ -39,6 +38,7 @@ make install
 ```
 
 4. Setup local certs for tls
+
 ```sh
 make certs
 ```
@@ -76,7 +76,6 @@ This project wouldn't be possible without these wonderful projects and their con
 - [GORM](https://gorm.io)
 
 Please feel free to contribute to this project, report bugs and issues, and suggest improvements.
-
 
 ## Deployment
 
@@ -118,6 +117,7 @@ export TF_VAR_web_sha=$(git rev-parse HEAD)
 export TF_VAR_server_sha=$(git rev-parse HEAD)
 export TF_VAR_pr_number=$PR_NUMBER
 export TF_VAR_slack_webhook_url=(get from https://api.slack.com/apps/A06KB3LHGAY/incoming-webhooks)
+
 ```
 
 ```sh
@@ -176,7 +176,6 @@ View the logs:
 assume-role staging:terraform aws logs tail --follow /ecs/reviso-server/main
 ```
 
-
 ### Manually push local images to ECR
 
 #### Build and push the server image to Production ECR
@@ -188,7 +187,7 @@ docker build -t 998899136269.dkr.ecr.us-west-2.amazonaws.com/reviso-server:$(git
 
 #### Build and push the web image to Production ECR
 
-> Note you need to remove your node_modules first, since it needs to build from scratch 
+> Note you need to remove your node_modules first, since it needs to build from scratch
 
 ```
 rm -rf frontend/web/node_modules
@@ -208,7 +207,6 @@ aws ecs execute-command  \
 
 #### Pushing up new faktory version
 
-
 ```
 docker pull contribsys/faktory:latest
 assume-role staging:admin aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 533267310428.dkr.ecr.us-west-2.amazonaws.com
@@ -217,5 +215,3 @@ docker push 533267310428.dkr.ecr.us-west-2.amazonaws.com/faktory-cache:latest
 ```
 
 > Note: using staging here
-
-

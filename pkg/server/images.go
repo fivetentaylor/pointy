@@ -13,10 +13,10 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/google/uuid"
 
-	"github.com/teamreviso/code/pkg/constants"
-	"github.com/teamreviso/code/pkg/env"
-	"github.com/teamreviso/code/pkg/query"
-	"github.com/teamreviso/code/pkg/service/images"
+	"github.com/fivetentaylor/pointy/pkg/constants"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/query"
+	"github.com/fivetentaylor/pointy/pkg/service/images"
 )
 
 const maxImageSize = 5 * 1024 * 1024

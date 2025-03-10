@@ -5,11 +5,11 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/teamreviso/code/pkg/constants"
-	"github.com/teamreviso/code/pkg/env"
-	"github.com/teamreviso/code/pkg/service/messaging"
-	"github.com/teamreviso/code/pkg/storage/dynamo"
-	"github.com/teamreviso/code/pkg/utils"
+	"github.com/fivetentaylor/pointy/pkg/constants"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/service/messaging"
+	"github.com/fivetentaylor/pointy/pkg/storage/dynamo"
+	"github.com/fivetentaylor/pointy/pkg/utils"
 	"github.com/tmc/langchaingo/llms"
 )
 

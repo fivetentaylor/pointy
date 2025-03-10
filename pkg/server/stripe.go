@@ -12,8 +12,8 @@ import (
 
 	"github.com/stripe/stripe-go/v81"
 	"github.com/stripe/stripe-go/v81/webhook"
-	"github.com/teamreviso/code/pkg/env"
-	"github.com/teamreviso/code/pkg/models"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/models"
 	"gorm.io/gorm"
 )
 

@@ -7,10 +7,10 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
-	"github.com/teamreviso/code/pkg/env"
-	"github.com/teamreviso/code/pkg/models"
-	"github.com/teamreviso/code/pkg/query"
-	"github.com/teamreviso/code/pkg/service/email/templates"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/models"
+	"github.com/fivetentaylor/pointy/pkg/query"
+	"github.com/fivetentaylor/pointy/pkg/service/email/templates"
 )
 
 const preheaderExample = "this is the preview shown before the email is opened"

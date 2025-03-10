@@ -3,7 +3,10 @@ locals {
   region     = data.aws_region.current.name
   partition  = data.aws_partition.current.partition
   task_count = 1
-  family     = "reviso"
+}
+
+variable "name" {
+  type = string
 }
 
 variable "web_domain" {

@@ -13,13 +13,13 @@ import (
 	"github.com/gorilla/websocket"
 	"golang.org/x/exp/rand"
 
-	"github.com/teamreviso/code/pkg/constants"
-	"github.com/teamreviso/code/pkg/env"
-	"github.com/teamreviso/code/pkg/models"
-	"github.com/teamreviso/code/pkg/rogue"
-	"github.com/teamreviso/code/pkg/service/messaging"
-	"github.com/teamreviso/code/pkg/storage/dynamo"
-	v3 "github.com/teamreviso/code/rogue/v3"
+	"github.com/fivetentaylor/pointy/pkg/constants"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/models"
+	"github.com/fivetentaylor/pointy/pkg/rogue"
+	"github.com/fivetentaylor/pointy/pkg/service/messaging"
+	"github.com/fivetentaylor/pointy/pkg/storage/dynamo"
+	v3 "github.com/fivetentaylor/pointy/rogue/v3"
 )
 
 const REALTIME_URL = "wss://api.openai.com/v1/realtime?model=gpt-4o-realtime-preview-2024-10-01"

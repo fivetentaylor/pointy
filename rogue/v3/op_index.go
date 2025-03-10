@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	avl "github.com/teamreviso/code/rogue/v3/tree"
+	avl "github.com/fivetentaylor/pointy/rogue/v3/tree"
 )
 
 type OpIndex struct {

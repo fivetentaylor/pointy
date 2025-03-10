@@ -1,5 +1,5 @@
 #!make
-include .env
+include .env.pointy
 export $(shell sed 's/=.*//' .env)
 
 CGO_ENABLED?=0
@@ -91,7 +91,7 @@ certs: ## Install certs for local tls
 	sudo ${GOCMD} run scripts/updatehosts/main.go
 	mkdir -p dev/certs
 	mkcert -install
-	cd dev/certs && mkcert *.reviso.dev && mkcert localhost 127.0.0.1 ::1
+	cd dev/certs && mkcert *.reviso.dev && mkcert *.dev.pointy.ai && mkcert localhost 127.0.0.1 ::1
 	cd dev/certs && mv localhost+2.pem public.crt && mv localhost+2-key.pem private.key
 
 .PHONY: web

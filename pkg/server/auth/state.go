@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/teamreviso/code/pkg/server/auth/types"
+	"github.com/fivetentaylor/pointy/pkg/server/auth/types"
 )
 
 const initialStateLength = 16

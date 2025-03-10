@@ -8,8 +8,8 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/teamreviso/code/pkg/models"
-	"github.com/teamreviso/code/pkg/storage/dynamo"
+	"github.com/fivetentaylor/pointy/pkg/models"
+	"github.com/fivetentaylor/pointy/pkg/storage/dynamo"
 )
 
 type AttachmentValue interface {

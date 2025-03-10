@@ -3,9 +3,9 @@ package jobs
 import (
 	"context"
 
-	"github.com/teamreviso/code/pkg/background/wire"
-	"github.com/teamreviso/code/pkg/env"
-	"github.com/teamreviso/code/pkg/rogue"
+	"github.com/fivetentaylor/pointy/pkg/background/wire"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/rogue"
 )
 
 func ScreenshotAllJob(ctx context.Context, args *wire.ScreenshotAll) error {

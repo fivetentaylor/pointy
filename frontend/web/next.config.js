@@ -1,39 +1,39 @@
 module.exports = {
   experimental: {
     instrumentationHook: true,
-    swcPlugins: [
-      [
-        "@preact-signals/safe-react/swc",
-        {
-          // you should use `auto` mode to track only components which uses `.value` access.
-          // Can be useful to avoid tracking of server side components
-          mode: "auto",
-        } /* plugin options here */,
-      ],
-    ],
+    // swcPlugins: [
+    //   [
+    //     "@preact-signals/safe-react/swc",
+    //     {
+    // you should use `auto` mode to track only components which uses `.value` access.
+    // Can be useful to avoid tracking of server side components
+    //       mode: "auto",
+    //     } /* plugin options here */,
+    //   ],
+    //  ],
   },
   reactStrictMode: false,
   output: "standalone",
   redirects: async () => {
     return [
       {
-        source: '/documents',
+        source: "/documents",
         destination: `${process.env.NEXT_PUBLIC_APP_HOST}/drafts`,
         permanent: true,
         basePath: false,
       },
       {
-        source: '/documents/:id',
+        source: "/documents/:id",
         destination: `${process.env.NEXT_PUBLIC_APP_HOST}/drafts/:id`,
         permanent: true,
       },
       {
-        source: '/read/:id',
+        source: "/read/:id",
         destination: `${process.env.NEXT_PUBLIC_API_HOST}/read/:id`,
         permanent: true,
       },
-    ]
-  }
+    ];
+  },
 };
 
 // Injected content via Sentry wizard below
@@ -75,5 +75,5 @@ module.exports = withSentryConfig(
     // https://docs.sentry.io/product/crons/
     // https://vercel.com/docs/cron-jobs
     automaticVercelMonitors: true,
-  }
+  },
 );

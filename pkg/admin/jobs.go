@@ -5,9 +5,9 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
-	"github.com/teamreviso/code/pkg/admin/templates"
-	"github.com/teamreviso/code/pkg/background/wire"
-	"github.com/teamreviso/code/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/admin/templates"
+	"github.com/fivetentaylor/pointy/pkg/background/wire"
+	"github.com/fivetentaylor/pointy/pkg/env"
 )
 
 func GetJobs(w http.ResponseWriter, r *http.Request) {

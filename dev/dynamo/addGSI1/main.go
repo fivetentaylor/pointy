@@ -6,7 +6,7 @@ import (
 	"github.com/charmbracelet/log"
 	"github.com/joho/godotenv"
 
-	"github.com/teamreviso/code/pkg/storage/dynamo"
+	"github.com/fivetentaylor/pointy/pkg/storage/dynamo"
 )
 
 func main() {

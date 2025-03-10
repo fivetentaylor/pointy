@@ -11,9 +11,9 @@ import templruntime "github.com/a-h/templ/runtime"
 import (
 	"encoding/base64"
 	"fmt"
-	"github.com/teamreviso/code/pkg/dag"
-	"github.com/teamreviso/code/pkg/storage/dynamo"
-	v3 "github.com/teamreviso/code/rogue/v3"
+	"github.com/fivetentaylor/pointy/pkg/dag"
+	"github.com/fivetentaylor/pointy/pkg/storage/dynamo"
+	v3 "github.com/fivetentaylor/pointy/rogue/v3"
 	"strings"
 	"time"
 )

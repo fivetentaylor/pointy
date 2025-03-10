@@ -11,12 +11,12 @@ import (
 	"github.com/joho/godotenv"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/teamreviso/code/pkg/constants"
-	"github.com/teamreviso/code/pkg/env"
-	"github.com/teamreviso/code/pkg/rogue"
-	"github.com/teamreviso/code/pkg/storage/s3"
-	"github.com/teamreviso/code/pkg/testutils"
-	v3 "github.com/teamreviso/code/rogue/v3"
+	"github.com/fivetentaylor/pointy/pkg/constants"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/rogue"
+	"github.com/fivetentaylor/pointy/pkg/storage/s3"
+	"github.com/fivetentaylor/pointy/pkg/testutils"
+	v3 "github.com/fivetentaylor/pointy/rogue/v3"
 )
 
 func TestMain(m *testing.M) {

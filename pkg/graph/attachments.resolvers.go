@@ -8,10 +8,10 @@ import (
 	"context"
 
 	"github.com/99designs/gqlgen/graphql"
-	"github.com/teamreviso/code/pkg/env"
-	"github.com/teamreviso/code/pkg/graph/model"
-	"github.com/teamreviso/code/pkg/models"
-	"github.com/teamreviso/code/pkg/service/attachments"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/graph/model"
+	"github.com/fivetentaylor/pointy/pkg/models"
+	"github.com/fivetentaylor/pointy/pkg/service/attachments"
 )
 
 // UploadAttachment is the resolver for the uploadAttachment field.

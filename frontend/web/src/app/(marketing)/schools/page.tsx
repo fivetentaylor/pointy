@@ -7,7 +7,6 @@ import {
   LightbulbIcon,
 } from "lucide-react";
 import { MarketingNav } from "@/components/marketing/MarketingNav";
-import { CTASection } from "@/components/marketing/CTASection";
 import { UseCasesSection } from "@/components/marketing/UseCasesSection";
 import { HowItWorksSection } from "@/components/marketing/HowItWorksSection";
 import { HeroSection } from "@/components/marketing/HeroSection";

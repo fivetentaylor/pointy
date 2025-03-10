@@ -3,8 +3,8 @@ package messaging
 import (
 	"context"
 
-	"github.com/teamreviso/code/pkg/env"
-	"github.com/teamreviso/code/pkg/storage/dynamo"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/storage/dynamo"
 )
 
 func UpdateMessage(ctx context.Context, message *dynamo.Message) error {

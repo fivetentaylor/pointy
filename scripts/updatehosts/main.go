@@ -18,6 +18,10 @@ var updatedBlockContent = `
 127.0.0.1 reviso.dev
 127.0.0.1 app.reviso.dev
 127.0.0.1 www.reviso.dev
+
+127.0.0.1 dev.pointy.ai
+127.0.0.1 app.dev.pointy.ai
+127.0.0.1 www.dev.pointy.ai
 `
 
 func main() {
@@ -87,7 +91,7 @@ func main() {
 		return
 	}
 
-	if err := os.Chmod(hostsPath, 0644); err != nil {
+	if err := os.Chmod(hostsPath, 0o644); err != nil {
 		fmt.Printf("Failed to set permissions on the /etc/hosts file: %v\n", err)
 		return
 	}

@@ -7,7 +7,7 @@ import (
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/teamreviso/code/pkg/models"
+	"github.com/fivetentaylor/pointy/pkg/models"
 )
 
 func TestThreadCreate(t *testing.T) {

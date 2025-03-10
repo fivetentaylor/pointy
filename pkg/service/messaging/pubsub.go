@@ -6,10 +6,10 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/teamreviso/code/pkg/constants"
-	"github.com/teamreviso/code/pkg/env"
-	"github.com/teamreviso/code/pkg/storage/dynamo"
-	"github.com/teamreviso/code/pkg/utils"
+	"github.com/fivetentaylor/pointy/pkg/constants"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/storage/dynamo"
+	"github.com/fivetentaylor/pointy/pkg/utils"
 )
 
 func ListenForMessages(ctx context.Context, ch chan *dynamo.Message, docID, channelID string) {

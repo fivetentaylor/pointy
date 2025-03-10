@@ -11,8 +11,8 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/suite"
-	"github.com/teamreviso/code/pkg/graph"
-	"github.com/teamreviso/code/pkg/testutils"
+	"github.com/fivetentaylor/pointy/pkg/graph"
+	"github.com/fivetentaylor/pointy/pkg/testutils"
 )
 
 type MessagingTestSuite struct {

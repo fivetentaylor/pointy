@@ -11,10 +11,10 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/sergi/go-diff/diffmatchpatch"
-	"github.com/teamreviso/code/pkg/env"
-	"github.com/teamreviso/code/pkg/service/rogue"
-	"github.com/teamreviso/code/pkg/storage/dynamo"
-	v3 "github.com/teamreviso/code/rogue/v3"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/service/rogue"
+	"github.com/fivetentaylor/pointy/pkg/storage/dynamo"
+	v3 "github.com/fivetentaylor/pointy/rogue/v3"
 )
 
 type FunctionalCheckFileResult struct {

@@ -7,8 +7,8 @@ import (
 
 	"github.com/charmbracelet/log"
 	"github.com/golang-jwt/jwt"
-	"github.com/teamreviso/code/pkg/constants"
-	"github.com/teamreviso/code/pkg/models"
+	"github.com/fivetentaylor/pointy/pkg/constants"
+	"github.com/fivetentaylor/pointy/pkg/models"
 )
 
 var UserTokenExpiresIn = time.Hour * 24 * 14 // 14 days

@@ -1,7 +1,6 @@
 import { HeroSection } from "@/components/marketing/HeroSection";
 import { HowItWorksSection } from "@/components/marketing/HowItWorksSection";
 import { UseCasesSection } from "@/components/marketing/UseCasesSection";
-import { CTASection } from "@/components/marketing/CTASection";
 import {
   PencilIcon,
   BookOpenIcon,

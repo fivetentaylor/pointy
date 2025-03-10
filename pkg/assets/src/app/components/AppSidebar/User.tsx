@@ -6,7 +6,6 @@ import {
   LogOut,
   Settings2Icon,
   ReceiptTextIcon,
-  ArrowRightIcon,
 } from "lucide-react";
 import { cn, getInitials } from "@/lib/utils";
 
@@ -44,7 +43,6 @@ import { Spinner } from "../ui/spinner";
 import { TipBox } from "../ui/TipBox";
 import posthog from "posthog-js";
 import { useSignals } from "@preact/signals-react/runtime";
-import { WEB_HOST } from "@/lib/urls";
 
 type UserProps = {
   me: User | null;
@@ -110,7 +108,7 @@ const UserComponent = ({
         />
       </Dialog>
 
-      {!posthog.isFeatureEnabled("stripe") && (
+      {posthog.isFeatureEnabled("stripe") && (
         <TipBox className="w-[calc(100%-1.5rem)] py-1 group-data-[collapsible=icon]:hidden pl-8 truncate">
           {me.subscriptionStatus === "active" && (
             <>
@@ -134,18 +132,6 @@ const UserComponent = ({
           )}
         </TipBox>
       )}
-
-      <div className="flex justify-center mb-3 group-data-[collapsible=icon]:hidden ml-[-0.5rem] truncate">
-        <a
-          href={`${WEB_HOST}/winding-down`}
-          target="_blank"
-          rel="noreferrer"
-          className="group inline-flex items-center px-3 py-2 bg-foreground text-background rounded-full hover:bg-foreground/90 transition-colors"
-        >
-          <span className="text-sm font-normal">Reviso is winding down</span>
-          <ArrowRightIcon className="w-4 h-4 shrink-0 transition-transform group-hover:translate-x-0.5" />
-        </a>
-      </div>
 
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger

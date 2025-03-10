@@ -4,10 +4,10 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
-	"github.com/teamreviso/code/pkg/admin/templates"
-	"github.com/teamreviso/code/pkg/env"
-	"github.com/teamreviso/code/pkg/models"
-	"github.com/teamreviso/code/pkg/storage/dynamo"
+	"github.com/fivetentaylor/pointy/pkg/admin/templates"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/models"
+	"github.com/fivetentaylor/pointy/pkg/storage/dynamo"
 )
 
 func GetThreads(w http.ResponseWriter, r *http.Request) {

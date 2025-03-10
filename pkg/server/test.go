@@ -8,13 +8,13 @@ import (
 	"time"
 
 	"github.com/go-chi/chi/v5"
-	"github.com/teamreviso/code/pkg/constants"
-	"github.com/teamreviso/code/pkg/env"
-	"github.com/teamreviso/code/pkg/models"
-	"github.com/teamreviso/code/pkg/query"
-	"github.com/teamreviso/code/pkg/rogue"
-	"github.com/teamreviso/code/pkg/server/auth"
-	"github.com/teamreviso/code/pkg/service/document"
+	"github.com/fivetentaylor/pointy/pkg/constants"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/models"
+	"github.com/fivetentaylor/pointy/pkg/query"
+	"github.com/fivetentaylor/pointy/pkg/rogue"
+	"github.com/fivetentaylor/pointy/pkg/server/auth"
+	"github.com/fivetentaylor/pointy/pkg/service/document"
 )
 
 type CreateTestDocumentRequest struct {

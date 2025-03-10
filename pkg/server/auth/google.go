@@ -10,10 +10,10 @@ import (
 	"time"
 
 	"github.com/charmbracelet/log"
-	"github.com/teamreviso/code/pkg/config"
-	"github.com/teamreviso/code/pkg/constants"
-	"github.com/teamreviso/code/pkg/env"
-	"github.com/teamreviso/code/pkg/views/auth"
+	"github.com/fivetentaylor/pointy/pkg/config"
+	"github.com/fivetentaylor/pointy/pkg/constants"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/views/auth"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
 )

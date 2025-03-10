@@ -6,11 +6,11 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/teamreviso/code/pkg/background/wire"
-	"github.com/teamreviso/code/pkg/constants"
-	"github.com/teamreviso/code/pkg/env"
-	"github.com/teamreviso/code/pkg/models"
-	"github.com/teamreviso/code/pkg/storage/dynamo"
+	"github.com/fivetentaylor/pointy/pkg/background/wire"
+	"github.com/fivetentaylor/pointy/pkg/constants"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/models"
+	"github.com/fivetentaylor/pointy/pkg/storage/dynamo"
 )
 
 func CreateMessage(

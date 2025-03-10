@@ -7,7 +7,7 @@ import (
 	"strings"
 
 	"github.com/charmbracelet/log"
-	"github.com/teamreviso/code/pkg/stackerr"
+	"github.com/fivetentaylor/pointy/pkg/stackerr"
 )
 
 var ErrUnknownRequiredID = errors.New("unknown ID for required ID field")

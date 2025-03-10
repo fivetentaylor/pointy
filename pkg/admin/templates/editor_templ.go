@@ -8,7 +8,7 @@ package templates
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
-import v3 "github.com/teamreviso/code/rogue/v3"
+import v3 "github.com/fivetentaylor/pointy/rogue/v3"
 
 func Editor(id string, doc *v3.Rogue) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {

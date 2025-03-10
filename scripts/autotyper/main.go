@@ -14,11 +14,11 @@ import (
 	"github.com/gorilla/websocket"
 	"github.com/joho/godotenv"
 	"github.com/sashabaranov/go-openai"
-	"github.com/teamreviso/code/pkg/constants"
-	"github.com/teamreviso/code/pkg/env"
-	"github.com/teamreviso/code/pkg/server/auth"
-	"github.com/teamreviso/code/pkg/testutils"
-	v3 "github.com/teamreviso/code/rogue/v3"
+	"github.com/fivetentaylor/pointy/pkg/constants"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/server/auth"
+	"github.com/fivetentaylor/pointy/pkg/testutils"
+	v3 "github.com/fivetentaylor/pointy/rogue/v3"
 )
 
 const editInterval = 2 * time.Second

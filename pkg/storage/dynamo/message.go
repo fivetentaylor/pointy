@@ -13,9 +13,9 @@ import (
 	"github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
 	"github.com/charmbracelet/log"
 	"github.com/google/uuid"
-	"github.com/teamreviso/code/pkg/models"
-	"github.com/teamreviso/code/pkg/stackerr"
-	"github.com/teamreviso/code/pkg/utils"
+	"github.com/fivetentaylor/pointy/pkg/models"
+	"github.com/fivetentaylor/pointy/pkg/stackerr"
+	"github.com/fivetentaylor/pointy/pkg/utils"
 	"google.golang.org/protobuf/encoding/protojson"
 )
 

@@ -10,11 +10,11 @@ import (
 	"github.com/charmbracelet/log"
 	"github.com/redis/go-redis/v9"
 
-	"github.com/teamreviso/code/pkg/constants"
-	"github.com/teamreviso/code/pkg/env"
-	"github.com/teamreviso/code/pkg/models"
-	"github.com/teamreviso/code/pkg/query"
-	v3 "github.com/teamreviso/code/rogue/v3"
+	"github.com/fivetentaylor/pointy/pkg/constants"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/models"
+	"github.com/fivetentaylor/pointy/pkg/query"
+	v3 "github.com/fivetentaylor/pointy/rogue/v3"
 )
 
 const PresenceCheckInterval = 5 * time.Second

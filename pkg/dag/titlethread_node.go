@@ -6,9 +6,9 @@ import (
 	"strings"
 
 	"github.com/sashabaranov/go-openai"
-	"github.com/teamreviso/code/pkg/constants"
-	"github.com/teamreviso/code/pkg/env"
-	"github.com/teamreviso/code/pkg/service/messaging"
+	"github.com/fivetentaylor/pointy/pkg/constants"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/service/messaging"
 )
 
 // Inputs:

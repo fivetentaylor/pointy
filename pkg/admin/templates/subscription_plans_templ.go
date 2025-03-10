@@ -10,7 +10,7 @@ import templruntime "github.com/a-h/templ/runtime"
 
 import (
 	"fmt"
-	"github.com/teamreviso/code/pkg/models"
+	"github.com/fivetentaylor/pointy/pkg/models"
 	"time"
 )
 

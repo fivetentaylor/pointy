@@ -10,9 +10,9 @@ import (
 
 	"github.com/gorilla/websocket"
 	"github.com/stretchr/testify/require"
-	"github.com/teamreviso/code/pkg/env"
-	"github.com/teamreviso/code/pkg/models"
-	"github.com/teamreviso/code/pkg/rogue"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/models"
+	"github.com/fivetentaylor/pointy/pkg/rogue"
 )
 
 func CreateTestRogueSessionServer(t *testing.T, ctx context.Context, user *models.User, docID string) (*httptest.Server, *websocket.Conn, chan string, chan error, func()) {

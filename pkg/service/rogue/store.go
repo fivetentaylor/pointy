@@ -6,8 +6,8 @@ import (
 	"fmt"
 
 	"github.com/charmbracelet/log"
-	"github.com/teamreviso/code/pkg/env"
-	v3 "github.com/teamreviso/code/rogue/v3"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	v3 "github.com/fivetentaylor/pointy/rogue/v3"
 )
 
 // SaveDocToS3 saves the doc to S3, it shouldn't normally be called directly. But is used directly in tests.

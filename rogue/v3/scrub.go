@@ -3,8 +3,8 @@ package v3
 import (
 	"errors"
 
-	"github.com/teamreviso/code/pkg/stackerr"
-	avl "github.com/teamreviso/code/rogue/v3/tree"
+	"github.com/fivetentaylor/pointy/pkg/stackerr"
+	avl "github.com/fivetentaylor/pointy/rogue/v3/tree"
 )
 
 type ScrubState struct {

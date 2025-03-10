@@ -3,8 +3,8 @@ package rogue
 import (
 	"context"
 
-	"github.com/teamreviso/code/pkg/env"
-	v3 "github.com/teamreviso/code/rogue/v3"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	v3 "github.com/fivetentaylor/pointy/rogue/v3"
 )
 
 func HTMLSelection(ctx context.Context, docId, start, end string) (string, error) {

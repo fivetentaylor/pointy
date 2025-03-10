@@ -9,7 +9,7 @@ import (
 	"runtime/debug"
 	"syscall/js"
 
-	v3 "github.com/teamreviso/code/rogue/v3"
+	v3 "github.com/fivetentaylor/pointy/rogue/v3"
 )
 
 // This will be set by -ldflags

@@ -83,6 +83,23 @@ jobs:
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f cmd/reviso/Dockerfile --build-arg NODE_ENV=$NODE_ENV --build-arg WEB_HOST=$WEB_HOST --build-arg APP_HOST=$APP_HOST --build-arg WS_HOST=$WS_HOST --build-arg SEGMENT_KEY=$SEGMENT_KEY --build-arg PUBLIC_POSTHOG_HOST=$PUBLIC_POSTHOG_HOST --build-arg PUBLIC_POSTHOG_KEY=$PUBLIC_POSTHOG_KEY --build-arg POSTHOG_SERVER_FEATURE_FLAG_KEY=$POSTHOG_SERVER_FEATURE_FLAG_KEY --build-arg IMAGE_TAG=$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
+      - name: Build, tag, and push Pointy image to Amazon ECR
+        env:
+          NODE_ENV: production
+          WEB_HOST: https://www.test.pointy.ai
+          APP_HOST: https://app.test.pointy.ai
+          WS_HOST: wss://app.test.pointy.ai
+          SEGMENT_KEY: uxdIGs32QrtmzfdF7CipbU4EuTchimHf
+          POSTHOG_SERVER_FEATURE_FLAG_KEY: ${{ secrets.POSTHOG_SERVER_FEATURE_FLAG_KEY }}
+          PUBLIC_POSTHOG_KEY: phc_FOk7Jw5lm9yJ3XNnr1HdPzCmkjYc8t3ECJzzQPxaew3
+          PUBLIC_POSTHOG_HOST: https://us.posthog.com
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: pointy-server
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f cmd/reviso/Dockerfile --build-arg NODE_ENV=$NODE_ENV --build-arg WEB_HOST=$WEB_HOST --build-arg APP_HOST=$APP_HOST --build-arg WS_HOST=$WS_HOST --build-arg SEGMENT_KEY=$SEGMENT_KEY --build-arg PUBLIC_POSTHOG_HOST=$PUBLIC_POSTHOG_HOST --build-arg PUBLIC_POSTHOG_KEY=$PUBLIC_POSTHOG_KEY --build-arg POSTHOG_SERVER_FEATURE_FLAG_KEY=$POSTHOG_SERVER_FEATURE_FLAG_KEY --build-arg IMAGE_TAG=$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
   build_web:
     name: "Staging Build Web"
     if: github.event_name == 'push'
@@ -116,6 +133,28 @@ jobs:
           NEXT_PUBLIC_SEGMENT_WRITE_KEY: Q5FeQZoWqZn884r40LWa52uOnm3AAdZP
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: reviso-web
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker buildx build --platform linux/x86_64 -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f frontend/web/Dockerfile \
+              --build-arg NEXT_PUBLIC_GOOGLE_CLIENT_ID=$NEXT_PUBLIC_GOOGLE_CLIENT_ID \
+              --build-arg NEXT_PUBLIC_APP_HOST=$NEXT_PUBLIC_APP_HOST  \
+              --build-arg NEXT_PUBLIC_WS_HOST=$NEXT_PUBLIC_WS_HOST \
+              --build-arg NEXT_PUBLIC_POSTHOG_HOST=$NEXT_PUBLIC_POSTHOG_HOST \
+              --build-arg NEXT_PUBLIC_POSTHOG_KEY=$NEXT_PUBLIC_POSTHOG_KEY \
+              --build-arg NEXT_PUBLIC_SEGMENT_WRITE_KEY=$NEXT_PUBLIC_SEGMENT_WRITE_KEY \
+             frontend/web
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+      - name: Build, tag, and push Pointy Web image to Amazon ECR
+        env:
+          NEXT_PUBLIC_GOOGLE_CLIENT_ID: 949864899692-hsueet6p4u1jtlb8lqb9mbk88ncb4p29.apps.googleusercontent.com
+          NEXT_PUBLIC_APP_HOST: https://app.test.pointy.ai
+          NEXT_PUBLIC_WS_HOST: wss://app.test.pointy.ai
+          NEXT_PUBLIC_POSTHOG_HOST: https://us.posthog.com
+          NEXT_PUBLIC_POSTHOG_KEY: phc_VNNLf6qkNVKgznDBxtofVhvGBumCsEE8S4UZLC5FPHb
+          NEXT_PUBLIC_SEGMENT_WRITE_KEY: Q5FeQZoWqZn884r40LWa52uOnm3AAdZP
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: pointy-web
           IMAGE_TAG: ${{ github.sha }}
         run: |
           docker buildx build --platform linux/x86_64 -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f frontend/web/Dockerfile \
@@ -181,13 +220,20 @@ jobs:
         run: terraform plan -no-color
         continue-on-error: true
 
+      - name: Save Terraform Plan
+        run: |
+          cat << 'EOT' >> $GITHUB_WORKSPACE/plan.txt
+          ${{ steps.plan.outputs.stdout }}
+          EOT
+
       - name: Terraform Comment
         uses: actions/github-script@v6
-        env:
-          PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
+            const fs = require('fs');
+            const plan = fs.readFileSync('${{ github.workspace }}/plan.txt', 'utf8');
+
             const output = `## Staging Plan
             #### SHA: \`${{ env.TF_VAR_web_sha }}\`
             #### PR: \`${{ env.TF_VAR_pr_number }}\`
@@ -199,7 +245,7 @@ jobs:
             <details><summary>Show Plan</summary>
 
             \`\`\`\n
-            ${process.env.PLAN}
+            ${plan}
             \`\`\`
 
             </details>
@@ -242,7 +288,7 @@ jobs:
       - id: slack
         uses: slackapi/slack-github-action@v1.25.0
         with:
-          channel-id: "C0609EV8YS3"
+          channel-id: "C08HE8JHYL8"
           payload: |
             {
               "text": "Staging Deployment started (In Progress)",
@@ -296,7 +342,7 @@ jobs:
 
       - uses: slackapi/slack-github-action@v1.25.0
         with:
-          channel-id: "C0609EV8YS3"
+          channel-id: "C08HE8JHYL8"
           update-ts: ${{ steps.slack.outputs.ts }}
           payload: |
             {

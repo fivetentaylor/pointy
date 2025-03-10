@@ -3,5 +3,5 @@ output "app_host" {
 }
 
 output "ecs_deployment_task_definition" {
-  value = aws_ecs_service.reviso-server.task_definition
+  value = aws_ecs_service.server.task_definition
 }

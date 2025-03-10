@@ -3,7 +3,7 @@ package query
 import (
 	"fmt"
 
-	"github.com/teamreviso/code/pkg/constants"
+	"github.com/fivetentaylor/pointy/pkg/constants"
 )
 
 func AccessLevelForDocument(q *Query, docId, userID string) (string, error) {

@@ -12,7 +12,7 @@ import (
 	"context"
 	"encoding/base64"
 	"fmt"
-	"github.com/teamreviso/code/pkg/models"
+	"github.com/fivetentaylor/pointy/pkg/models"
 	"html"
 	"io"
 	"strings"

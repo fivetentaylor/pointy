@@ -35,7 +35,6 @@ export function HeroSection({ video, title, description }: HeroSectionProps) {
       <p className="text-[clamp(1rem,calc(1rem+((1vw-0.2rem)*0.893)),1.375rem)] leading-[1.3] font-light text-foreground max-w-2xl mx-auto whitespace-pre-line">
         {description}
       </p>
-
       <div className="aspect-video bg-muted rounded-lg lg:mx-[-5%] xl:mx-[-10rem]">
         <div className="w-full h-full flex items-center justify-center text-muted-foreground">
           <video src={video} autoPlay loop muted playsInline />

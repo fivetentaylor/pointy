@@ -8,8 +8,8 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/teamreviso/code/pkg/env"
-	"github.com/teamreviso/code/pkg/service/prompts"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/service/prompts"
 )
 
 var promptsRunner = &OnceRunner{

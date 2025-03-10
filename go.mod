@@ -1,4 +1,4 @@
-module github.com/teamreviso/code
+module github.com/fivetentaylor/pointy
 
 go 1.23.1
 

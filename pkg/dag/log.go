@@ -9,8 +9,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/teamreviso/code/pkg/constants"
-	"github.com/teamreviso/code/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/constants"
+	"github.com/fivetentaylor/pointy/pkg/env"
 )
 
 type LogNode struct {

@@ -9,10 +9,10 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/teamreviso/code/pkg/dag"
-	"github.com/teamreviso/code/pkg/testutils"
-	v3 "github.com/teamreviso/code/rogue/v3"
-	"github.com/teamreviso/code/rogue/v3/testcases"
+	"github.com/fivetentaylor/pointy/pkg/dag"
+	"github.com/fivetentaylor/pointy/pkg/testutils"
+	v3 "github.com/fivetentaylor/pointy/rogue/v3"
+	"github.com/fivetentaylor/pointy/rogue/v3/testcases"
 )
 
 const essay = `Lifelong learning is essential in today’s rapidly changing world, where new technologies and evolving industries constantly reshape the job market. Engaging in continuous education allows individuals to stay relevant and competitive, ensuring they possess the necessary skills to adapt to new challenges. Moreover, lifelong learning fosters personal growth and intellectual fulfillment, contributing to a more satisfying and meaningful life.

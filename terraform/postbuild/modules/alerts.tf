@@ -1,5 +1,5 @@
 resource "aws_sns_topic" "ecs_alerts" {
-  name = "${var.preview_prefix}ecs-cpu-alerts"
+  name = "${var.preview_prefix}-${var.name}-ecs-cpu-alerts"
 }
 
 data "archive_file" "lambda" {
@@ -9,7 +9,7 @@ data "archive_file" "lambda" {
 }
 
 resource "aws_lambda_function" "ecs_alerts" {
-  function_name = "${var.preview_prefix}ECSCPUAlerts"
+  function_name = "${var.preview_prefix}-${var.name}-ECSCPUAlerts"
   filename      = data.archive_file.lambda.output_path
   handler       = "alert_function.lambda_handler" # File name and function name
   runtime       = "python3.8"
@@ -26,7 +26,7 @@ resource "aws_lambda_function" "ecs_alerts" {
 
 # IAM role for Lambda function
 resource "aws_iam_role" "lambda_exec" {
-  name = "${var.preview_prefix}lambda_execution_role"
+  name = "${var.preview_prefix}-${var.name}-lambda_execution_role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -44,7 +44,7 @@ resource "aws_iam_role" "lambda_exec" {
 
 # IAM policy to allow publishing to SNS
 resource "aws_iam_policy" "lambda_sns_policy" {
-  name        = "${var.preview_prefix}lambda_sns_policy"
+  name        = "${var.preview_prefix}-${var.name}-lambda_sns_policy"
   path        = "/"
   description = "IAM policy for publishing SNS messages"
 
@@ -84,7 +84,7 @@ resource "aws_lambda_permission" "allow_sns_to_call_lambda" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "high_cpu_utilization" {
-  alarm_name                = "${var.preview_prefix}high-cpu-utilization"
+  alarm_name                = "${var.preview_prefix}-${var.name}-high-cpu-utilization"
   comparison_operator       = "GreaterThanOrEqualToThreshold"
   evaluation_periods        = "2"
   metric_name               = "CPUUtilization"
@@ -96,15 +96,15 @@ resource "aws_cloudwatch_metric_alarm" "high_cpu_utilization" {
   insufficient_data_actions = []
 
   dimensions = {
-    ClusterName = aws_ecs_cluster.reviso.name
-    ServiceName = aws_ecs_service.reviso-server.name
+    ClusterName = aws_ecs_cluster.default.name
+    ServiceName = aws_ecs_service.server.name
   }
 
   alarm_actions = [aws_sns_topic.ecs_alerts.arn]
 }
 
 resource "aws_cloudwatch_metric_alarm" "low_cpu_utilization" {
-  alarm_name                = "${var.preview_prefix}low-cpu-utilization"
+  alarm_name                = "${var.preview_prefix}-${var.name}-low-cpu-utilization"
   comparison_operator       = "LessThanOrEqualToThreshold"
   evaluation_periods        = "2"
   metric_name               = "CPUUtilization"
@@ -116,15 +116,15 @@ resource "aws_cloudwatch_metric_alarm" "low_cpu_utilization" {
   insufficient_data_actions = []
 
   dimensions = {
-    ClusterName = aws_ecs_cluster.reviso.name
-    ServiceName = aws_ecs_service.reviso-server.name
+    ClusterName = aws_ecs_cluster.default.name
+    ServiceName = aws_ecs_service.server.name
   }
 
   alarm_actions = [aws_sns_topic.ecs_alerts.arn]
 }
 
 resource "aws_cloudwatch_metric_alarm" "health_check_failures" {
-  alarm_name                = "${var.preview_prefix}health-check-failures"
+  alarm_name                = "${var.preview_prefix}-${var.name}-health-check-failures"
   comparison_operator       = "GreaterThanOrEqualToThreshold"
   evaluation_periods        = "1"
   metric_name               = "HealthCheckFailed"
@@ -136,8 +136,8 @@ resource "aws_cloudwatch_metric_alarm" "health_check_failures" {
   insufficient_data_actions = []
 
   dimensions = {
-    ClusterName = aws_ecs_cluster.reviso.name
-    ServiceName = aws_ecs_service.reviso-server.name
+    ClusterName = aws_ecs_cluster.default.name
+    ServiceName = aws_ecs_service.server.name
   }
 
   alarm_actions = [aws_sns_topic.ecs_alerts.arn]

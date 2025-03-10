@@ -9,8 +9,8 @@ import (
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/google/uuid"
 
-	"github.com/teamreviso/code/pkg/service/attachments"
-	"github.com/teamreviso/code/pkg/testutils"
+	"github.com/fivetentaylor/pointy/pkg/service/attachments"
+	"github.com/fivetentaylor/pointy/pkg/testutils"
 )
 
 func Test_ExtractedText(t *testing.T) {

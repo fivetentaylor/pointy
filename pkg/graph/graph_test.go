@@ -17,11 +17,11 @@ import (
 
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/stretchr/testify/suite"
-	"github.com/teamreviso/code/pkg/config"
-	"github.com/teamreviso/code/pkg/graph"
-	"github.com/teamreviso/code/pkg/server"
-	"github.com/teamreviso/code/pkg/server/auth"
-	"github.com/teamreviso/code/pkg/testutils"
+	"github.com/fivetentaylor/pointy/pkg/config"
+	"github.com/fivetentaylor/pointy/pkg/graph"
+	"github.com/fivetentaylor/pointy/pkg/server"
+	"github.com/fivetentaylor/pointy/pkg/server/auth"
+	"github.com/fivetentaylor/pointy/pkg/testutils"
 )
 
 type GraphTestSuite struct {

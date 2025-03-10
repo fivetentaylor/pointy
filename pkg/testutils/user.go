@@ -6,9 +6,9 @@ import (
 	"testing"
 
 	"github.com/google/uuid"
-	"github.com/teamreviso/code/pkg/env"
-	"github.com/teamreviso/code/pkg/models"
-	"github.com/teamreviso/code/pkg/utils"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/models"
+	"github.com/fivetentaylor/pointy/pkg/utils"
 )
 
 func CreateUser(t *testing.T, ctx context.Context, options ...func(*models.User)) *models.User {

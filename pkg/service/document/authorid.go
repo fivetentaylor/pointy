@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/teamreviso/code/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/env"
 )
 
 const newAuthorIDSQL = `

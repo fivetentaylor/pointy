@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	heap "github.com/teamreviso/code/rogue/v3/heap"
+	heap "github.com/fivetentaylor/pointy/rogue/v3/heap"
 )
 
 type Node[K any, T any] struct {

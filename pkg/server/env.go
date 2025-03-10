@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi/v5/middleware"
-	"github.com/teamreviso/code/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/env"
 )
 
 func (s *Server) EnvMiddleware(next http.Handler) http.Handler {

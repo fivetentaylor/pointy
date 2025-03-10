@@ -7,8 +7,8 @@ import (
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/teamreviso/code/pkg/service/document"
-	"github.com/teamreviso/code/pkg/testutils"
+	"github.com/fivetentaylor/pointy/pkg/service/document"
+	"github.com/fivetentaylor/pointy/pkg/testutils"
 )
 
 func TestNewAuthorID(t *testing.T) {

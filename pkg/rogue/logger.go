@@ -10,8 +10,8 @@ import (
 	"time"
 
 	"github.com/charmbracelet/log"
-	"github.com/teamreviso/code/pkg/constants"
-	"github.com/teamreviso/code/pkg/storage/s3"
+	"github.com/fivetentaylor/pointy/pkg/constants"
+	"github.com/fivetentaylor/pointy/pkg/storage/s3"
 )
 
 type Logger struct {

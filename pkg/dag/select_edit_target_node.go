@@ -11,13 +11,13 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/teamreviso/code/pkg/env"
-	"github.com/teamreviso/code/pkg/models"
-	"github.com/teamreviso/code/pkg/service/messaging"
-	"github.com/teamreviso/code/pkg/stackerr"
-	"github.com/teamreviso/code/pkg/storage/dynamo"
-	"github.com/teamreviso/code/pkg/utils"
-	v3 "github.com/teamreviso/code/rogue/v3"
+	"github.com/fivetentaylor/pointy/pkg/env"
+	"github.com/fivetentaylor/pointy/pkg/models"
+	"github.com/fivetentaylor/pointy/pkg/service/messaging"
+	"github.com/fivetentaylor/pointy/pkg/stackerr"
+	"github.com/fivetentaylor/pointy/pkg/storage/dynamo"
+	"github.com/fivetentaylor/pointy/pkg/utils"
+	v3 "github.com/fivetentaylor/pointy/rogue/v3"
 )
 
 var NoSelectionError = fmt.Errorf("no selection")
@@ -35,8 +35,8 @@ const SelectEditTargetDocument = `<document>
 const SelectEditTargetMessages = `<user_message>
 {{.Message.Content}}
 {{- range $val := .Message.Selections}}
-<selection id={{$val.Id}}>
-{{$val.Content}}
+<selection>
+{{$val}}
 </selection>
 {{- end}}
 </user_message>
@@ -238,7 +238,6 @@ func (n *SelectEditTargetNode) Data(ctx context.Context, doc *v3.Rogue, input *S
 }
 
 func (n *SelectEditTargetNode) EditTargets(ctx context.Context, doc *v3.Rogue, input *SelectEditTargetNodeInput, msg *dynamo.Message, llmResponse string) ([]EditTarget, error) {
-	log := env.SLog(ctx)
 	xml, err := utils.ParseIncompleteXML(llmResponse)
 	if err != nil {
 		return nil, fmt.Errorf("error parsing xml: %s", err)
@@ -294,8 +293,7 @@ func (n *SelectEditTargetNode) EditTargets(ctx context.Context, doc *v3.Rogue, i
 	for _, section := range relevantSections {
 		ts, err := n.findRelevantSection(doc, msg, section)
 		if err != nil {
-			log.Error("error finding relevant section", "error", err)
-			saveLogFile(ctx, "error_finding_relevant_section.txt", err.Error())
+			return nil, fmt.Errorf("error finding relevant section: %s", err)
 		}
 		targets = append(targets, ts...)
 	}

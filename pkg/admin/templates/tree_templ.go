@@ -9,7 +9,7 @@ import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
 import "strconv"
-import "github.com/teamreviso/code/rogue/v3"
+import "github.com/fivetentaylor/pointy/rogue/v3"
 
 func Tree(id string, root *v3.FugueNode) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {

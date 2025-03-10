@@ -5,8 +5,8 @@ import (
 	"fmt"
 
 	rbt "github.com/emirpasic/gods/trees/redblacktree"
-	aSet "github.com/teamreviso/code/rogue/v3/set"
-	avl "github.com/teamreviso/code/rogue/v3/tree"
+	aSet "github.com/fivetentaylor/pointy/rogue/v3/set"
+	avl "github.com/fivetentaylor/pointy/rogue/v3/tree"
 )
 
 type NOS struct {
