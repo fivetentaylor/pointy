@@ -27,6 +27,12 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
+  if (pathname === "/" && hostname?.includes("pointy.ai")) {
+    const url = request.nextUrl.clone();
+    url.pathname = "/pointy";
+    return NextResponse.redirect(url);
+  }
+
   if (matchesPath(pathname, pointyOnlyPaths)) {
     if (!hostname?.includes("pointy.ai")) {
       return new NextResponse("Not authorized", { status: 403 });

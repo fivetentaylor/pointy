@@ -65,10 +65,10 @@ templ WaitlistStyles() {
 templ WaitlistHTML(preheader, email string) {
 	@BaseEmail(preheader, WaitlistStyles()) {
 		<div class="magic-link-container">
-			<img class="logo" src={ appHostUrl(ctx, "/static/logo-w-white-bg.png") } alt="Reviso" style="width: 124px;"/>
+			<img class="logo" src={ appHostUrl(ctx, "/static/pointy.png") } alt="Pointy" style="width: 124px;"/>
 			<div class="magic-link-title" style="margin-top: 32px;">You're on the waitlist!</div>
 			<div class="magic-link-text" style="margin-top: 15px;">
-				We're thrilled to have you on the waitlist for writing with Reviso! You will receive another email when we’re ready to have you try Reviso.
+				We're thrilled to have you on the waitlist for writing with Pointy! You will receive another email when we’re ready to have you try Pointy.
 			</div>
 			<div class="magic-link-text" style="margin-top: 32px;">
 				Thank you for registering.
@@ -81,7 +81,7 @@ templ WaitlistHTML(preheader, email string) {
 }
 
 templ WaitlistText(email string) {
-	We're thrilled to have you on the waitlist for writing with Reviso! You will receive another email when we’re ready to haveyou try Reviso.
+	We're thrilled to have you on the waitlist for writing with Pointy! You will receive another email when we’re ready to haveyou try Pointy.
 	Thank you for registering.
 	This email was sent because you signed up for early access to revi.so. If you didn’t request this email, you can safely ignore it.
 }

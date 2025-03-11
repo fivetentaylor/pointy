@@ -71,15 +71,15 @@ func WaitlistHTML(preheader, email string) templ.Component {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var4 string
-			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(appHostUrl(ctx, "/static/logo-w-white-bg.png"))
+			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(appHostUrl(ctx, "/static/pointy.png"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `service/email/templates/waitlist.templ`, Line: 68, Col: 73}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `service/email/templates/waitlist.templ`, Line: 68, Col: 64}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" alt=\"Reviso\" style=\"width: 124px;\"><div class=\"magic-link-title\" style=\"margin-top: 32px;\">You're on the waitlist!</div><div class=\"magic-link-text\" style=\"margin-top: 15px;\">We're thrilled to have you on the waitlist for writing with Reviso! You will receive another email when we’re ready to have you try Reviso.</div><div class=\"magic-link-text\" style=\"margin-top: 32px;\">Thank you for registering.</div><div class=\"magic-link-text-muted\" style=\"margin-top: 23px;\">This email was sent because you signed up for early access to revi.so.If you didn’t request this email, you can safely ignore it.</div></div>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" alt=\"Pointy\" style=\"width: 124px;\"><div class=\"magic-link-title\" style=\"margin-top: 32px;\">You're on the waitlist!</div><div class=\"magic-link-text\" style=\"margin-top: 15px;\">We're thrilled to have you on the waitlist for writing with Pointy! You will receive another email when we’re ready to have you try Pointy.</div><div class=\"magic-link-text\" style=\"margin-top: 32px;\">Thank you for registering.</div><div class=\"magic-link-text-muted\" style=\"margin-top: 23px;\">This email was sent because you signed up for early access to revi.so.If you didn’t request this email, you can safely ignore it.</div></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -111,7 +111,7 @@ func WaitlistText(email string) templ.Component {
 			templ_7745c5c3_Var5 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("We're thrilled to have you on the waitlist for writing with Reviso! You will receive another email when we’re ready to haveyou try Reviso. Thank you for registering. This email was sent because you signed up for early access to revi.so. If you didn’t request this email, you can safely ignore it.")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("We're thrilled to have you on the waitlist for writing with Pointy! You will receive another email when we’re ready to haveyou try Pointy. Thank you for registering. This email was sent because you signed up for early access to revi.so. If you didn’t request this email, you can safely ignore it.")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

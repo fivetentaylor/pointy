@@ -87,15 +87,15 @@ func TimelineMessageHTML(preheader string, data *TimelineMessageData) templ.Comp
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var4 string
-			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(appHostUrl(ctx, "/static/logo-w-white-bg.png"))
+			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(appHostUrl(ctx, "/static/pointy.png"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `service/email/templates/timeline_message.templ`, Line: 159, Col: 72}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `service/email/templates/timeline_message.templ`, Line: 159, Col: 63}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" alt=\"Reviso\" style=\"width: 124px;\"><div class=\"msg-container\"><div class=\"header\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" alt=\"Pointy\" style=\"width: 124px;\"><div class=\"msg-container\"><div class=\"header\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

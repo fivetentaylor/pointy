@@ -69,15 +69,15 @@ func MagicLinkHTML(preheader, email, accessLink string) templ.Component {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var4 string
-			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(appHostUrl(ctx, "/static/logo-w-white-bg.png"))
+			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(appHostUrl(ctx, "/static/pointy.png"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `service/email/templates/magiclink.templ`, Line: 66, Col: 73}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `service/email/templates/magiclink.templ`, Line: 66, Col: 64}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" alt=\"Reviso\" style=\"width: 124px;\"><div class=\"magic-link-title\" style=\"margin-top: 32px;\">Let’s log you in</div><div class=\"magic-link-text\" style=\"margin-top: 15px;\">Click the button below to securely log in. This magic link will expire in 15 minutes.</div><a class=\"magic-link-button\" href=\"")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" alt=\"Pointy\" style=\"width: 124px;\"><div class=\"magic-link-title\" style=\"margin-top: 32px;\">Let’s log you in</div><div class=\"magic-link-text\" style=\"margin-top: 15px;\">Click the button below to securely log in. This magic link will expire in 15 minutes.</div><a class=\"magic-link-button\" href=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

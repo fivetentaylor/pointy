@@ -70,7 +70,7 @@ templ NotifStyles() {
 templ NotifHTML(preheader, otherUsersName, docName, msg, msgLink string) {
 	@BaseEmail(preheader, NotifStyles()) {
 		<div class="msg-container">
-			<img class="logo" src={ appHostUrl(ctx, "/static/logo-w-white-bg.png") } alt="Reviso" style="width: 124px;"/>
+			<img class="logo" src={ appHostUrl(ctx, "/static/pointy.png") } alt="Pointy" style="width: 124px;"/>
 			<div class="title" style="margin-top: 32px;">New Message</div>
 			<div class="text" style="margin-top: 15px;">
 				{ otherUsersName } has sent you a message on { docName }.
