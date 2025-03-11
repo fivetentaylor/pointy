@@ -141,7 +141,7 @@ a {
 templ FirstOpenHTML(preheader string, user *models.User, doc *models.Document) {
 	@BaseEmail(preheader, FirstOpenStyles()) {
 		<div>
-			<img class="logo" src={ appHostUrl(ctx, "/static/logo-w-white-bg.png") } alt="Reviso" style="width: 124px;"/>
+			<img class="logo" src={ appHostUrl(ctx, "/static/pointy.png") } alt="Pointy" style="width: 124px;"/>
 			<div class="title">
 				{ user.DisplayName } is reading your document!
 			</div>

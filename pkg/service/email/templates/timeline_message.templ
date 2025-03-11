@@ -1,9 +1,9 @@
 package templates
 
 import (
-        "strings"
+	"strings"
 	"context"
-        "encoding/base64"
+	"encoding/base64"
 	"fmt"
 	"github.com/fivetentaylor/pointy/pkg/models"
 	"html"
@@ -147,16 +147,16 @@ templ TimelineMessageStyles() {
 }
 
 type TimelineMessageData struct {
-	Document  *models.Document
-	Message   *models.TimelineMessageV1
-	FromUser  *models.User
-	Selection string
-        IsMentioned bool
+	Document    *models.Document
+	Message     *models.TimelineMessageV1
+	FromUser    *models.User
+	Selection   string
+	IsMentioned bool
 }
 
 templ TimelineMessageHTML(preheader string, data *TimelineMessageData) {
 	@BaseEmail(preheader, TimelineMessageStyles()) {
-		<img class="logo" src={ appHostUrl(ctx, "/static/logo-w-white-bg.png") } alt="Reviso" style="width: 124px;"/>
+		<img class="logo" src={ appHostUrl(ctx, "/static/pointy.png") } alt="Pointy" style="width: 124px;"/>
 		<div class="msg-container">
 			<div class="header">
 				{ data.FromUser.DisplayName } { timelineHeaderText(data) }
@@ -198,19 +198,19 @@ templ TimelineMessageHTML(preheader string, data *TimelineMessageData) {
 }
 
 func timelineHeaderText(data *TimelineMessageData) string {
-        if data.IsMentioned {
-                return `mentioned you` 
-        } else {
-                return `commented`
-        }
+	if data.IsMentioned {
+		return `mentioned you`
+	} else {
+		return `commented`
+	}
 }
 
 func timelineTitleText(data *TimelineMessageData) string {
-        if data.IsMentioned {
-                return `mentioned you in` 
-        } else {
-                return `commented on`
-        }
+	if data.IsMentioned {
+		return `mentioned you in`
+	} else {
+		return `commented on`
+	}
 }
 
 templ TimelineMessageText(data *TimelineMessageData) {
@@ -233,26 +233,26 @@ func TimelineMessagesContent(content string) templ.Component {
 		return match
 	})
 
-        replaced = atMentionRegexV2.ReplaceAllStringFunc(replaced, func(match string) string {
-                submatches := atMentionRegexV2.FindStringSubmatch(match)
-                if len(submatches) > 1 {
-                        decoded, err := base64.StdEncoding.DecodeString(submatches[1])
-                        if err != nil {
-                                fmt.Println("Error decoding string:", err)
-                                return match
-                        }
+	replaced = atMentionRegexV2.ReplaceAllStringFunc(replaced, func(match string) string {
+		submatches := atMentionRegexV2.FindStringSubmatch(match)
+		if len(submatches) > 1 {
+			decoded, err := base64.StdEncoding.DecodeString(submatches[1])
+			if err != nil {
+				fmt.Println("Error decoding string:", err)
+				return match
+			}
 
-                        parts := strings.Split(string(decoded), ":")
-                        if len(parts) != 4 {
-                                return match
-                        }
+			parts := strings.Split(string(decoded), ":")
+			if len(parts) != 4 {
+				return match
+			}
 
 			return fmt.Sprintf("<span class='username'>@%s</span>",
-                                html.EscapeString(parts[3]),
-                        )
-                }
-                return match
-        })
+				html.EscapeString(parts[3]),
+			)
+		}
+		return match
+	})
 
 	return templ.ComponentFunc(func(ctx context.Context, w io.Writer) error {
 		_, err := w.Write([]byte(replaced))
