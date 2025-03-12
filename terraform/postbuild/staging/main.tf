@@ -138,14 +138,6 @@ module "postbuild_pointy" {
   internal_security_group_id = data.terraform_remote_state.prebuild.outputs.internal_security_group_id
 }
 
-output "app_host" {
-  value = module.postbuild.app_host
-}
-
-output "ecs_deployment_task_definition" {
-  value = module.postbuild.ecs_deployment_task_definition
-}
-
 output "pointy_app_host" {
   value = module.postbuild_pointy.app_host
 }
