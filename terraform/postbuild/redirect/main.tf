@@ -263,16 +263,3 @@ resource "aws_lb_listener_rule" "http_app_domain_redirect" {
   }
 }
 
-# Optional: Create a dummy target group
-# ALB requires a target group even if we're only doing redirects
-resource "aws_lb_target_group" "dummy_tg" {
-  name        = "${replace(var.old_root_domain, ".", "-")}-dummy-tg"
-  port        = 80
-  protocol    = "HTTP"
-  vpc_id      = data.aws_vpc.main.id
-  target_type = "ip"
-
-  health_check {
-    enabled = false
-  }
-}
