@@ -15,9 +15,9 @@ func SendWaitlistEmail(
 	to string,
 ) error {
 	c := env.SES(ctx)
-	from := fmt.Sprintf("Reviso <reviso@%s>", c.EmailDomain())
-	subject := fmt.Sprintf("You’ve been added to the Reviso waitlist")
-	preheader := "You’ve been added to the Reviso waitlist"
+	from := fmt.Sprintf("Pointy <pointy@%s>", c.EmailDomain())
+	subject := fmt.Sprintf("You’ve been added to the Pointy waitlist")
+	preheader := "You’ve been added to the Pointy waitlist"
 
 	log.Infof("sending waitlist email to %s", to)
 

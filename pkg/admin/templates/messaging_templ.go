@@ -315,7 +315,7 @@ func revisoMessage(message *dynamo.Message) templ.Component {
 			templ_7745c5c3_Var15 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"mb-4 first:mt-auto\"><div class=\"flex items-start\"><div class=\"flex-shrink\"><span class=\"relative flex shrink-0 overflow-hidden rounded-full w-6 h-6\"><span class=\"flex h-full w-full items-center justify-center rounded-full text-background bg-reviso\">R</span></span></div><div class=\"flex-grow ml-4\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"mb-4 first:mt-auto\"><div class=\"flex items-start\"><div class=\"flex-shrink\"><span class=\"relative flex shrink-0 overflow-hidden rounded-full w-6 h-6\"><span class=\"flex h-full w-full items-center justify-center rounded-full text-background bg-reviso\">P</span></span></div><div class=\"flex-grow ml-4\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

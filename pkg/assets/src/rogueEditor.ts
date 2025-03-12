@@ -3169,7 +3169,7 @@ export class RogueEditor extends HTMLElement {
         // TODO add sentry alert here
         console.error("Panic:", msg);
         alert(
-          "We've hit a unrecoverable error. The reviso team has been notified. Reloading page...",
+          "We've hit a unrecoverable error. The pointy team has been notified. Reloading page...",
         );
         window.location.reload();
       });

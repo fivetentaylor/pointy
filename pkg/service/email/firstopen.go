@@ -17,9 +17,9 @@ func SendFirstOpen(
 	doc *models.Document,
 ) error {
 	c := env.SES(ctx)
-	from := fmt.Sprintf("Reviso <reviso@%s>", c.EmailDomain())
+	from := fmt.Sprintf("Pointy <pointy@%s>", c.EmailDomain())
 	subject := fmt.Sprintf("%s opened %s", user.Name, doc.Title)
-	preheader := "A Reviso document has been shared with you"
+	preheader := "A Pointy document has been shared with you"
 
 	rctx := c.AttachHostValues(ctx)
 

@@ -54,38 +54,6 @@ variable "slack_webhook_url" {
   type = string
 }
 
-module "postbuild" {
-  source = "../modules"
-
-  providers = {
-    aws.dns_role = aws.dns_role
-  }
-
-  server_sha        = var.server_sha
-  web_sha           = var.web_sha
-  slack_webhook_url = var.slack_webhook_url
-
-  desired_web_count    = 1
-  desired_server_count = 1
-
-  name                       = "reviso"
-  web_domain                 = "www.reviso.biz"
-  app_domain                 = "app.reviso.biz"
-  route53_zone               = "Z0893527DM29OSHJP7NG"
-  freeplay_env               = "staging"
-  docs_bucket_name           = "stage-reviso-documents"
-  images_bucket_name         = "stage-reviso-images"
-  dynamo_table_name          = "staging-reviso"
-  env                        = "prod"
-  cookie_domain              = "reviso.biz"
-  email_domain               = "reviso.biz"
-  preview_prefix             = "pr-${var.pr_number}-"
-  secret_arn                 = "arn:aws:secretsmanager:us-west-2:533267310428:secret:staging-4YQM26"
-  vpc_id                     = data.terraform_remote_state.prebuild.outputs.vpc_id
-  app_security_group_id      = data.terraform_remote_state.prebuild.outputs.app_security_group_id
-  internal_security_group_id = data.terraform_remote_state.prebuild.outputs.internal_security_group_id
-}
-
 module "postbuild_pointy" {
   source = "../modules"
 

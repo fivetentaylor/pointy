@@ -483,7 +483,7 @@ const Delta = ({
 };
 
 Message.displayName = "Message";
-RevisoMessage.displayName = "RevisoMessage";
+RevisoMessage.displayName = "PointyMessage";
 UserMessage.displayName = "UserMessage";
 Selection.displayName = "Selection";
 Delta.displayName = "Delta";

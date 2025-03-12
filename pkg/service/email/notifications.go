@@ -22,13 +22,13 @@ func SendTimelineCommentEmail(
 	log := env.Log(ctx)
 	c := env.SES(ctx)
 	q := env.Query(ctx)
-	from := fmt.Sprintf("Reviso <reviso@%s>", c.EmailDomain())
+	from := fmt.Sprintf("Pointy <pointy@%s>", c.EmailDomain())
 
 	subject := fmt.Sprintf("New comment on %s", document.Title)
-	preheader := "New comment on Reviso"
+	preheader := "New comment on Pointy"
 	if isMentioned {
 		subject = fmt.Sprintf("Someone mentioned you on %s", document.Title)
-		preheader = "Someone mentioned you on Reviso"
+		preheader = "Someone mentioned you on Pointy"
 	}
 
 	log.Infof("sending mention email to %s", to.Email)
@@ -86,10 +86,10 @@ func SendTimelineMentionShareEmail(
 	log := env.Log(ctx)
 	c := env.SES(ctx)
 	q := env.Query(ctx)
-	from := fmt.Sprintf("Reviso <reviso@%s>", c.EmailDomain())
+	from := fmt.Sprintf("Pointy <pointy@%s>", c.EmailDomain())
 
 	subject := fmt.Sprintf("%s has shared %s with you!", fromUser.DisplayName, document.Title)
-	preheader := "Someone shared a document with you on Reviso"
+	preheader := "Someone shared a document with you on Pointy"
 
 	log.Infof("sending mention share email to %s", to.Email)
 

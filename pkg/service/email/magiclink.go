@@ -17,7 +17,7 @@ func SendMagicLinkEmail(
 	next string,
 ) error {
 	c := env.SES(ctx)
-	from := fmt.Sprintf("Reviso <reviso@%s>", c.EmailDomain())
+	from := fmt.Sprintf("Pointy <pointy@%s>", c.EmailDomain())
 	subject := fmt.Sprintf("One time access link")
 	preheader := "Your one time access link"
 
@@ -26,7 +26,7 @@ func SendMagicLinkEmail(
 		accessLink = fmt.Sprintf("%s/access/%s?next=%s", c.AppHost(), accessToken, next)
 	}
 
-	if c.WebHost() == "https://www.reviso.dev" {
+	if c.WebHost() == "https://www.dev.pointy.ai" {
 		log.Infof("DEV access link:\n\n %s\n\n for %s", accessLink, to)
 	}
 
