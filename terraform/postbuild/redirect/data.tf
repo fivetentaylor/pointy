@@ -22,7 +22,3 @@ data "aws_subnets" "public" {
 data "aws_security_group" "app_security_group" {
   id = var.app_security_group_id
 }
-
-data "aws_security_group" "internal_security_group" {
-  id = var.internal_security_group_id
-}
