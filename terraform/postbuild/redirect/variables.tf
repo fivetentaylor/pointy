@@ -4,11 +4,6 @@ variable "vpc_id" {
   type        = string
 }
 
-variable "subnets" {
-  description = "The subnets where the ALB is deployed"
-  type        = list(string)
-}
-
 variable "app_security_group_id" {
   description = "The security group ID for the app servers"
   type        = string
