@@ -50,7 +50,23 @@ variable "slack_webhook_url" {
   type = string
 }
 
-module "postbuild" {
+module "redirect_reviso" {
+  source = "../redirect"
+
+  providers = {
+    aws.dns_role = aws.dns_role
+  }
+
+  old_root_domain = "reviso.biz"
+  old_web_domain  = "www.reviso.biz"
+  old_app_domain  = "app.reviso.biz"
+
+  new_root_domain = "test.pointy.ai"
+  new_web_domain  = "www.test.pointy.ai"
+  new_app_domain  = "app.test.pointy.ai"
+}
+
+/*module "postbuild" {
   source = "../modules"
 
   providers = {
@@ -82,7 +98,7 @@ module "postbuild" {
   vpc_id                     = data.terraform_remote_state.prebuild.outputs.vpc_id
   app_security_group_id      = data.terraform_remote_state.prebuild.outputs.app_security_group_id
   internal_security_group_id = data.terraform_remote_state.prebuild.outputs.internal_security_group_id
-}
+}*/
 
 module "postbuild_pointy" {
   source = "../modules"
