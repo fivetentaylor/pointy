@@ -5,7 +5,7 @@ data "aws_region" "current" {}
 # Access the existing Route53 zone for the old domain
 data "aws_route53_zone" "old_domain_zone" {
   provider = aws.dns_role
-  name     = "${var.old_root_domain}."  # Make sure to include the trailing dot
+  name     = "${var.old_root_domain}." # Make sure to include the trailing dot
 }
 
 data "aws_vpc" "main" {

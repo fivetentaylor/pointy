@@ -21,9 +21,9 @@ resource "aws_route53_record" "old_domain_cert_validation" {
   provider = aws.dns_role
   for_each = {
     for dvo in aws_acm_certificate.old_domain_cert.domain_validation_options : dvo.domain_name => {
-      name   = dvo.resource_record_name
-      type   = dvo.resource_record_type
-      value  = dvo.resource_record_value
+      name  = dvo.resource_record_name
+      type  = dvo.resource_record_type
+      value = dvo.resource_record_value
     }
   }
   name    = each.value.name
@@ -92,7 +92,7 @@ resource "aws_lb_listener" "https_redirect" {
   protocol          = "HTTPS"
   ssl_policy        = "ELBSecurityPolicy-2016-08"
   certificate_arn   = aws_acm_certificate_validation.old_domain_cert_validation.certificate_arn
-  
+
   default_action {
     type = "fixed-response"
     fixed_response {
@@ -180,7 +180,7 @@ resource "aws_lb_listener" "http_redirect" {
   load_balancer_arn = aws_lb.redirect_alb.arn
   port              = 80
   protocol          = "HTTP"
-  
+
   default_action {
     type = "fixed-response"
     fixed_response {
@@ -266,11 +266,12 @@ resource "aws_lb_listener_rule" "http_app_domain_redirect" {
 # Optional: Create a dummy target group
 # ALB requires a target group even if we're only doing redirects
 resource "aws_lb_target_group" "dummy_tg" {
-  name     = "${replace(var.old_root_domain, ".", "-")}-dummy-tg"
-  port     = 80
-  protocol = "HTTP"
-  vpc_id   = data.aws_vpc.main.id
-  
+  name        = "${replace(var.old_root_domain, ".", "-")}-dummy-tg"
+  port        = 80
+  protocol    = "HTTP"
+  vpc_id      = data.aws_vpc.main.id
+  target_type = "ip"
+
   health_check {
     enabled = false
   }
