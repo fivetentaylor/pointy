@@ -14,10 +14,10 @@ templ Invite(segmentKey, stateString string, state types.State, sdl *models.Shar
 					@ui.Logo()
 				</div>
 				<div class="text-center mb-7">
-					<h1 class="text-2xl font-bold leading-[2.375rem]">Join Reviso</h1>
+					<h1 class="text-2xl font-bold leading-[2.375rem]">Join Pointy</h1>
 					<div class="mt-2 text-base">
 						{ invitedBy.Name } has invited you to write with them
-						on Reviso.
+						on Pointy.
 					</div>
 				</div>
 				<div className="relative">
@@ -30,13 +30,13 @@ templ Invite(segmentKey, stateString string, state types.State, sdl *models.Shar
 					@LoginForm(sdl.InviteeEmail, state, "")
 				</div>
 				<div class="mt-5 text-center text-xs text-muted-foreground leading-4">
-					By continuing, you agree to Reviso’s{ " " }
-					<a href="https://www.revi.so/legal/terms-of-service" class="underline">
+					By continuing, you agree to Pointy’s{ " " }
+					<a href="https://www.pointy.ai/pointy/legal/terms-of-service" class="underline">
 						{ " " }
 						Terms of Service
 					</a>{ " " }
 					and{ " " }
-					<a href="https://www.revi.so/legal/privacy" class="underline">
+					<a href="https://www.pointy.ai/pointy/legal/privacy" class="underline">
 						Privacy Policy
 					</a>
 					.

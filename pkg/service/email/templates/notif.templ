@@ -79,7 +79,7 @@ templ NotifHTML(preheader, otherUsersName, docName, msg, msgLink string) {
 				{ msg }
 			</div>
 			<div class="text-muted" style="margin-top: 23px;">
-				To view the message, visit the Reviso website or click the button below.
+				To view the message, visit the Pointy website or click the button below.
 			</div>
 			<a class="button" href={ templ.SafeURL(msgLink) } style="margin-top: 22px; color: #F4F4F5;">
 				<div class="button-text">Reply</div>
@@ -89,8 +89,8 @@ templ NotifHTML(preheader, otherUsersName, docName, msg, msgLink string) {
 }
 
 templ NotifText(otherUsersName, docName, msg, msgLink string) {
-	New message on Reviso
+	New message on Pointy
 	{ otherUsersName } has sent you a message on { docName }:
 	{ msg }
-	To view the message, visit the Reviso website or click here: { msgLink }
+	To view the message, visit the Pointy website or click here: { msgLink }
 }

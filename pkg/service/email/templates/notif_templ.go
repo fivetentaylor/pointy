@@ -118,7 +118,7 @@ func NotifHTML(preheader, otherUsersName, docName, msg, msgLink string) templ.Co
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"text-muted\" style=\"margin-top: 23px;\">To view the message, visit the Reviso website or click the button below.</div><a class=\"button\" href=\"")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"text-muted\" style=\"margin-top: 23px;\">To view the message, visit the Pointy website or click the button below.</div><a class=\"button\" href=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -159,7 +159,7 @@ func NotifText(otherUsersName, docName, msg, msgLink string) templ.Component {
 			templ_7745c5c3_Var9 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("New message on Reviso ")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("New message on Pointy ")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -198,7 +198,7 @@ func NotifText(otherUsersName, docName, msg, msgLink string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" To view the message, visit the Reviso website or click here: ")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" To view the message, visit the Pointy website or click here: ")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

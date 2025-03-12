@@ -51,7 +51,7 @@ func (s *Server) _createDefaultIntroDoc(ctx context.Context, userID string) (*mo
 
 		copyDoc := &models.Document{
 			IsPublic: true,
-			Title:    "Welcome to Reviso",
+			Title:    "Welcome to Pointy",
 		}
 
 		dupDoc, err := document.CreateCustom(ctx, userID, copyDoc)
