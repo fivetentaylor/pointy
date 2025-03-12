@@ -1,38 +1,12 @@
-# Variables for domain configuration
-variable "old_root_domain" {
-  description = "The root domain being redirected from (e.g., revi.so)"
-  type        = string
-}
-
-variable "old_web_domain" {
-  description = "The www domain being redirected from (e.g., www.revi.so)"
-  type        = string
-}
-
-variable "old_app_domain" {
-  description = "The app domain being redirected from (e.g., app.revi.so)"
-  type        = string
-}
-
-variable "new_root_domain" {
-  description = "The root domain being redirected to (e.g., pointy.ai)"
-  type        = string
-}
-
-variable "new_web_domain" {
-  description = "The www domain being redirected to (e.g., www.pointy.ai)"
-  type        = string
-}
-
-variable "new_app_domain" {
-  description = "The app domain being redirected to (e.g., app.pointy.ai)"
-  type        = string
-}
-
-# Access the existing Route53 zone for the old domain
-data "aws_route53_zone" "old_domain_zone" {
-  provider = aws.dns_role
-  name     = "${var.old_root_domain}."  # Make sure to include the trailing dot
+terraform {
+  required_providers {
+    aws = {
+      source = "hashicorp/aws"
+      configuration_aliases = [
+        aws.dns_role,
+      ]
+    }
+  }
 }
 
 # Request certificates for old domains
@@ -231,8 +205,8 @@ resource "aws_lb_listener_rule" "http_root_domain_redirect" {
   action {
     type = "redirect"
     redirect {
-      port        = "80"
-      protocol    = "HTTP"
+      port        = "443"
+      protocol    = "HTTPS"
       status_code = "HTTP_301"
       host        = var.new_root_domain
       path        = "/#{path}"

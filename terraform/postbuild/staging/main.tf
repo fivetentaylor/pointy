@@ -64,6 +64,10 @@ module "redirect_reviso" {
   new_root_domain = "test.pointy.ai"
   new_web_domain  = "www.test.pointy.ai"
   new_app_domain  = "app.test.pointy.ai"
+
+  vpc_id                     = data.terraform_remote_state.prebuild.outputs.vpc_id
+  app_security_group_id      = data.terraform_remote_state.prebuild.outputs.app_security_group_id
+  old_zone_id       = "Z0893527DM29OSHJP7NG"
 }
 
 /*module "postbuild" {
