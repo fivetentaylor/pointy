@@ -6,7 +6,7 @@ const Error = function () {
   return (
     <>
       <div className="w-full p-8">
-        <a href="http://www.revi.so/" className="scale-[0.85] mt-[-0.25rem]">
+        <a href="http://www.pointy.ai/" className="scale-[0.85] mt-[-0.25rem]">
           <svg
             className="dark:hidden block"
             width="112"
@@ -59,7 +59,7 @@ const Error = function () {
         </p>
         <p className="mt-2 text-center text-foreground text-xs">
           Still having issues? Email us at{" "}
-          <a href="mailto:support@revi.so">support@revi.so</a>
+          <a href="mailto:taylor@pointy.ai">taylor@pointy.ai</a>
         </p>
       </section>
     </>

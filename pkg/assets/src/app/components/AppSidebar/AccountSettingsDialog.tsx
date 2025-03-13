@@ -158,7 +158,7 @@ function AccountSettingsDialog({
     <DialogContent className="min-w-[425px]">
       <DialogHeader>
         <DialogTitle>Account</DialogTitle>
-        <DialogDescription>Manage your Reviso profile</DialogDescription>
+        <DialogDescription>Manage your Pointy profile</DialogDescription>
       </DialogHeader>
       <div className="self-stretch flex-col justify-start items-start gap-4 flex">
         <div className="self-stretch justify-start items-center gap-4 inline-flex">
@@ -249,7 +249,7 @@ function AccountSettingsDialog({
                 Send email notifications
               </h3>
               <p>
-                Reviso will send email notification depending on your document
+                Pointy will send email notification depending on your document
                 preferences.
               </p>
             </div>
@@ -269,7 +269,7 @@ function AccountSettingsDialog({
         <div className="mb-1 text-foreground text-sm font-medium leading-tight">
           Need help with your account?
         </div>
-        <div>We’re here to help, reach out at support@revi.so</div>
+        <div>We’re here to help, reach out at taylor@pointy.ai</div>
       </div>
     </DialogContent>
   );
