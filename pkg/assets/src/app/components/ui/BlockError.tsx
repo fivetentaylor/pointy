@@ -16,7 +16,7 @@ export const BlockError = ({ text }: { text: string }) => {
       </p>
       <p className="mt-2 text-center text-foreground text-xs">
         Still having issues? Email us at{" "}
-        <a href="mailto:support@revi.so">support@revi.so</a>
+        <a href="mailto:taylor@pointy.ai">taylor@pointy.ai</a>
       </p>
     </section>
   );
