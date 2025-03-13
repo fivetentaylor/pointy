@@ -99,9 +99,9 @@ module "postbuild_pointy" {
 }
 
 output "app_host" {
-  value = module.postbuild.app_host
+  value = module.postbuild_pointy.app_host
 }
 
 output "ecs_deployment_task_definition" {
-  value = module.postbuild.ecs_deployment_task_definition
+  value = module.postbuild_pointy.ecs_deployment_task_definition
 }
