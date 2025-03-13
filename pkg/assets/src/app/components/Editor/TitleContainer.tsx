@@ -32,14 +32,14 @@ function TitleContainer(props: TitleContainerProps) {
     if (validatedTitle.length === 0) {
       validatedTitle = "Untitled";
     }
-    document.title = `${validatedTitle} - Reviso`;
+    document.title = `${validatedTitle} - Pointy`;
 
     const { errors } = await updateDocument({
       title: validatedTitle,
     });
 
     if (errors) {
-      document.title = `${originalTitle} - Reviso`;
+      document.title = `${originalTitle} - Pointy`;
       showErrorToast("Title failed to save");
     }
   };
@@ -105,7 +105,7 @@ function TitleContainer(props: TitleContainerProps) {
 
   useEffect(() => {
     if (docData) {
-      document.title = `${docData.title} - Reviso`;
+      document.title = `${docData.title} - Pointy`;
       if (docData.updatedAt) {
         setLastEdit(new Date(docData.updatedAt));
       }
