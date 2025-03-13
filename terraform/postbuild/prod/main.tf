@@ -90,7 +90,7 @@ module "postbuild_pointy" {
   env                        = "prod"
   cookie_domain              = "pointy.ai"
   email_domain               = "pointy.ai"
-  email_region               = "us-east-1"
+  email_region               = "us-west-2"
   preview_prefix             = ""
   secret_arn                 = "arn:aws:secretsmanager:us-west-2:998899136269:secret:production-QR5PVQ"
   vpc_id                     = data.terraform_remote_state.prebuild.outputs.vpc_id
