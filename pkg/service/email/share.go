@@ -21,9 +21,9 @@ func SendSharedToUserEmail(
 	documentTitle string,
 ) error {
 	c := env.SES(ctx)
-	from := fmt.Sprintf("Reviso <reviso@%s>", c.EmailDomain())
+	from := fmt.Sprintf("Pointy <pointy@%s>", c.EmailDomain())
 	subject := fmt.Sprintf("%s has shared a '%s' with you!", invitedByName, documentTitle)
-	preheader := "A Reviso document has been shared with you"
+	preheader := "A Pointy document has been shared with you"
 	link := fmt.Sprintf("%s/drafts/%s", c.AppHost(), documentId)
 
 	if c.Env() == "development" {
@@ -61,9 +61,9 @@ func SendShareLinkEmail(
 	accessCode string,
 ) error {
 	c := env.SES(ctx)
-	from := fmt.Sprintf("Reviso <reviso@%s>", c.EmailDomain())
+	from := fmt.Sprintf("Pointy <pointy@%s>", c.EmailDomain())
 	subject := fmt.Sprintf("%s has shared a '%s' with you!", invitedByName, documentTitle)
-	preheader := "A Reviso document has been shared with you"
+	preheader := "A Pointy document has been shared with you"
 	link := fmt.Sprintf("%s/invite/%s", c.AppHost(), accessCode)
 
 	if c.Env() == "development" {

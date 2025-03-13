@@ -2,6 +2,6 @@
     <!-- Black circle -->
     <circle cx="50" cy="50" r="50" fill="black"/>
     <!-- White "R" in the middle -->
-    <text x="50" y="70" font-family="Arial" font-size="50" font-weight="bold" fill="white" text-anchor="middle">R</text>
+    <text x="50" y="70" font-family="Arial" font-size="50" font-weight="bold" fill="white" text-anchor="middle">P</text>
 </svg>
 

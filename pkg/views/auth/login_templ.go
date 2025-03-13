@@ -51,7 +51,7 @@ func Login(segmentKey, stateString string, state types.State) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"text-center mb-7\"><h1 class=\"text-2xl font-bold leading-[2.375rem]\">Sign in</h1><div class=\"mt-2 text-base\">You&apos;re one of the first to elevate your writing with Reviso.</div></div>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"text-center mb-7\"><h1 class=\"text-2xl font-bold leading-[2.375rem]\">Sign in</h1><div class=\"mt-2 text-base\">You&apos;re one of the first to elevate your writing with Pointy.</div></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -67,7 +67,7 @@ func Login(segmentKey, stateString string, state types.State) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"mt-5 text-center text-xs text-muted-foreground leading-4\">By continuing, you agree to Reviso’s")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"mt-5 text-center text-xs text-muted-foreground leading-4\">By continuing, you agree to Pointy’s")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -80,7 +80,7 @@ func Login(segmentKey, stateString string, state types.State) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" <a href=\"https://www.revi.so/legal/terms-of-service\" class=\"underline\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" <a href=\"https://www.pointy.ai/pointy/legal/terms-of-service\" class=\"underline\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -119,7 +119,7 @@ func Login(segmentKey, stateString string, state types.State) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" <a href=\"https://www.revi.so/legal/privacy\" class=\"underline\">Privacy Policy</a> .</div></div></div>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" <a href=\"https://www.pointy.ai/pointy/legal/privacy\" class=\"underline\">Privacy Policy</a> .</div></div></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

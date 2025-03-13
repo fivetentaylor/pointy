@@ -50,38 +50,24 @@ variable "slack_webhook_url" {
   type = string
 }
 
-module "postbuild" {
-  source = "../modules"
+module "redirect_reviso" {
+  source = "../redirect"
 
   providers = {
     aws.dns_role = aws.dns_role
   }
 
-  server_sha        = var.server_sha
-  web_sha           = var.web_sha
-  slack_webhook_url = var.slack_webhook_url
+  old_root_domain = "reviso.biz"
+  old_web_domain  = "www.reviso.biz"
+  old_app_domain  = "app.reviso.biz"
 
-  desired_web_count    = 1
-  desired_server_count = 1
+  new_root_domain = "test.pointy.ai"
+  new_web_domain  = "www.test.pointy.ai"
+  new_app_domain  = "app.test.pointy.ai"
 
-  name               = "reviso"
-  web_domain         = "www.reviso.biz"
-  app_domain         = "app.reviso.biz"
-  route53_zone       = "Z0893527DM29OSHJP7NG"
-  freeplay_env       = "staging"
-  docs_bucket_name   = "stage-reviso-documents"
-  images_bucket_name = "stage-reviso-images"
-  dynamo_table_name  = "staging-reviso"
-  env                = "prod"
-  cookie_domain      = "reviso.biz"
-  email_domain       = "reviso.biz"
-  email_region       = "us-west-2"
-  preview_prefix     = ""
-  secret_arn         = "arn:aws:secretsmanager:us-west-2:533267310428:secret:staging-4YQM26"
-
-  vpc_id                     = data.terraform_remote_state.prebuild.outputs.vpc_id
-  app_security_group_id      = data.terraform_remote_state.prebuild.outputs.app_security_group_id
-  internal_security_group_id = data.terraform_remote_state.prebuild.outputs.internal_security_group_id
+  vpc_id                = data.terraform_remote_state.prebuild.outputs.vpc_id
+  app_security_group_id = data.terraform_remote_state.prebuild.outputs.app_security_group_id
+  old_zone_id           = "Z0893527DM29OSHJP7NG"
 }
 
 module "postbuild_pointy" {
@@ -116,14 +102,6 @@ module "postbuild_pointy" {
   vpc_id                     = data.terraform_remote_state.prebuild.outputs.vpc_id
   app_security_group_id      = data.terraform_remote_state.prebuild.outputs.app_security_group_id
   internal_security_group_id = data.terraform_remote_state.prebuild.outputs.internal_security_group_id
-}
-
-output "app_host" {
-  value = module.postbuild.app_host
-}
-
-output "ecs_deployment_task_definition" {
-  value = module.postbuild.ecs_deployment_task_definition
 }
 
 output "pointy_app_host" {

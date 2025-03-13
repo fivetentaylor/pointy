@@ -52,7 +52,7 @@ func Invite(segmentKey, stateString string, state types.State, sdl *models.Share
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"text-center mb-7\"><h1 class=\"text-2xl font-bold leading-[2.375rem]\">Join Reviso</h1><div class=\"mt-2 text-base\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"text-center mb-7\"><h1 class=\"text-2xl font-bold leading-[2.375rem]\">Join Pointy</h1><div class=\"mt-2 text-base\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -65,7 +65,7 @@ func Invite(segmentKey, stateString string, state types.State, sdl *models.Share
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" has invited you to write with them on Reviso.</div></div><div className=\"relative\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" has invited you to write with them on Pointy.</div></div><div className=\"relative\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -81,7 +81,7 @@ func Invite(segmentKey, stateString string, state types.State, sdl *models.Share
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"mt-5 text-center text-xs text-muted-foreground leading-4\">By continuing, you agree to Reviso’s")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"mt-5 text-center text-xs text-muted-foreground leading-4\">By continuing, you agree to Pointy’s")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -94,7 +94,7 @@ func Invite(segmentKey, stateString string, state types.State, sdl *models.Share
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" <a href=\"https://www.revi.so/legal/terms-of-service\" class=\"underline\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" <a href=\"https://www.pointy.ai/pointy/legal/terms-of-service\" class=\"underline\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -133,7 +133,7 @@ func Invite(segmentKey, stateString string, state types.State, sdl *models.Share
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" <a href=\"https://www.revi.so/legal/privacy\" class=\"underline\">Privacy Policy</a> .</div></div></div>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" <a href=\"https://www.pointy.ai/pointy/legal/privacy\" class=\"underline\">Privacy Policy</a> .</div></div></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

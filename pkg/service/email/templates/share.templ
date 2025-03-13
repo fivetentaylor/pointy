@@ -64,7 +64,7 @@ templ ShareLinkStyles() {
 templ ShareDocHTML(preheader, docTitle, invitedBy, customMessage, cta, docLink string) {
 	@BaseEmail(preheader, ShareLinkStyles()) {
 		<div class="share-container">
-			<img class="logo" src={ appHostUrl(ctx, "/static/logo-w-white-bg.png") } alt="Reviso" style="width: 124px;"/>
+			<img class="logo" src={ appHostUrl(ctx, "/static/pointy.png") } alt="Pointy" style="width: 124px;"/>
 			<div class="share-title" style="margin-top: 32px;">Shared Document</div>
 			<div class="share-text" style="margin-top: 15px;">
 				{ invitedBy } has shared a document with you.

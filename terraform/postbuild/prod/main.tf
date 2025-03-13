@@ -45,37 +45,24 @@ variable "slack_webhook_url" {
   type = string
 }
 
-module "postbuild" {
-  source = "../modules"
+module "redirect_reviso" {
+  source = "../redirect"
 
   providers = {
     aws.dns_role = aws.dns_role
   }
 
-  server_sha        = var.server_sha
-  web_sha           = var.web_sha
-  slack_webhook_url = var.slack_webhook_url
+  old_root_domain = "revi.so"
+  old_web_domain  = "www.revi.so"
+  old_app_domain  = "app.revi.so"
 
-  desired_web_count    = 2
-  desired_server_count = 3
+  new_root_domain = "pointy.ai"
+  new_web_domain  = "www.pointy.ai"
+  new_app_domain  = "app.pointy.ai"
 
-  name                       = "reviso"
-  web_domain                 = "www.revi.so"
-  app_domain                 = "app.revi.so"
-  route53_zone               = "Z05640301EQTNY1VO8UTF"
-  freeplay_env               = "production"
-  docs_bucket_name           = "reviso-documents"
-  images_bucket_name         = "reviso-images"
-  dynamo_table_name          = "reviso"
-  env                        = "prod"
-  cookie_domain              = "revi.so"
-  email_domain               = "revi.so"
-  email_region               = "us-east-1"
-  preview_prefix             = ""
-  secret_arn                 = "arn:aws:secretsmanager:us-west-2:998899136269:secret:production-QR5PVQ"
-  vpc_id                     = data.terraform_remote_state.prebuild.outputs.vpc_id
-  app_security_group_id      = data.terraform_remote_state.prebuild.outputs.app_security_group_id
-  internal_security_group_id = data.terraform_remote_state.prebuild.outputs.internal_security_group_id
+  vpc_id                = data.terraform_remote_state.prebuild.outputs.vpc_id
+  app_security_group_id = data.terraform_remote_state.prebuild.outputs.app_security_group_id
+  old_zone_id           = "Z05640301EQTNY1VO8UTF"
 }
 
 module "postbuild_pointy" {
@@ -112,9 +99,9 @@ module "postbuild_pointy" {
 }
 
 output "app_host" {
-  value = module.postbuild.app_host
+  value = module.postbuild_pointy.app_host
 }
 
 output "ecs_deployment_task_definition" {
-  value = module.postbuild.ecs_deployment_task_definition
+  value = module.postbuild_pointy.ecs_deployment_task_definition
 }
