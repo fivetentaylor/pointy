@@ -39,7 +39,7 @@ func EmailSent(email string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</span>.</div><div>Click the link to log in or sign up.</div><div class=\"mt-5\">Link expires in 15 minutes, so be use to use it soon.</div></p></div></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</span>.</div><div>Click the link to log in or sign up.</div><div class=\"mt-5\">Link expires in 15 minutes, so be sure to use it soon.</div></p></div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
