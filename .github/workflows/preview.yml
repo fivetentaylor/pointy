@@ -64,7 +64,7 @@ jobs:
           WEB_HOST: https://pr-${{ github.event.number }}-www.reviso.biz
           APP_HOST: https://pr-${{ github.event.number }}-app.reviso.biz
           WS_HOST: wss://pr-${{ github.event.number }}-app.reviso.biz
-          SEGMENT_KEY: uxdIGs32QrtmzfdF7CipbU4EuTchimHf
+          SEGMENT_KEY: godOsOZ6DovWw3f0HmLeOMPAKKVX3Em0
           POSTHOG_SERVER_FEATURE_FLAG_KEY: ${{ secrets.POSTHOG_SERVER_FEATURE_FLAG_KEY }}
           PUBLIC_POSTHOG_KEY: phc_6LYo9W2PykjmgcqO9nZN6LDKd5lkTkiOxPCUId4EcEK
           PUBLIC_POSTHOG_HOST: https://us.i.posthog.com
