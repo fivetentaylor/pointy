@@ -66,8 +66,8 @@ jobs:
           WS_HOST: wss://pr-${{ github.event.number }}-app.reviso.biz
           SEGMENT_KEY: uxdIGs32QrtmzfdF7CipbU4EuTchimHf
           POSTHOG_SERVER_FEATURE_FLAG_KEY: ${{ secrets.POSTHOG_SERVER_FEATURE_FLAG_KEY }}
-          PUBLIC_POSTHOG_KEY: phc_FOk7Jw5lm9yJ3XNnr1HdPzCmkjYc8t3ECJzzQPxaew3
-          PUBLIC_POSTHOG_HOST: https://us.posthog.com
+          PUBLIC_POSTHOG_KEY: phc_6LYo9W2PykjmgcqO9nZN6LDKd5lkTkiOxPCUId4EcEK
+          PUBLIC_POSTHOG_HOST: https://us.i.posthog.com
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: reviso-server
           IMAGE_TAG: ${{ github.sha }}
