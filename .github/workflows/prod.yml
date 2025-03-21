@@ -338,7 +338,7 @@ jobs:
               "text": "Production Deployment",
               "attachments": [
                 {
-                  "pretext": "<https://us-west-2.console.aws.amazon.com/ecs/v2/clusters/reviso/services/reviso-server/deployments?region=us-west-2|Production Deployment in progress>",
+                  "pretext": "<https://us-west-2.console.aws.amazon.com/ecs/v2/clusters/pointy/services/pointy-server/deployments?region=us-west-2|Production Deployment in progress>",
                   "color": "dbab09",
                   "fields": [
                     {
@@ -378,8 +378,8 @@ jobs:
       - name: Wait for ECS Server Deployment to Complete
         id: wait_for_server_deployment
         run: |
-          SERVICE_NAME=reviso-server
-          CLUSTER_NAME=reviso
+          SERVICE_NAME=pointy-server
+          CLUSTER_NAME=pointy
 
           echo "Starting deployment check"
 
@@ -439,7 +439,7 @@ jobs:
               "text": "Production Deployment",
               "attachments": [
                 {
-                  "pretext": "<https://us-west-2.console.aws.amazon.com/ecs/v2/clusters/reviso/services/reviso-server/deployments?region=us-west-2|Production Deployment Complete>",
+                  "pretext": "<https://us-west-2.console.aws.amazon.com/ecs/v2/clusters/pointy/services/pointy-server/deployments?region=us-west-2|Production Deployment Complete>",
                   "color": "${{ env.COLOR }}",
                   "fields": [
                     {
