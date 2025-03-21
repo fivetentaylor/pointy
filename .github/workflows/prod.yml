@@ -71,8 +71,8 @@ jobs:
           WS_HOST: wss://app.revi.so
           SEGMENT_KEY: Q5FeQZoWqZn884r40LWa52uOnm3AAdZP
           POSTHOG_SERVER_FEATURE_FLAG_KEY: ${{ secrets.POSTHOG_SERVER_FEATURE_FLAG_KEY }}
-          PUBLIC_POSTHOG_KEY: phc_VNNLf6qkNVKgznDBxtofVhvGBumCsEE8S4UZLC5FPHb
-          PUBLIC_POSTHOG_HOST: https://us.posthog.com
+          PUBLIC_POSTHOG_KEY: phc_eiAKETinWSdEtakWZbF9olNNhSqBoWIucfroZgPq8p7
+          PUBLIC_POSTHOG_HOST: https://us.i.posthog.com
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: reviso-server
           IMAGE_TAG: ${{ github.sha }}
@@ -88,8 +88,8 @@ jobs:
           WS_HOST: wss://app.pointy.ai
           SEGMENT_KEY: Q5FeQZoWqZn884r40LWa52uOnm3AAdZP
           POSTHOG_SERVER_FEATURE_FLAG_KEY: ${{ secrets.POSTHOG_SERVER_FEATURE_FLAG_KEY }}
-          PUBLIC_POSTHOG_KEY: phc_VNNLf6qkNVKgznDBxtofVhvGBumCsEE8S4UZLC5FPHb
-          PUBLIC_POSTHOG_HOST: https://us.posthog.com
+          PUBLIC_POSTHOG_KEY: phc_eiAKETinWSdEtakWZbF9olNNhSqBoWIucfroZgPq8p7
+          PUBLIC_POSTHOG_HOST: https://us.i.posthog.com
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: pointy-server
           IMAGE_TAG: ${{ github.sha }}
@@ -124,8 +124,8 @@ jobs:
           NEXT_PUBLIC_GOOGLE_CLIENT_ID: 949864899692-hsueet6p4u1jtlb8lqb9mbk88ncb4p29.apps.googleusercontent.com
           NEXT_PUBLIC_APP_HOST: https://app.revi.so
           NEXT_PUBLIC_WS_HOST: wss://app.revi.so
-          NEXT_PUBLIC_POSTHOG_HOST: https://us.posthog.com
-          NEXT_PUBLIC_POSTHOG_KEY: phc_VNNLf6qkNVKgznDBxtofVhvGBumCsEE8S4UZLC5FPHb
+          NEXT_PUBLIC_POSTHOG_HOST: https://us.i.posthog.com
+          NEXT_PUBLIC_POSTHOG_KEY: phc_eiAKETinWSdEtakWZbF9olNNhSqBoWIucfroZgPq8p7
           NEXT_PUBLIC_SEGMENT_WRITE_KEY: Q5FeQZoWqZn884r40LWa52uOnm3AAdZP
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: reviso-web
@@ -146,8 +146,8 @@ jobs:
           NEXT_PUBLIC_GOOGLE_CLIENT_ID: 949864899692-hsueet6p4u1jtlb8lqb9mbk88ncb4p29.apps.googleusercontent.com
           NEXT_PUBLIC_APP_HOST: https://app.pointy.ai
           NEXT_PUBLIC_WS_HOST: wss://app.pointy.ai
-          NEXT_PUBLIC_POSTHOG_HOST: https://us.posthog.com
-          NEXT_PUBLIC_POSTHOG_KEY: phc_VNNLf6qkNVKgznDBxtofVhvGBumCsEE8S4UZLC5FPHb
+          NEXT_PUBLIC_POSTHOG_HOST: https://us.i.posthog.com
+          NEXT_PUBLIC_POSTHOG_KEY: phc_eiAKETinWSdEtakWZbF9olNNhSqBoWIucfroZgPq8p7
           NEXT_PUBLIC_SEGMENT_WRITE_KEY: Q5FeQZoWqZn884r40LWa52uOnm3AAdZP
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: pointy-web
