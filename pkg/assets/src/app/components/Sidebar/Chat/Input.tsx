@@ -132,7 +132,6 @@ const Input = ({
     }
   };
 
-
   useEffect(() => {
     window.addEventListener("keyup", handleKeyUp);
     return () => {
