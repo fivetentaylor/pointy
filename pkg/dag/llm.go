@@ -10,7 +10,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/fivetentaylor/pointy/pkg/client"
 	"github.com/fivetentaylor/pointy/pkg/env"
 	"github.com/fivetentaylor/pointy/pkg/models"
 	"github.com/fivetentaylor/pointy/pkg/stackerr"
@@ -210,7 +209,7 @@ func (n *DefaultLLMAdapter) getVertexAI(ctx context.Context, model string) (*ver
 		googleai.WithCloudProject(projectID),
 		googleai.WithCloudLocation(location),
 		googleai.WithCredentialsJSON(decodedCreds),
-		//googleai.WithCredentialsFile(credsFiles),
+		// googleai.WithCredentialsFile(credsFiles),
 		googleai.WithDefaultModel(model),
 	)
 }
@@ -291,30 +290,7 @@ func (n *DefaultLLMAdapter) GenerateContentForStoredPrompt(
 		return nil, fmt.Errorf("error generating content for freeplay prompt: %w", err)
 	}
 	end := time.Now()
-
-	go func() {
-		freeplay, err := client.NewFreeplayClientFromEnv()
-		if err != nil {
-			log.Error("[freeplay] error getting freeplay client", "error", err)
-			return
-		}
-
-		userMsg := client.LlmMessageToFreeplayMessage(msgs[len(msgs)-1])
-
-		data := map[string]string{
-			"user": userMsg.Content,
-		}
-
-		err = freeplay.RecordCompletion(id, prompt.Provider, prompt.ModelName, prompt.Version, msgs, data, response, start, end)
-		if err != nil {
-			log.Error("[freeplay] error recording completion", "error", err)
-		}
-		err = freeplay.RecordTrace(id, lastUserMessage(messages), response)
-		if err != nil {
-			log.Error("[freeplay] error recording trace", "error", err)
-		}
-		log.Info("[freeplay] recorded trace", "id", id, "promptName", promptName, "took", end.Sub(start))
-	}()
+	log.Info("[freeplay] recorded trace", "id", id, "promptName", promptName, "took", end.Sub(start))
 
 	return response, nil
 }
@@ -392,7 +368,6 @@ func (n *DefaultLLMAdapter) GenerateStoredPrompt(
 		log.Error("[dag] error generating content for stored prompt", "error", err)
 		return nil, fmt.Errorf("error generating content for stored prompt: %w", err)
 	}
-	end := time.Now()
 
 	go func() {
 		saveLogFile(ctx, fmt.Sprintf("llm_output-%d.json", start.Unix()), response)
@@ -403,22 +378,6 @@ func (n *DefaultLLMAdapter) GenerateStoredPrompt(
 		}
 
 		saveLogFile(ctx, fmt.Sprintf("llm_choice-%d.txt", start.Unix()), builder.String())
-
-		freeplay, err := client.NewFreeplayClientFromEnv()
-		if err != nil {
-			log.Error("[freeplay] error getting freeplay client", "error", err)
-			return
-		}
-
-		err = freeplay.RecordCompletion(id, provider, modelName, prompt.Version, msgs, data, response, start, end)
-		if err != nil {
-			log.Error("[freeplay] error recording completion", "error", err)
-		}
-		err = freeplay.RecordTrace(id, lastUserMessage(msgs), response)
-		if err != nil {
-			log.Error("[freeplay] error recording trace", "error", err)
-		}
-		log.Info("[freeplay] recorded trace", "id", id, "promptName", promptName, "took", end.Sub(start))
 	}()
 
 	return response, nil
