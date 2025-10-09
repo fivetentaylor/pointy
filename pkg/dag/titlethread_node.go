@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/sashabaranov/go-openai"
 	"github.com/fivetentaylor/pointy/pkg/constants"
 	"github.com/fivetentaylor/pointy/pkg/env"
 	"github.com/fivetentaylor/pointy/pkg/service/messaging"
@@ -34,7 +33,11 @@ func (t *TitleThreadNode) Run(ctx context.Context) (Node, error) {
 	if err != nil {
 		return nil, fmt.Errorf("error hydrating: %s", err)
 	}
-	client := env.OpenAi(ctx)
+	// Use LLM adapter instead of direct OpenAI client
+	llmAdapter := &DefaultLLMAdapter{
+		Provider: Anthropic,
+		Model:    DefaultClaudeModel,
+	}
 
 	messages, err := env.Dynamo(ctx).GetMessagesForThread(input.ThreadId)
 	if err != nil {
@@ -59,34 +62,21 @@ func (t *TitleThreadNode) Run(ctx context.Context) (Node, error) {
 		return nil, fmt.Errorf("error getting thread: %s", err)
 	}
 
-	//don't title thread if it already has a title
+	// don't title thread if it already has a title
 	if thread.Title != constants.DefaultThreadTitle {
 		return t.Next, nil
 	}
 
-	resp, err := client.CreateChatCompletion(
-		context.Background(),
-		openai.ChatCompletionRequest{
-			Model: openai.GPT3Dot5Turbo,
-			Messages: []openai.ChatCompletionMessage{
-				{
-					Role:    openai.ChatMessageRoleSystem,
-					Content: "You are a helpful assistant that summarizes chat threads.",
-				},
-				{
-					Role:    openai.ChatMessageRoleUser,
-					Content: fmt.Sprintf("Summarize this chat conversation in a concise 3-10 word title, capturing the main topic discussed. Do not use quotations: %s", chatThread.String()),
-				},
-			},
-		},
-	)
+	prompt := fmt.Sprintf("Summarize this chat conversation in a concise 3-10 word title, capturing the main topic discussed. Do not use quotations: %s", chatThread.String())
+
+	resp, err := llmAdapter.GenerateFromSinglePrompt(ctx, prompt)
 	if err != nil {
 		log.Error("error creating chat completion", "error", err)
 		return nil, fmt.Errorf("error creating chat completion: %s", err)
 	}
 
 	thread.Title = strings.TrimSpace(
-		strings.ReplaceAll(resp.Choices[0].Message.Content, "\n", ""))
+		strings.ReplaceAll(resp, "\n", ""))
 
 	log.Info("saving thread =>", "thread", thread)
 

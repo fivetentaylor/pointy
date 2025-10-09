@@ -11,7 +11,6 @@ import { PostHogFeature } from "posthog-js/react";
 import { useWsDisconnect } from "@/hooks/useWsDisconnect";
 import useSessionStorageState from "use-session-storage-state";
 import { TipBox } from "@/components/ui/TipBox";
-import LLMSelector from "./LLMSelector";
 import Attachments, { AttachmentType } from "./Attachments";
 import { useChatContext } from "@/contexts/ChatContext";
 import VoiceMode from "./VoiceMode";
@@ -31,7 +30,6 @@ type InputProps = {
   uploadAttachment: (file: File) => Promise<any>;
   activeAttachments: any[];
   setActiveAttachments: (value: any) => void;
-  onSelectLLM: (llm: MsgLlm) => void;
   refetchMessages: () => void;
 };
 
@@ -43,7 +41,6 @@ const Input = ({
   onSendChatMessage,
   onCreateThread,
   onClearSelection,
-  onSelectLLM,
   selectedHtml,
   loading,
   showDisconnectedMessage = false,
@@ -135,10 +132,6 @@ const Input = ({
     }
   };
 
-  const handleSelectLLM = (llm: MsgLlm) => {
-    onSelectLLM(llm);
-  };
-
   useEffect(() => {
     window.addEventListener("keyup", handleKeyUp);
     return () => {
@@ -197,7 +190,6 @@ const Input = ({
             authorId={authorId}
             refreshMessages={refetchMessages}
           />
-          <LLMSelector onChange={handleSelectLLM} />
         </div>
 
         <div className="flex-shrink">
@@ -256,7 +248,7 @@ function InputContainer({
   >(`ask-ai-attachments-${activeThreadID}`, {
     defaultValue: [],
   });
-  const [llm, setLlm] = useState<MsgLlm>("CLAUDE");
+  const llm: MsgLlm = "CLAUDE";
 
   useEffect(() => {
     if (!editor) {
@@ -361,7 +353,6 @@ function InputContainer({
       uploadAttachment={uploadAttachment}
       activeAttachments={activeAttachments}
       setActiveAttachments={setActiveAttachments}
-      onSelectLLM={(value) => setLlm(value)}
     />
   );
 }
