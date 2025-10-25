@@ -46,6 +46,8 @@ func Routes(r chi.Router) {
 	}
 
 	r.Get("/", GetAdmin)
+	r.Get("/users", GetUsers)
+	r.Delete("/users/{userID}", DeleteUser)
 	r.Get("/documents/{id}", GetDocument)
 	r.Get("/documents/{id}/ai", GetDocumentAI)
 	r.Get("/documents/{id}/ai/{key}", ShowLog)

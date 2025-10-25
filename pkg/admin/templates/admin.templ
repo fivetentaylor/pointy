@@ -16,6 +16,7 @@ type AdminDocument struct {
 templ adminNav(current string) {
 	<nav class="flex space-x-4 mb-4" aria-label="Tabs">
 		<a class={ tabStyle(current, "docs") } href={ templ.SafeURL("/admin") }>Docs</a>
+		<a class={ tabStyle(current, "users") } href={ templ.SafeURL("/admin/users") }>Users</a>
 		<a class={ tabStyle(current, "s3") } href={ templ.SafeURL("/admin/s3") }>S3</a>
 		<a class={ tabStyle(current, "jobs") } href={ templ.SafeURL("/admin/jobs") }>Jobs</a>
 		<a class={ tabStyle(current, "prompts") } href={ templ.SafeURL("/admin/prompts") }>Prompts</a>
