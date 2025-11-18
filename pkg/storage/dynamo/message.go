@@ -175,7 +175,7 @@ func (m *Message) GetContentSize() int {
 
 func (m *Message) toDynamo() (dMessage, error) {
 	marshalItem := dMessage{
-		PK:                  fmt.Sprintf(m.ContainerID),
+		PK:                  fmt.Sprintf("%s", m.ContainerID),
 		SK:                  fmt.Sprintf("%s%s", MsgPrefix, m.MessageID),
 		SK1:                 fmt.Sprintf("%s%s@%d", MsgPrefix, m.Chain, m.CreatedAt),
 		Content:             m.Content,

@@ -31,8 +31,8 @@ const (
 )
 
 const (
-	DefaultModel       = "claude-3-5-sonnet-20241022"
-	DefaultClaudeModel = "claude-3-5-sonnet-20241022"
+	DefaultModel       = "claude-sonnet-4-5"
+	DefaultClaudeModel = "claude-sonnet-4-5"
 	DefaultOpenAIModel = "gpt-4o-2024-11-20"
 )
 
@@ -159,11 +159,20 @@ func (n *DefaultLLMAdapter) getClaude(ctx context.Context, model string) (*anthr
 		return nil, stackerr.New(fmt.Errorf("ANTHROPIC_API_KEY is not set"))
 	}
 
-	return anthropic.New(
+	log := env.SLog(ctx)
+	log.Info("[dag] creating Claude client", "model", model)
+
+	llm, err := anthropic.New(
 		anthropic.WithModel(model),
 		anthropic.WithToken(os.Getenv("ANTHROPIC_API_KEY")),
 		anthropic.WithHTTPClient(n.GetHTTPClient(ctx)),
 	)
+	if err != nil {
+		log.Error("[dag] failed to create Claude client", "error", err, "model", model)
+		return nil, stackerr.Wrap(err)
+	}
+
+	return llm, nil
 }
 
 func (n *DefaultLLMAdapter) getTest(ctx context.Context, model string) (*TestLLM, error) {
@@ -272,10 +281,12 @@ func (n *DefaultLLMAdapter) GenerateContentForStoredPrompt(
 		log.Warn("freeplay", "message", msg)
 	}
 
-	options = append(options,
-		llms.WithTemperature(prompt.Temperature),
-		llms.WithTopP(prompt.TopP),
-	)
+	// Note: Anthropic models don't allow both temperature and top_p to be set
+	if prompt.Temperature > 0 {
+		options = append(options, llms.WithTemperature(prompt.Temperature))
+	} else if prompt.TopP > 0 {
+		options = append(options, llms.WithTopP(prompt.TopP))
+	}
 
 	if prompt.MaxTokens > 0 {
 		options = append(options, llms.WithMaxTokens(int(prompt.MaxTokens)))
@@ -347,26 +358,32 @@ func (n *DefaultLLMAdapter) GenerateStoredPrompt(
 		return nil, err
 	}
 
+	log.Info("[dag] attempting to get LLM provider", "provider", provider, "model", modelName, "promptName", promptName)
+
 	// Get the prompt's model provider
 	llm, err := n.GetLLMProvider(ctx, provider, modelName)
 	if err != nil {
-		log.Error("[dag] error getting llm for freeplay", "error", err)
-		return nil, fmt.Errorf("error getting llm for freeplay: %w", err)
+		log.Error("[dag] error getting llm for freeplay", "error", err, "provider", provider, "model", modelName, "promptName", promptName)
+		return nil, fmt.Errorf("error getting llm for freeplay (provider=%s, model=%s): %w", provider, modelName, err)
 	}
 
 	// Append the options configured in freeplay into the options for the LLM call
-	options = append(options,
-		llms.WithTemperature(prompt.Temperature),
-		llms.WithTopP(prompt.TopP),
-	)
+	// Note: Anthropic models don't allow both temperature and top_p to be set
+	if prompt.Temperature > 0 {
+		options = append(options, llms.WithTemperature(prompt.Temperature))
+	} else if prompt.TopP > 0 {
+		options = append(options, llms.WithTopP(prompt.TopP))
+	}
 	if prompt.MaxTokens > 0 {
 		options = append(options, llms.WithMaxTokens(int(prompt.MaxTokens)))
 	}
 
+	log.Info("[dag] calling GenerateContent", "provider", provider, "model", modelName, "promptName", promptName, "numMessages", len(msgs))
+
 	response, err := llm.GenerateContent(ctx, msgs, options...)
 	if err != nil {
-		log.Error("[dag] error generating content for stored prompt", "error", err)
-		return nil, fmt.Errorf("error generating content for stored prompt: %w", err)
+		log.Error("[dag] error generating content for stored prompt", "error", err, "provider", provider, "model", modelName, "promptName", promptName)
+		return nil, fmt.Errorf("error generating content for stored prompt (provider=%s, model=%s, prompt=%s): %w", provider, modelName, promptName, err)
 	}
 
 	go func() {
