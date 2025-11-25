@@ -3159,11 +3159,26 @@ export class RogueEditor extends HTMLElement {
       }
 
       const go = new Go();
+
+      // Add cache busting - use IMAGE_TAG or timestamp if empty
+      const cacheParam = process.env.IMAGE_TAG || `t=${Date.now()}`;
+      const wasmUrl = `${this.apiHost}/static/rogueV3.wasm?${cacheParam}`;
+
       const result = await WebAssembly.instantiateStreaming(
-        fetch(`${this.apiHost}/static/rogueV3.wasm?${process.env.IMAGE_TAG}`),
+        fetch(wasmUrl),
         go.importObject,
       );
+
+      // Start WASM (don't await - it runs indefinitely)
       go.run(result.instance);
+
+      // Wait for WASM to set up globals
+      while (
+        typeof window.RegisterPanicCallback === "undefined" ||
+        typeof window.NewRogue === "undefined"
+      ) {
+        await new Promise((resolve) => setTimeout(resolve, 10));
+      }
 
       RegisterPanicCallback((msg: string) => {
         // TODO add sentry alert here

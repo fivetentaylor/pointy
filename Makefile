@@ -114,7 +114,11 @@ lint_web: ## Run linting
 .PHONY: update_wasm_js
 update_wasm_js: ## Pull the wasm_exec.js from go
 	GOROOT=$$(go env GOROOT); \
-	cp "$$GOROOT/misc/wasm/wasm_exec.js" pkg/assets/static/wasm_exec.js;
+	if [ -f "$$GOROOT/lib/wasm/wasm_exec.js" ]; then \
+		cp "$$GOROOT/lib/wasm/wasm_exec.js" pkg/assets/static/wasm_exec.js; \
+	else \
+		cp "$$GOROOT/misc/wasm/wasm_exec.js" pkg/assets/static/wasm_exec.js; \
+	fi;
 
 .PHONY: down
 down: ## Cleanup the docker-compose

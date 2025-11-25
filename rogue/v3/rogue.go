@@ -10,12 +10,16 @@ import (
 	"github.com/fivetentaylor/pointy/pkg/stackerr"
 )
 
-var ErrUnknownRequiredID = errors.New("unknown ID for required ID field")
-var ErrUnknownOpType = errors.New("unknown op type")
+var (
+	ErrUnknownRequiredID = errors.New("unknown ID for required ID field")
+	ErrUnknownOpType     = errors.New("unknown op type")
+)
 
-var RootID = ID{Author: "root", Seq: 0}
-var LastID = ID{Author: "q", Seq: 1}
-var NoID = ID{Author: "", Seq: -1}
+var (
+	RootID = ID{Author: "root", Seq: 0}
+	LastID = ID{Author: "q", Seq: 1}
+	NoID   = ID{Author: "", Seq: -1}
+)
 
 func ParseID(idStr string) (ID, error) {
 	parts := strings.Split(idStr, "_")
@@ -71,8 +75,7 @@ func (action FormatAction) AsMap() map[string]interface{} {
 	}
 }
 
-type NoOpAction struct {
-}
+type NoOpAction struct{}
 
 func (action NoOpAction) AsMap() map[string]interface{} {
 	return map[string]interface{}{}
@@ -150,7 +153,6 @@ func (r *Rogue) GetUint16() []uint16 {
 		out = append(out, fv.Text...)
 		return nil
 	})
-
 	if err != nil {
 		log.Errorf("failed to get text: %v", err)
 	}
@@ -171,7 +173,6 @@ func (r *Rogue) GetTotText() string {
 		out = append(out, tot.Text...)
 		return nil
 	})
-
 	if err != nil {
 		log.Errorf("failed to get text: %v", err)
 	}
@@ -1275,9 +1276,11 @@ func (r *Rogue) _insertLineFormat(ix, length int, format FormatV3) (Op, error) {
 	return FlattenMop(mop), nil
 }
 
-var stickyTag = map[string]string{"e": "true"}
-var noStickyTag = map[string]string{"en": "true"}
-var stickyAndNoTag = map[string]string{"e": "true", "en": "true"}
+var (
+	stickyTag      = map[string]string{"e": "true"}
+	noStickyTag    = map[string]string{"en": "true"}
+	stickyAndNoTag = map[string]string{"e": "true", "en": "true"}
+)
 
 func fopWithTag(op FormatOp, tags map[string]string) Op {
 	if format, ok := op.Format.(FormatV3Span); ok {

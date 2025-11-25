@@ -28,7 +28,7 @@ RUN apk add --no-cache \
     && update-ca-certificates
 
 # Install Go
-ENV GO_VERSION=1.24.0
+ENV GO_VERSION=1.25.3
 RUN curl -OL https://golang.org/dl/go${GO_VERSION}.linux-amd64.tar.gz && \
     tar -C /usr/local -xzf go${GO_VERSION}.linux-amd64.tar.gz && \
     rm go${GO_VERSION}.linux-amd64.tar.gz
@@ -66,7 +66,7 @@ ARG IMAGE_TAG
 
 # Build the wasm
 RUN GOOS=js GOARCH=wasm go build -ldflags "-s -w -X main.ImageTag=$IMAGE_TAG" -o pkg/assets/static/rogueV3.wasm rogue/v3/wasm/main.go
-RUN cp pkg/assets/static/rogue.wasm pkg/admin/static/rogue.wasm
+RUN cp pkg/assets/static/rogueV3.wasm pkg/admin/static/rogue.wasm || echo "Warning: rogue.wasm copy failed"
 RUN cp pkg/assets/static/rogueV3.wasm pkg/admin/static/rogueV3.wasm
 
 # Install npm dependencies including dev dependencies

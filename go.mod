@@ -1,6 +1,6 @@
 module github.com/fivetentaylor/pointy
 
-go 1.24.0
+go 1.25.3
 
 require (
 	code.sajari.com/docconv/v2 v2.0.0-pre.4
