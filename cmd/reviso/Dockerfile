@@ -28,7 +28,7 @@ RUN apk add --no-cache \
     && update-ca-certificates
 
 # Install Go
-ENV GO_VERSION=1.23.1
+ENV GO_VERSION=1.24.0
 RUN curl -OL https://golang.org/dl/go${GO_VERSION}.linux-amd64.tar.gz && \
     tar -C /usr/local -xzf go${GO_VERSION}.linux-amd64.tar.gz && \
     rm go${GO_VERSION}.linux-amd64.tar.gz
